@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+streamlit
+sqlalchemy
+psycopg2-binary
+python-dotenv
+pillow
+exifread
+folium
+streamlit-folium
+geopy
+requests
+python-multipart

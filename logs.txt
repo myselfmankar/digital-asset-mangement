@@ -1,0 +1,12 @@
+frontend: 
+ComponentRequestHandler: GET D:\db_mp\.venv\Lib\site-packages\streamlit_folium\frontend\build\static\beach_sand.jpg read error
+Traceback (most recent call last):
+  File "D:\db_mp\.venv\lib\site-packages\streamlit\web\server\component_request_handler.py", line 56, in get
+    with open(abspath, "rb") as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\db_mp\\.venv\\Lib\\site-packages\\streamlit_folium\\frontend\\build\\static\\beach_sand.jpg'
+2025-10-29 22:00:41.754 ComponentRequestHandler: GET D:\db_mp\.venv\Lib\site-packages\streamlit_folium\frontend\build\static\building_mono.jpg read error
+Traceback (most recent call last):
+  File "D:\db_mp\.venv\lib\site-packages\streamlit\web\server\component_request_handler.py", line 56, in get
+    with open(abspath, "rb") as file:
+    ...
+    

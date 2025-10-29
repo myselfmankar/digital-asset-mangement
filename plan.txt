@@ -1,0 +1,66 @@
+**pyPhotoView Project Plan**
+
+1.  **Environment Setup:**
+    *   Initialize a Python virtual environment using `uv`.
+    *   Install the following Python packages:
+        *   `fastapi`: For the backend API.
+        *   `uvicorn`: To run the FastAPI server.
+        *   `streamlit`: For the frontend UI.
+        *   `sqlalchemy`: For database ORM.
+        *   `psycopg2-binary`: PostgreSQL adapter for Python.
+        *   `python-dotenv`: To manage environment variables.
+        *   `pillow`: For image processing and metadata extraction.
+        *   `exifread`: For more detailed EXIF data.
+        *   `folium`: To create the map visualization.
+        *   `streamlit-folium`: To render Folium maps in Streamlit.
+        *   `geopy`: For reverse geocoding.
+
+2.  **Project Structure:**
+    *   Create the main application file `app.py` for the Streamlit UI.
+    *   Create a directory named `api` for the FastAPI backend.
+    *   Inside `api`, create:
+        *   `main.py`: The main FastAPI application file.
+        *   `database.py`: For database connection and session management.
+        *   `models.py`: To define SQLAlchemy ORM models (`Image`, `ImageLocation`).
+        *   `schemas.py`: To define Pydantic models for data validation and serialization.
+        *   `crud.py`: For CRUD (Create, Read, Update, Delete) database operations.
+    *   Create a `static` directory to store uploaded images and thumbnails.
+    *   Create a `requirements.txt` file.
+
+3.  **Database Setup (PostgreSQL):**
+    *   Start a PostgreSQL instance.
+    *   Create a database named `photoview`.
+    *   Define the `images` and `image_locations` tables in `api/models.py` as per the documentation.
+    *   Implement the database connection logic in `api/database.py`.
+
+4.  **Backend Development (FastAPI):**
+    *   In `api/main.py`, create the FastAPI app instance.
+    *   Implement the API endpoints:
+        *   `POST /api/v1/images`: To upload a new image, extract metadata, create a thumbnail, and save everything to the database and static folder.
+        *   `GET /api/v1/images`: To retrieve a list of all images.
+        *   `GET /api/v1/albums`: To filter images by year and/or month.
+        *   `GET /api/v1/map-data`: To get the coordinates of all geotagged images.
+    *   Implement the business logic in `api/crud.py`.
+
+5.  **Frontend Development (Streamlit):**
+    *   In `app.py`, create the main UI.
+    *   Use a sidebar for navigation between "Gallery", "Albums", and "Map" views.
+    *   **Gallery View:**
+        *   Display images in a card layout.
+        *   Show a file uploader to add new images.
+    *   **Albums View:**
+        *   Provide select boxes to filter by year and month.
+        *   Display the filtered images.
+    *   **Map View:**
+        *   Fetch map data from the `/api/v1/map-data` endpoint.
+        *   Display the map with markers using `st_folium`.
+
+6.  **Data Population:**
+    *   Create a script (`populate_db.py`) to iterate through the images in the `examples/` directory.
+    *   For each image, call the `POST /api/v1/images` endpoint to add it to the database.
+
+7.  **Integration and Testing:**
+    *   Ensure the Streamlit frontend correctly communicates with the FastAPI backend.
+    *   Test all features: image upload, gallery view, album filtering, and map view.
+    *   Verify that data is correctly stored in the PostgreSQL database.
+    *   Check that images and thumbnails are saved in the `static` folder.
