@@ -11,9 +11,10 @@
         *   `python-dotenv`: To manage environment variables.
         *   `pillow`: For image processing and metadata extraction.
         *   `exifread`: For more detailed EXIF data.
-        *   `folium`: To create the map visualization.
-        *   `streamlit-folium`: To render Folium maps in Streamlit.
         *   `geopy`: For reverse geocoding.
+        *   `pydeck`: For advanced map visualization (Mapbox integration).
+        *   `pandas`: Data manipulation for `pydeck`.
+    *   **Action:** User to obtain a Mapbox Access Token.
 
 2.  **Project Structure:**
     *   Create the main application file `app.py` for the Streamlit UI.
@@ -21,16 +22,17 @@
     *   Inside `api`, create:
         *   `main.py`: The main FastAPI application file.
         *   `database.py`: For database connection and session management.
-        *   `models.py`: To define SQLAlchemy ORM models (`Image`, `ImageLocation`).
+        *   `models.py`: To define SQLAlchemy ORM models (`Image`, `Metadata`, `Location`, `Tag`).
         *   `schemas.py`: To define Pydantic models for data validation and serialization.
         *   `crud.py`: For CRUD (Create, Read, Update, Delete) database operations.
     *   Create a `static` directory to store uploaded images and thumbnails.
     *   Create a `requirements.txt` file.
+    *   Create `docker-compose.yml` and `Dockerfile` for containerization.
 
 3.  **Database Setup (PostgreSQL):**
-    *   Start a PostgreSQL instance.
+    *   Start a PostgreSQL instance (via Docker Compose).
     *   Create a database named `photoview`.
-    *   Define the `images` and `image_locations` tables in `api/models.py` as per the documentation.
+    *   Define the `Image`, `Metadata`, `Location`, and `Tag` tables in `api/models.py` with a normalized ER diagram (including `raw_exif` as JSONB).
     *   Implement the database connection logic in `api/database.py`.
 
 4.  **Backend Development (FastAPI):**
@@ -40,7 +42,10 @@
         *   `GET /api/v1/images`: To retrieve a list of all images.
         *   `GET /api/v1/albums`: To filter images by year and/or month.
         *   `GET /api/v1/map-data`: To get the coordinates of all geotagged images.
-    *   Implement the business logic in `api/crud.py`.
+    *   Implement the business logic in `api/crud.py`, ensuring correct SQLAlchemy `extract` usage for date filtering.
+    *   **Refinement:** Renamed `metadata` relationship to `details` in `Image` model and `details_ref` in `Location` model to avoid SQLAlchemy reserved keyword conflicts.
+    *   **Refinement:** Updated Pydantic `orm_mode` to `from_attributes`.
+    *   **Automation:** Implemented automatic database population on application startup (removed `populate_db.py`).
 
 5.  **Frontend Development (Streamlit):**
     *   In `app.py`, create the main UI.
@@ -48,19 +53,19 @@
     *   **Gallery View:**
         *   Display images in a card layout.
         *   Show a file uploader to add new images.
+        *   **Refinement:** Implemented `@st.cache_data` for `get_images` to improve performance.
+        *   **Refinement:** Replaced `use_column_width` with `width='stretch'` for image display.
     *   **Albums View:**
         *   Provide select boxes to filter by year and month.
         *   Display the filtered images.
     *   **Map View:**
         *   Fetch map data from the `/api/v1/map-data` endpoint.
-        *   Display the map with markers using `st_folium`.
+        *   **Refinement:** Replaced `folium` with `pydeck` for Mapbox integration.
+        *   **Refinement:** Embed thumbnail images as Base64 data URIs in map popups to resolve display issues.
 
-6.  **Data Population:**
-    *   Create a script (`populate_db.py`) to iterate through the images in the `examples/` directory.
-    *   For each image, call the `POST /api/v1/images` endpoint to add it to the database.
-
-7.  **Integration and Testing:**
+6.  **Integration and Testing:**
     *   Ensure the Streamlit frontend correctly communicates with the FastAPI backend.
     *   Test all features: image upload, gallery view, album filtering, and map view.
     *   Verify that data is correctly stored in the PostgreSQL database.
     *   Check that images and thumbnails are saved in the `static` folder.
+    *   Verify Mapbox integration and correct plotting of geotagged images.
