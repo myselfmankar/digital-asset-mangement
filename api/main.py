@@ -182,7 +182,7 @@ def reverse_geocode_missing_addresses(db: Session):
         return
 
     print(f"Found {len(locations_to_geocode)} locations to geocode.")
-    geolocator = Nominatim(user_agent="photoview_fastapi_app")
+    geolocator = Nominatim(user_agent="photostack_fastapi_app")
 
     for i, location in enumerate(locations_to_geocode):
         try:
@@ -219,6 +219,59 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 @app.get("/")
 def health_check():
     return {"status": "ok"}
+
+# --- Special HTML Route for Folium Map ---
+@app.get("/map", response_class=HTMLResponse)
+def get_map_page(db: Session = Depends(get_db)):
+    """
+    This special route generates and returns the Folium map as a full HTML page.
+    """
+    map_data = crud.get_map_data(db)
+    
+    # Create base map with dark theme
+    m = folium.Map(location=[20, 0], zoom_start=2, tiles="CartoDB dark_matter")
+    
+    # Create MarkerCluster
+    marker_cluster = plugins.MarkerCluster().add_to(m)
+    
+    # Add markers for each image
+    for i, item in enumerate(map_data):
+        icon_url = f"http://127.0.0.1:8000{item['thumbnail_url']}"
+        
+        # Custom HTML for the marker icon, now with an onclick event
+        icon_html = f"""
+            <div style="
+                cursor: pointer;
+                width: 54px;
+                height: 54px;
+                background-image: url({icon_url});
+                background-size: cover;
+                border: 2px solid white;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            " onclick="onMarkerClick({i})">
+                <div style="
+                    width: 0;
+                    height: 0;
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-top: 8px solid white;
+                    position: absolute;
+                    bottom: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                "></div>
+            </div>
+        """
+        
+        icon = folium.DivIcon(html=icon_html, icon_size=(54, 64), icon_anchor=(27, 64))
+
+        folium.Marker(
+            location=[item['latitude'], item['longitude']],
+            icon=icon
+        ).add_to(marker_cluster)
+        
+    return m._repr_html_()
 
 # --- API Endpoints ---
 @app.post("/api/v1/images", response_model=schemas.Image)
