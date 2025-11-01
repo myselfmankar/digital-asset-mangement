@@ -18,6 +18,7 @@ class Image(Base):
     upload_date = Column(DateTime, default=datetime.datetime.utcnow)
     resolution = Column(String) # e.g., "1920x1080"
     image_size = Column(Integer) # in bytes
+    mimetype = Column(String, nullable=True)
 
     # One-to-one relationship to Metadata
     details = relationship("Metadata", back_populates="image", uselist=False, cascade="all, delete-orphan")
@@ -31,6 +32,11 @@ class Metadata(Base):
     image_id = Column(Integer, ForeignKey("images.id"), nullable=False)
     camera_model = Column(String, nullable=True)
     date_taken = Column(DateTime, nullable=True)
+    f_number = Column(Float, nullable=True)
+    exposure_time = Column(String, nullable=True)
+    iso = Column(Integer, nullable=True)
+    focal_length = Column(String, nullable=True)
+    lens_model = Column(String, nullable=True)
     raw_exif = Column(JSON, nullable=True) # Store all raw EXIF here
 
     # One-to-one relationship to Image
@@ -45,9 +51,7 @@ class Location(Base):
     metadata_id = Column(Integer, ForeignKey("metadata.id"), nullable=False)
     latitude = Column(Float)
     longitude = Column(Float)
-    city = Column(String, nullable=True)
-    country = Column(String, nullable=True)
-    state = Column(String, nullable=True)
+    address = Column(String, nullable=True)
 
     details_ref = relationship("Metadata", back_populates="location")
 

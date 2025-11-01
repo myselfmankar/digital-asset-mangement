@@ -19,9 +19,7 @@ class Tag(TagBase):
 class LocationBase(BaseModel):
     latitude: float
     longitude: float
-    city: Optional[str] = None
-    country: Optional[str] = None
-    state: Optional[str] = None
+    address: Optional[str] = None
 
 class LocationCreate(LocationBase):
     pass
@@ -36,6 +34,11 @@ class Location(LocationBase):
 class MetadataBase(BaseModel):
     camera_model: Optional[str] = None
     date_taken: Optional[datetime.datetime] = None
+    f_number: Optional[float] = None
+    exposure_time: Optional[str] = None
+    iso: Optional[int] = None
+    focal_length: Optional[str] = None
+    lens_model: Optional[str] = None
     raw_exif: Optional[Dict[str, Any]] = None
 
 class MetadataCreate(MetadataBase):
@@ -55,6 +58,8 @@ class ImageBase(BaseModel):
     upload_date: datetime.datetime
     resolution: str
     image_size: int
+    mimetype: Optional[str] = None
+
 
 class ImageCreate(ImageBase):
     pass
@@ -64,6 +69,10 @@ class Image(ImageBase):
     id: int
     details: Optional[Metadata] = None
     tags: List[Tag] = []
+    is_favorite: bool = False
+    thumbnail_url: Optional[str] = None
+    medium_url: Optional[str] = None
+    large_url: Optional[str] = None
 
     class Config:
         from_attributes = True

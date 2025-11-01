@@ -2,28 +2,36 @@ services:
   db:
     image: postgres:16-alpine
     container_name: photoview-db
+    env_file: .env
     environment:
-      POSTGRES_DB: photoview
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  backend:
-    build: .
-    container_name: photoview-backend
-    command: bash -c "uvicorn api.main:app --host 0.0.0.0 --port 8000"
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: photoview-web
     volumes:
-      - ./static:/app/static
+      - ./api:/app/api
+      - ./frontend:/app/frontend
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@db/photoview
+    env_file: .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   db_data:

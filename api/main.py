@@ -1,18 +1,33 @@
-from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
+from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from dotenv import load_dotenv
+import os
 from . import crud, models, schemas
 from .database import SessionLocal, engine, get_db
 from PIL import Image as PILImage
 import exifread
 from geopy.geocoders import Nominatim
-import os
 from typing import List
 import datetime
 from contextlib import asynccontextmanager
+import folium
+from folium import plugins
+import aiofiles
+import calendar
+import time
 
 # Create all tables
 models.Base.metadata.create_all(bind=engine)
+
+def drop_all_tables(db_engine):
+    """Drops all tables defined in Base.metadata."""
+    print("Dropping all existing database tables...")
+    models.Base.metadata.drop_all(bind=db_engine)
+    print("All tables dropped.")
 
 def _convert_to_degrees(value):
     """Helper function to convert EXIF GPS coordinates to decimal degrees."""
@@ -30,21 +45,30 @@ def _get_date_taken(tags):
             return None
     return None
 
-def process_image_file(filepath: str, db: Session):
+def extract_and_save_initial_data(filepath: str, db: Session):
     """
-    Processes a single image file, extracts metadata, and stores it in the database.
-    This function is used by both the startup scan and the file upload endpoint.
+    Performs the fast, local-only processing of an image file.
+    It extracts all metadata and saves it to the DB, but does NOT perform
+    the network-dependent reverse geocoding.
     """
-    filename = os.path.basename(filepath)
-    
-    # 1. Basic Image Info
     try:
+        filename = os.path.basename(filepath)
+        
+        # Validate file exists
+        if not os.path.exists(filepath):
+            raise FileNotFoundError(f"File {filepath} not found")
+            
+        # Validate file is an image
+        if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            raise ValueError(f"File {filename} is not a supported image type")
+        
+        # 1. Basic Image Info
         with PILImage.open(filepath) as img:
             resolution = f"{img.width}x{img.height}"
-        image_size = os.path.getsize(filepath)
+            image_size = os.path.getsize(filepath)
     except Exception as e:
-        print(f"Could not read basic info for {filename}: {e}")
-        return
+        print(f"Error in basic image info: {e}")
+
 
     # 2. EXIF and Metadata Info
     raw_exif_data = {}
@@ -60,30 +84,19 @@ def process_image_file(filepath: str, db: Session):
         print(f"Could not read EXIF data for {filename}: {e}")
         tags = {} # Ensure tags is a dict
 
-    date_taken = _get_date_taken(tags)
-    camera_model = str(tags.get('Image Model', 'Unknown'))
-
-    # 3. GPS and Location Info
+    # 3. GPS and Location Info (without geocoding)
     if "GPS GPSLatitude" in tags and "GPS GPSLongitude" in tags:
         try:
             lat_ref = str(tags.get("GPS GPSLatitudeRef", "N"))
             lat = _convert_to_degrees(tags["GPS GPSLatitude"].values)
-            if lat_ref != "N": lat = -lat
+            if lat_ref == "S": lat = -lat
 
-            lon_ref = str(tags.get("GPS GPSLongitudeRef", "W"))
+            lon_ref = str(tags.get("GPS GPSLongitudeRef", "E"))
             lon = _convert_to_degrees(tags["GPS GPSLongitude"].values)
-            if lon_ref != "W": lon = -lon
+            if lon_ref == "W": lon = -lon
             
-            location_schema = schemas.LocationCreate(latitude=lat, longitude=lon)
-            try:
-                location_geo = geolocator.reverse((lat, lon), timeout=5)
-                if location_geo and location_geo.raw.get("address"):
-                    address = location_geo.raw["address"]
-                    location_schema.city = address.get("city", address.get("town", address.get("village")))
-                    location_schema.country = address.get("country")
-                    location_schema.state = address.get("state")
-            except Exception:
-                pass # Ignore if reverse geocoding fails, we still have coords
+            location_schema = schemas.LocationCreate(latitude=lat, longitude=lon, address=None)
+
         except Exception as e:
             print(f"Could not process GPS data for {filename}: {e}")
 
@@ -93,11 +106,24 @@ def process_image_file(filepath: str, db: Session):
         filepath=filepath,
         upload_date=datetime.datetime.now(),
         resolution=resolution,
-        image_size=image_size
+        image_size=image_size,
+        mimetype=f"image/{filename.split('.')[-1].lower()}"
     )
+    
+    # Safely extract all EXIF data with defaults
+    date_taken = _get_date_taken(tags)
+    camera_model = str(tags.get('Image Model', 'Unknown'))
+    f_number_raw = tags.get('EXIF FNumber')
+    f_number = float(f_number_raw.values[0].num) / float(f_number_raw.values[0].den) if f_number_raw else None
+
     metadata_schema = schemas.MetadataCreate(
         camera_model=camera_model,
         date_taken=date_taken,
+        f_number=f_number,
+        exposure_time=str(tags.get('EXIF ExposureTime')),
+        iso=int(str(tags.get('EXIF ISOSpeedRatings', 0))),
+        focal_length=str(tags.get('EXIF FocalLength')),
+        lens_model=str(tags.get('EXIF LensModel')),
         raw_exif=raw_exif_data
     )
 
@@ -105,7 +131,7 @@ def process_image_file(filepath: str, db: Session):
     crud.create_image_with_metadata(db, image=image_schema, metadata=metadata_schema, location=location_schema)
 
     # 6. Create Thumbnail
-    thumb_path = os.path.join("static/thumbnails", filename)
+    thumb_path = os.path.join("uploads/thumbnails", filename)
     if not os.path.exists(thumb_path):
         try:
             with PILImage.open(filepath) as img:
@@ -121,62 +147,158 @@ async def lifespan(app: FastAPI):
     print("Running startup scan...")
     db = SessionLocal()
     try:
-        if not os.path.exists("static/thumbnails"):
-            os.makedirs("static/thumbnails")
+        # Drop all tables and recreate them for development purposes
+        drop_all_tables(engine)
+        models.Base.metadata.create_all(bind=engine)
 
-        for filename in os.listdir("static"):
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        if not os.path.exists("uploads/thumbnails"):
+            os.makedirs("uploads/thumbnails")
+
+        for filename in os.listdir("uploads"):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
                 # Check if image already exists in the DB
                 if not crud.get_image_by_filename(db, filename=filename):
                     print(f"Found new image: {filename}. Processing...")
-                    filepath = os.path.join("static", filename)
-                    process_image_file(filepath, db)
+                    filepath = os.path.join("uploads", filename)
+                    extract_and_save_initial_data(filepath, db)
+        
+        # After processing all files, run the reverse geocoding for missing addresses
+        reverse_geocode_missing_addresses(db)
     finally:
         db.close()
     print("Startup scan finished.")
     yield
     # Shutdown logic here if needed
 
-# --- FastAPI App Instance ---
-app = FastAPI(lifespan=lifespan)
-app.mount("/static", StaticFiles(directory="static"), name="static")
-geolocator = Nominatim(user_agent="photoview_fastapi_app")
+def reverse_geocode_missing_addresses(db: Session):
+    """
+    Scans the database for locations without an address and performs reverse geocoding.
+    """
+    print("Starting reverse geocoding scan for locations with missing addresses...")
+    locations_to_geocode = crud.get_locations_without_address(db)
+    
+    if not locations_to_geocode:
+        print("No locations found needing reverse geocoding.")
+        return
 
+    print(f"Found {len(locations_to_geocode)} locations to geocode.")
+    geolocator = Nominatim(user_agent="photoview_fastapi_app")
+
+    for i, location in enumerate(locations_to_geocode):
+        try:
+            print(f"({i+1}/{len(locations_to_geocode)}) Geocoding location ID: {location.id} ({location.latitude}, {location.longitude})...")
+            location_geo = geolocator.reverse((location.latitude, location.longitude), exactly_one=True, timeout=10)
+            address = location_geo.address if location_geo else "Unknown Location"
+            crud.update_location_address(db, location_id=location.id, address=address)
+            print(f" -> Success: {address}")
+            time.sleep(1)  # Respect Nominatim's rate limit
+        except Exception as e:
+            print(f" -> Error geocoding location ID {location.id}: {e}")
+            # Optionally update with a default error message
+            crud.update_location_address(db, location_id=location.id, address="Geocoding Failed")
+
+    print("Reverse geocoding scan finished.")
+
+# --- FastAPI App Instance ---
+
+app = FastAPI(lifespan=lifespan)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Allow all origins for simplicity in local dev
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Serve uploaded images 
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+# --- Health Check Route ---
+@app.get("/")
+def health_check():
+    return {"status": "ok"}
 
 # --- API Endpoints ---
 @app.post("/api/v1/images", response_model=schemas.Image)
-def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db)):
+    """
+    Upload and process a new image file.
+    Returns 409 if file exists, 400 if invalid file type, 500 for processing errors.
+    """
+    # Validate file type
+    if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+        raise HTTPException(
+            status_code=400,
+            detail="File type not supported. Please upload PNG, JPG, or JPEG"
+        )
+        
     # Ensure static directories exist
-    if not os.path.exists("static"): os.makedirs("static")
+    os.makedirs("uploads", exist_ok=True)
+    os.makedirs("uploads/thumbnails", exist_ok=True)
     
-    filepath = os.path.join("static", file.filename)
+    filepath = os.path.join("uploads", file.filename)
     
     # Avoid overwriting existing files
-    if os.path.exists(filepath):
-        raise HTTPException(status_code=409, detail="File with this name already exists.")
+    if crud.get_image_by_filename(db, filename=file.filename):
+        raise HTTPException(
+            status_code=409,
+            detail=f"Image with filename '{file.filename}' already exists."
+        )
 
-    with open(filepath, "wb") as buffer:
-        buffer.write(file.file.read())
-    
-    process_image_file(filepath, db)
-    
-    db_image = crud.get_image_by_filename(db, filename=file.filename)
-    if db_image is None:
-        raise HTTPException(status_code=500, detail="Failed to process and save image.")
+    try:
+        # Save uploaded file
+        async with aiofiles.open(filepath, 'wb') as out_file:
+            content = await file.read()
+            await out_file.write(content)
         
-    return db_image
+        # Process the saved file
+        extract_and_save_initial_data(filepath, db)
+        
+        # After a new image is uploaded, trigger a geocoding scan for any missing addresses
+        reverse_geocode_missing_addresses(db)
+
+        db_image = crud.get_image_by_filename(db, filename=file.filename)
+        if db_image is None:
+            raise HTTPException(
+                status_code=500,
+                detail="Failed to process and save image"
+            )
+        
+        # Use the same response model as the GET endpoint for consistency
+        db_image.thumbnail_url = f"/uploads/thumbnails/{db_image.filename}"
+        db_image.medium_url = f"/uploads/{db_image.filename}"
+        db_image.large_url = f"/uploads/{db_image.filename}"
+        return db_image
+        
+    except Exception as e:
+        # Clean up file if upload fails
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error processing upload: {str(e)}"
+        )
 
 @app.get("/api/v1/images", response_model=List[schemas.Image])
-def read_images(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_images(skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
     images = crud.get_images(db, skip=skip, limit=limit)
+    # Add computed URL fields to each image object before returning
+    for img in images:
+        img.thumbnail_url = f"/uploads/thumbnails/{img.filename}"
+        img.medium_url = f"/uploads/{img.filename}"
+        img.large_url = f"/uploads/{img.filename}"
     return images
 
-@app.get("/api/v1/albums", response_model=List[schemas.Image])
-def read_albums(year: int = None, month: int = None, db: Session = Depends(get_db)):
-    images = crud.get_images_by_date(db, year=year, month=month)
-    return images
+@app.get("/api/v1/albums/summary")
+def get_album_summary(db: Session = Depends(get_db)):
+    return crud.get_album_summary(db)
 
-@app.get("/api/v1/map-data", response_model=List[schemas.Image])
-def read_map_data(db: Session = Depends(get_db)):
-    images = crud.get_geotagged_images(db)
-    return images
+@app.get("/api/v1/stats")
+def get_stats(db: Session = Depends(get_db)):
+    return crud.get_stats(db)
+
+@app.get("/api/v1/map/data")
+def get_map_data(db: Session = Depends(get_db)):
+    return crud.get_map_data(db)

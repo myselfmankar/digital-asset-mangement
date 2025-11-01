@@ -1,71 +1,99 @@
-**pyPhotoView Project Plan**
+**Phase 1: Backend Development (API First)**
+*Goal: Implement and test all required API endpoints before starting any frontend work. All database logic will be encapsulated in `api/crud.py`.*
 
-1.  **Environment Setup:**
-    *   Initialize a Python virtual environment using `uv`.
-    *   Install the following Python packages:
-        *   `fastapi`: For the backend API.
-        *   `uvicorn`: To run the FastAPI server.
-        *   `streamlit`: For the frontend UI.
-        *   `sqlalchemy`: For database ORM.
-        *   `psycopg2-binary`: PostgreSQL adapter for Python.
-        *   `python-dotenv`: To manage environment variables.
-        *   `pillow`: For image processing and metadata extraction.
-        *   `exifread`: For more detailed EXIF data.
-        *   `geopy`: For reverse geocoding.
-        *   `pydeck`: For advanced map visualization (Mapbox integration).
-        *   `pandas`: Data manipulation for `pydeck`.
-    *   **Action:** User to obtain a Mapbox Access Token.
+**Step 1.1: Database Model Enhancement (`api/models.py`)**
+- [ ] **Modify `Location` model:** Add a new `address` column of type `String` to store the human-readable reverse-geocoded address.
 
-2.  **Project Structure:**
-    *   Create the main application file `app.py` for the Streamlit UI.
-    *   Create a directory named `api` for the FastAPI backend.
-    *   Inside `api`, create:
-        *   `main.py`: The main FastAPI application file.
-        *   `database.py`: For database connection and session management.
-        *   `models.py`: To define SQLAlchemy ORM models (`Image`, `Metadata`, `Location`, `Tag`).
-        *   `schemas.py`: To define Pydantic models for data validation and serialization.
-        *   `crud.py`: For CRUD (Create, Read, Update, Delete) database operations.
-    *   Create a `static` directory to store uploaded images and thumbnails.
-    *   Create a `requirements.txt` file.
-    *   Create `docker-compose.yml` and `Dockerfile` for containerization.
+**Step 1.2: Reverse Geocoding Logic (`api/main.py`)**
+- [ ] **Integrate Geopy:** In the startup scan logic where EXIF data is processed, add the following steps:
+    - [ ] If an image has GPS `latitude` and `longitude`, and its `location.address` is `null`:
+        - [ ] Initialize `geopy.Nominatim`.
+        - [ ] Call the `reverse()` method with the coordinates.
+        - [ ] Store the resulting `address` string in the new `location.address` field in the database.
+        - [ ] Add error handling for the API call (e.g., `try...except`).
 
-3.  **Database Setup (PostgreSQL):**
-    *   Start a PostgreSQL instance (via Docker Compose).
-    *   Create a database named `photoview`.
-    *   Define the `Image`, `Metadata`, `Location`, and `Tag` tables in `api/models.py` with a normalized ER diagram (including `raw_exif` as JSONB).
-    *   Implement the database connection logic in `api/database.py`.
+**Step 1.3: Pydantic Schema Expansion (`api/schemas.py`)**
+- [ ] **Modify `Location` schema:** Add the new `address` field.
+- [ ] **Modify `Image` schema:** This is the main schema for API output. Ensure it contains all fields required by the UI:
+    - `id`, `filename`, `thumbnail_url`, `created_at`, `width`, `height`, `size`, `mimetype`
+    - `camera_make`, `camera_model`, `lens_model`, `iso`, `f_number`, `exposure_time`, `focal_length`
+    - `is_favorite` (add a boolean field, default to `False` for now)
+    - `location: Location` (the nested location object with the new `address` field)
 
-4.  **Backend Development (FastAPI):**
-    *   In `api/main.py`, create the FastAPI app instance.
-    *   Implement the API endpoints:
-        *   `POST /api/v1/images`: To upload a new image, extract metadata, create a thumbnail, and save everything to the database and static folder.
-        *   `GET /api/v1/images`: To retrieve a list of all images.
-        *   `GET /api/v1/albums`: To filter images by year and/or month.
-        *   `GET /api/v1/map-data`: To get the coordinates of all geotagged images.
-    *   Implement the business logic in `api/crud.py`, ensuring correct SQLAlchemy `extract` usage for date filtering.
-    *   **Refinement:** Renamed `metadata` relationship to `details` in `Image` model and `details_ref` in `Location` model to avoid SQLAlchemy reserved keyword conflicts.
-    *   **Refinement:** Updated Pydantic `orm_mode` to `from_attributes`.
-    *   **Automation:** Implemented automatic database population on application startup (removed `populate_db.py`).
+**Step 1.4: CRUD Function Implementation (`api/crud.py`)**
+- [ ] **Create `get_album_summary(db)`:**
+    - Groups images by year and month.
+    - Returns `year`, `month`, `month_name`, `image_count`, and a `preview_image_url` for each group.
+- [ ] **Create `get_stats(db)`:**
+    - Returns a dictionary containing counts for: `images`, `albums` (unique months), `places` (geotagged images), `favorites`, etc.
+- [ ] **Create `get_map_data(db)`:**
+    - Returns a list of all images with `latitude`, `longitude`, and `thumbnail_url`.
+- [ ] **Update `get_images(db)`:**
+    - Ensure this function correctly joins and retrieves all the new data required by the expanded `Image` schema.
 
-5.  **Frontend Development (Streamlit):**
-    *   In `app.py`, create the main UI.
-    *   Use a sidebar for navigation between "Gallery", "Albums", and "Map" views.
-    *   **Gallery View:**
-        *   Display images in a card layout.
-        *   Show a file uploader to add new images.
-        *   **Refinement:** Implemented `@st.cache_data` for `get_images` to improve performance.
-        *   **Refinement:** Replaced `use_column_width` with `width='stretch'` for image display.
-    *   **Albums View:**
-        *   Provide select boxes to filter by year and month.
-        *   Display the filtered images.
-    *   **Map View:**
-        *   Fetch map data from the `/api/v1/map-data` endpoint.
-        *   **Refinement:** Replaced `folium` with `pydeck` for Mapbox integration.
-        *   **Refinement:** Embed thumbnail images as Base64 data URIs in map popups to resolve display issues.
+**Step 1.5: API Endpoint Implementation (`api/main.py`)**
+- [ ] **Create `GET /api/v1/albums/summary`:** Calls the `get_album_summary` CRUD function.
+- [ ] **Create `GET /api/v1/stats`:** Calls the `get_stats` CRUD function.
+- [ ] **Create `GET /api/v1/map/data`:** Calls the `get_map_data` CRUD function.
+- [ ] **Modify `GET /images`:** Ensure it uses the updated `get_images` CRUD function and returns data matching the expanded `Image` schema.
 
-6.  **Integration and Testing:**
-    *   Ensure the Streamlit frontend correctly communicates with the FastAPI backend.
-    *   Test all features: image upload, gallery view, album filtering, and map view.
-    *   Verify that data is correctly stored in the PostgreSQL database.
-    *   Check that images and thumbnails are saved in the `static` folder.
-    *   Verify Mapbox integration and correct plotting of geotagged images.
+**Step 1.6: HTML Route Modifications (`api/main.py`)**
+- [ ] **Modify `GET /map`:**
+    - Fetches data by calling the `get_map_data` CRUD function.
+    - Generates the Folium map with a dark theme (`CartoDB dark_matter`), `MarkerCluster`, and custom thumbnail icons.
+    - Passes the rendered map HTML to the `map.html` template.
+- [ ] **Modify `GET /albums`:**
+    - Passes a hardcoded list of month names to the `albums.html` template to fix the `UndefinedError`.
+
+**Step 1.7: Final Backend Test**
+- [ ] Start the server.
+- [ ] Go to `http://1227.0.0.1:8000/docs`.
+- [ ] Test every single API endpoint to confirm it works as expected and returns the correct data structure.
+
+---
+
+**Phase 2: Frontend Development (Vanilla HTML, CSS, JS)**
+*Goal: Implement the UI as per the reference images, using the now-complete and tested backend API.*
+
+**Step 2.1: Global Styles & Layout (`style.css`, `base.html`)**
+- [ ] **Dark Theme:** Set global dark background, text colors, and font styles in `style.css`.
+- [ ] **Main Layout:** Modify `base.html` and `style.css` to create the persistent header and sidebar layout. The default page will be the Dashboard, which displays the image grid.
+
+**Step 2.2: Header Implementation**
+- [ ] **HTML (`base.html`):** Build the header structure with logo and icons (no search bar).
+- [ ] **CSS (`style.css`):** Style the header.
+
+**Step 2.3: Sidebar Implementation**
+- [ ] **HTML (`base.html`):** Build the sidebar structure with navigation links (no search link), icons, and spans for counts.
+- [ ] **CSS (`style.css`):** Style the sidebar, including hover/active states.
+- [ ] **JS (`app.js`):**
+    - On page load, fetch data from the `GET /api/v1/stats` endpoint.
+    - Use the returned data to populate the counts in the sidebar.
+
+**Step 2.4: Image Card Component**
+- [ ] **HTML (`images.html`):** Redesign the `<template id="image-card-template">` to match the detailed layout from the reference image.
+- [ ] **CSS (`style.css`):** Write the CSS for the new `.image-card` design.
+- [ ] **JS (`api.js`, `app.js`):**
+    - Update the `fetchImages()` function in `api.js`.
+    - In `app.js`, rewrite the `createImageCard()` function to take the new, detailed image object from the API and populate the new template.
+
+**Step 2.5: Dashboard / Images Page**
+- [ ] **HTML (`dashboard.html`, `images.html`):** Ensure these pages have a container for the image grid.
+- [ ] **CSS (`style.css`):** Implement the responsive masonry grid layout.
+- [ ] **JS (`app.js`):** The existing logic to fetch and display images should work, using the new `createImageCard` function.
+
+**Step 2.6: Albums (Calendar) Page**
+- [ ] **HTML (`albums.html`):** Create a container for the month-card grid.
+- [ ] **CSS (`style.css`):** Style the `.month-card` and the grid.
+- [ ] **JS (`app.js`):**
+    - Create a new function to fetch data from `GET /api/v1/albums/summary`.
+    - Dynamically create and append the month cards to the grid.
+
+**Step 2.7: Map (Places) Page**
+- [ ] **HTML (`map.html`):** The template should simply be `{{ folium_map | safe }}`.
+- [ ] **CSS (`style.css`):** Ensure the map container fills the available space.
+- [ ] **JS:** No JS needed for this page as the map is rendered by the backend.
+
+**Step 2.8: Final UI Polish**
+- [ ] Review all pages and ensure consistency in styling and behavior.
+- [ ] Fix any remaining visual bugs.
