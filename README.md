@@ -20,6 +20,7 @@ This project is a university-level assignment inspired by the excellent open-sou
 ### Intelligent Photo Management
 *   **Automatic Metadata Extraction:** On import, the application automatically scans images and extracts EXIF data, including camera model, date taken, resolution, and more.
 *   **Automatic Geotagging & Reverse Geocoding:** GPS coordinates are automatically extracted, and human-readable addresses are fetched and stored for each geotagged photo.
+*   **HEIC Support:** Seamlessly upload HEIC/HEIF images, which are automatically converted to JPEG while preserving all metadata.
 
 ### Dynamic & Engaging Views
 *   **Dashboard:** A curated view of your most recent photos, with geotagged images prioritized.

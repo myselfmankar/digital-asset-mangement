@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const loadImages = async (targetGrid, limit = 20, enableDetailsPanel = false) => {
                 targetGrid.innerHTML = '<p class="loading-message"><i class="fas fa-spinner fa-spin"></i> Loading images...</p>';
                 try {
-                    const images = await api.getImages(0, limit);
+                    const images = await api.getImages(0, limit, 'filename');
                     targetGrid.innerHTML = '';
                     if (images.length === 0) {
                         targetGrid.innerHTML = '<p class="info-message">No images found.</p>';

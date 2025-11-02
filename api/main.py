@@ -57,17 +57,55 @@ def extract_and_save_initial_data(filepath: str, db: Session):
         # Validate file exists
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"File {filepath} not found")
-            
-        # Validate file is an image
+
+        # Handle HEIC conversion
+        if filename.lower().endswith(('.heic', '.heif')):
+            import pillow_heif
+            import piexif
+
+            heif_file = pillow_heif.read_heif(filepath)
+            image = PILImage.frombytes(
+                heif_file.mode,
+                heif_file.size,
+                heif_file.data,
+                "raw",
+            )
+
+            # Preserve EXIF data
+            exif_dict = piexif.load(heif_file.info['exif']) if 'exif' in heif_file.info else None
+
+            # Convert to JPG
+            base, _ = os.path.splitext(filename)
+            new_filename = f"{base}.jpg"
+            new_filepath = os.path.join("uploads", new_filename)
+
+            if exif_dict:
+                exif_bytes = piexif.dump(exif_dict)
+                image.save(new_filepath, "jpeg", exif=exif_bytes)
+            else:
+                image.save(new_filepath, "jpeg")
+
+            # Update variables to point to the new JPG file
+            filepath = new_filepath
+            filename = new_filename
+
+        # Validate file is a supported image type (after potential conversion)
         if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
             raise ValueError(f"File {filename} is not a supported image type")
+
+        # Check for existence AFTER potential conversion
+        if crud.get_image_by_filename(db, filename=filename):
+            raise FileExistsError(f"Image with filename '{filename}' already exists.")
         
         # 1. Basic Image Info
         with PILImage.open(filepath) as img:
             resolution = f"{img.width}x{img.height}"
             image_size = os.path.getsize(filepath)
+
     except Exception as e:
-        print(f"Error in basic image info: {e}")
+        print(f"Error in basic image info or HEIC conversion: {e}")
+        # If we failed here, there's no point continuing.
+        return
 
 
     # 2. EXIF and Metadata Info
@@ -139,6 +177,8 @@ def extract_and_save_initial_data(filepath: str, db: Session):
                 img.save(thumb_path)
         except Exception as e:
             print(f"Could not create thumbnail for {filename}: {e}")
+    
+    return filename
 
 
 # --- FastAPI Lifespan (Startup Logic) ---
@@ -286,7 +326,7 @@ async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_d
     Returns 409 if file exists, 400 if invalid file type, 500 for processing errors.
     """
     # Validate file type
-    if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+    if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic', '.heif')):
         raise HTTPException(
             status_code=400,
             detail="File type not supported. Please upload PNG, JPG, or JPEG"
@@ -297,13 +337,6 @@ async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_d
     os.makedirs("uploads/thumbnails", exist_ok=True)
     
     filepath = os.path.join("uploads", file.filename)
-    
-    # Avoid overwriting existing files
-    if crud.get_image_by_filename(db, filename=file.filename):
-        raise HTTPException(
-            status_code=409,
-            detail=f"Image with filename '{file.filename}' already exists."
-        )
 
     try:
         # Save uploaded file
@@ -312,12 +345,12 @@ async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_d
             await out_file.write(content)
         
         # Process the saved file
-        extract_and_save_initial_data(filepath, db)
+        final_filename = extract_and_save_initial_data(filepath, db)
         
         # After a new image is uploaded, trigger a geocoding scan for any missing addresses
         reverse_geocode_missing_addresses(db)
 
-        db_image = crud.get_image_by_filename(db, filename=file.filename)
+        db_image = crud.get_image_by_filename(db, filename=final_filename)
         if db_image is None:
             raise HTTPException(
                 status_code=500,
@@ -330,6 +363,11 @@ async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_d
         db_image.large_url = f"/uploads/{db_image.filename}"
         return db_image
         
+    except FileExistsError as e:
+        raise HTTPException(
+            status_code=409,
+            detail=str(e)
+        )
     except Exception as e:
         # Clean up file if upload fails
         if os.path.exists(filepath):
