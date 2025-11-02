@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, Request
+from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, Request, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -340,14 +340,44 @@ async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_d
         )
 
 @app.get("/api/v1/images", response_model=List[schemas.Image])
-def read_images(skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
-    images = crud.get_images(db, skip=skip, limit=limit)
+def read_images(skip: int = 0, limit: int = 20, sort_by: str = "upload_date", db: Session = Depends(get_db)):
+    images = crud.get_images(db, skip=skip, limit=limit, sort_by=sort_by)
     # Add computed URL fields to each image object before returning
     for img in images:
         img.thumbnail_url = f"/uploads/thumbnails/{img.filename}"
         img.medium_url = f"/uploads/{img.filename}"
         img.large_url = f"/uploads/{img.filename}"
     return images
+
+@app.delete("/api/v1/images/{image_id}", status_code=204)
+def delete_image(image_id: int, db: Session = Depends(get_db)):
+    """
+    Deletes an image by its ID. This will also delete the image file,
+    its thumbnail, and all associated database records.
+    """
+    db_image = crud.get_image_by_id(db, image_id=image_id)
+    if not db_image:
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Define file paths before deleting the DB record
+    filepath = db_image.filepath
+    thumb_path = os.path.join("uploads/thumbnails", db_image.filename)
+
+    # Delete from database (cascades to metadata and location)
+    crud.delete_image(db, image_id=image_id)
+
+    # Delete files from disk
+    try:
+        if filepath and os.path.exists(filepath):
+            os.remove(filepath)
+        if thumb_path and os.path.exists(thumb_path):
+            os.remove(thumb_path)
+    except Exception as e:
+        # Log that file deletion failed but don't block.
+        # The primary goal is to remove the DB record.
+        print(f"Error deleting files for image ID {image_id}: {e}")
+
+    return Response(status_code=204)
 
 @app.get("/api/v1/albums/summary")
 def get_album_summary(db: Session = Depends(get_db)):

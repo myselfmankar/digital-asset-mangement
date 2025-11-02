@@ -41,67 +41,80 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Apply theme on initial load
                 applyTheme();
             
-                // Lightbox Elements
-                const lightbox = document.getElementById('lightbox');            const lightboxImage = document.getElementById('lightbox-image');        const lightboxClose = document.getElementById('lightbox-close');
-        const lightboxPrev = document.getElementById('lightbox-prev');
-        const lightboxNext = document.getElementById('lightbox-next');
-    
-            let currentImageIndex = 0;
-            let currentImageList = [];
-            let mapImageList = []; // To store the list of images for the map view
-        
-            // --- Lightbox Functions ---
-            const openLightbox = (images, index) => {
-                currentImageList = images;
-                currentImageIndex = index;
-                updateLightboxImage();
-                lightbox.classList.add('visible');
-                document.addEventListener('keydown', handleKeydown);
-            };
-        
-            // Make onMarkerClick a global function so it can be called from the map's HTML
-            window.onMarkerClick = (index) => {
-                openLightbox(mapImageList, index);
+                // Details Panel Elements
+                const detailsPanelContainer = document.getElementById('details-panel-container');
+                const detailsPanel = document.getElementById('details-panel');
+                const detailsPanelBackdrop = document.getElementById('details-panel-backdrop');
+                const detailsPanelClose = document.getElementById('details-panel-close');
+                const detailsPanelImage = document.getElementById('details-panel-image');
+                const detailsPanelTitle = document.getElementById('details-panel-title');
+                const detailsPanelMetadata = document.getElementById('details-panel-metadata');
+
+            const detailsPanelDelete = document.getElementById('details-panel-delete');
+
+            let currentImage = null; // Variable to hold the current image context
+
+            // --- Details Panel Functions ---
+            const openDetailsPanel = (image) => {
+                currentImage = image; // Set the context
+
+                // Populate Image
+                detailsPanelImage.src = `http://127.0.0.1:8000${image.large_url}`;
+
+                // Populate Title
+                const locationName = image.details?.location?.address?.split(',')[0] || 'Unknown Location';
+                const year = image.details?.date_taken ? new Date(image.details.date_taken).getFullYear() : '';
+                detailsPanelTitle.textContent = `${locationName} / ${year}`;
+
+                // Populate Metadata
+                detailsPanelMetadata.innerHTML = ''; // Clear previous metadata
+                const metadataItems = [
+                    { icon: 'fa-calendar-alt', text: image.details?.date_taken ? new Date(image.details.date_taken).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : 'N/A' },
+                    { icon: 'fa-camera', text: `${image.details?.camera_model || 'Unknown'}` },
+                    { icon: 'fa-camera-retro', text: `ISO ${image.details?.iso || 'N/A'}, ƒ/${image.details?.f_number || 'N/A'}, ${image.details?.exposure_time || 'N/A'}s` },
+                    { icon: 'fa-file-alt', text: `${image.mimetype?.split('/')[1].toUpperCase()}, ${image.resolution}, ${(image.image_size / (1024 * 1024)).toFixed(2)} MB` },
+                    { icon: 'fa-file-code', text: image.filename },
+                    { icon: 'fa-map-marker-alt', text: image.details?.location?.address || 'No Location Data' }
+                ];
+
+                metadataItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas ${item.icon}"></i> ${item.text}`;
+                    detailsPanelMetadata.appendChild(li);
+                });
+
+                // Show the panel
+                detailsPanel.classList.add('visible');
+                detailsPanelBackdrop.classList.add('visible');
             };
             
-            const closeLightbox = () => {
-                lightbox.classList.remove('visible');
-                document.removeEventListener('keydown', handleKeydown);
-            };    
-        const updateLightboxImage = () => {
-            if (currentImageList.length > 0) {
-                const image = currentImageList[currentImageIndex];
-                lightboxImage.src = `http://127.0.0.1:8000${image.large_url}`;
-            }
-        };
+            const closeDetailsPanel = () => {
+                detailsPanel.classList.remove('visible');
+                detailsPanelBackdrop.classList.remove('visible');
+            };
     
-        const showNextImage = () => {
-            currentImageIndex = (currentImageIndex + 1) % currentImageList.length;
-            updateLightboxImage();
-        };
-    
-        const showPrevImage = () => {
-            currentImageIndex = (currentImageIndex - 1 + currentImageList.length) % currentImageList.length;
-            updateLightboxImage();
-        };
-    
-        const handleKeydown = (e) => {
-            if (e.key === 'ArrowRight') {
-                showNextImage();
-            } else if (e.key === 'ArrowLeft') {
-                showPrevImage();
-            } else if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        };
-    
-        // Lightbox Event Listeners
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightboxNext.addEventListener('click', showNextImage);
-        lightboxPrev.addEventListener('click', showPrevImage);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) { // Close if clicking on the backdrop
-                closeLightbox();
+        // Details Panel Event Listeners
+        detailsPanelClose.addEventListener('click', closeDetailsPanel);
+        detailsPanelBackdrop.addEventListener('click', closeDetailsPanel);
+
+        detailsPanelDelete.addEventListener('click', async () => {
+            if (!currentImage) return;
+
+            if (confirm('Are you sure you want to delete this image?')) {
+                try {
+                    await api.deleteImage(currentImage.id);
+                    closeDetailsPanel();
+                    
+                    const cardToRemove = document.getElementById(`image-card-${currentImage.id}`);
+                    if (cardToRemove) {
+                        cardToRemove.remove();
+                    }
+                    // Optionally, show a success notification
+                } catch (error) {
+                    console.error('Error deleting image:', error);
+                    // Optionally, show an error notification
+                    alert('Failed to delete image.');
+                }
             }
         });
     
@@ -139,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Load content dynamically based on viewId
                     if (viewId === 'dashboard-view') {
-                        loadImages(dashboardImageGrid); // Load just the first page for dashboard
+                        loadImages(dashboardImageGrid, 20, true); // Load just the first page for dashboard
                     } else if (viewId === 'images-view') {
                         loadAllImages(allImagesGrid); // Load all images for the main images view
                     } else if (viewId === 'albums-view') {
@@ -179,9 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
         // Function to create an image card (from template)
-        const createImageCard = (image, index, imageList, enableLightbox = false) => {
+        const createImageCard = (image, index, imageList, enableDetailsPanel = false) => {
             const card = document.createElement('div');
             card.className = 'image-card';
+            card.id = `image-card-${image.id}`;
     
             const locationName = image.details?.location?.address?.split(',')[0] || 'Unknown Location';
             const year = image.details?.date_taken ? new Date(image.details.date_taken).getFullYear() : '';
@@ -191,14 +205,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const camera = `${image.details?.camera_make || ''} ${image.details?.camera_model || 'Unknown'}`;
             const lens = `${image.details?.lens_model || 'N/A'}`;
             const settings = `ISO ${image.details?.iso || 'N/A'}, ${image.details?.exposure_time || 'N/A'}s`;
-            const fileInfo = `${image.mimetype?.toUpperCase()}, ${image.resolution}, ${(image.image_size / (1024 * 1024)).toFixed(2)} MB`;
+            const fileInfo = `${image.mimetype?.split('/')[1].toUpperCase()}, ${image.resolution}, ${(image.image_size / (1024 * 1024)).toFixed(2)} MB`;
             
             const fullImageUrl = `http://127.0.0.1:8000${image.medium_url}`;
     
             card.innerHTML = `
                 <img src="${fullImageUrl}" alt="${image.filename}" loading="lazy">
                 <div class="image-card-info">
-                    <h3>${title}</h3>
+                    <div class="image-card-header">
+                        <h3>${title}</h3>
+                        <i class="fas fa-trash-alt delete-icon" data-image-id="${image.id}"></i>
+                    </div>
                     <ul>
                         <li><i class="fas fa-calendar-alt"></i> ${dateTaken}</li>
                         <li><i class="fas fa-camera"></i> ${camera}</li>
@@ -210,25 +227,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            if (enableLightbox) {
-                card.addEventListener('click', () => openLightbox(imageList, index));
+            if (enableDetailsPanel) {
+                card.querySelector('img').addEventListener('click', () => openDetailsPanel(image));
             }
+
+            const deleteButton = card.querySelector('.delete-icon');
+            deleteButton.addEventListener('click', async (e) => {
+                e.stopPropagation(); // Prevent the details panel from opening
+                const imageId = e.target.dataset.imageId;
+                if (confirm('Are you sure you want to delete this image?')) {
+                    try {
+                        await api.deleteImage(imageId);
+                        card.remove(); // Remove the card from the DOM
+                        // Optionally, show a success notification
+                    } catch (error) {
+                        console.error('Error deleting image:', error);
+                        // Optionally, show an error notification
+                        alert('Failed to delete image.');
+                    }
+                }
+            });
             
             return card;
         };
     
             // Function to load a single page of images (for the dashboard)
-            const loadImages = async (targetGrid) => {
+            const loadImages = async (targetGrid, limit = 20, enableDetailsPanel = false) => {
                 targetGrid.innerHTML = '<p class="loading-message"><i class="fas fa-spinner fa-spin"></i> Loading images...</p>';
                 try {
-                    const images = await api.getImages(); // Gets the first 20 by default
+                    const images = await api.getImages(0, limit);
                     targetGrid.innerHTML = '';
                     if (images.length === 0) {
                         targetGrid.innerHTML = '<p class="info-message">No images found.</p>';
                         return;
                     }
                     images.forEach((image, index) => {
-                        targetGrid.appendChild(createImageCard(image, index, images, false));
+                        targetGrid.appendChild(createImageCard(image, index, images, enableDetailsPanel));
                     });
                 } catch (error) {
                     console.error('Error loading images:', error);
@@ -246,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
                 try {
                     while(hasMore) {
-                        const batch = await api.getImages(skip, limit);
+                        const batch = await api.getImages(skip, limit, 'filename');
                         allImages = allImages.concat(batch);
                         if (batch.length < limit) {
                             hasMore = false;
@@ -260,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
                     allImages.forEach((image, index) => {
-                        targetGrid.appendChild(createImageCard(image, index, allImages, false));
+                        targetGrid.appendChild(createImageCard(image, index, allImages, true));
                     });
                 } catch (error) {
                     console.error('Error loading all images:', error);
@@ -324,17 +358,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 mapContainer.innerHTML = '<p class="loading-message"><i class="fas fa-spinner fa-spin"></i> Loading map...</p>';
                 try {
                     // Fetch the list of geotagged images first
-                    mapImageList = await api.getMapData();
+                    const mapImageList = await api.getMapData();
                     
                     // Then fetch the pre-rendered map HTML
                     const mapHtml = await api.getMapHtml();
                     mapContainer.innerHTML = mapHtml;
 
-                    // Find all markers and attach the click event
-                    const markers = mapContainer.querySelectorAll('.folium-div-icon');
-                    markers.forEach((marker, index) => {
-                        marker.setAttribute('onclick', `onMarkerClick(${index})`);
-                    });
+                    // Make the openDetailsPanel function globally accessible for the map markers
+                    window.openMapMarkerDetails = (index) => {
+                        if (mapImageList && mapImageList[index]) {
+                            // The map data is simpler, so we need to fetch full details
+                            // For now, we'll just show what we have. A better implementation
+                            // would be to fetch the full image object.
+                            // This is a placeholder for that functionality.
+                            alert(`Showing details for marker ${index}. Full detail view from map not yet implemented.`);
+                        }
+                    };
 
                 } catch (error) {
                     console.error('Error loading map:', error);
@@ -380,8 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 uploadStatus.textContent = `Successfully uploaded ${uploadedImage.filename}!`;
                 uploadStatus.style.color = 'green';
                 // Reload images and stats after successful upload
-                loadImages(dashboardImageGrid);
+                loadImages(dashboardImageGrid, 20, true);
                 loadAllImages(allImagesGrid);
+                loadAlbums();
+                loadMap(); // Add this
                 loadStats();
             } catch (error) {
                 console.error('Error uploading image:', error);
@@ -393,5 +434,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initial loads
         loadStats();
         showView('dashboard-view');
-        loadImages(dashboardImageGrid);
+        loadImages(dashboardImageGrid, 20, true);
     });

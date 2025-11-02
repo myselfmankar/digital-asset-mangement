@@ -3,8 +3,8 @@
 const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 export const api = {
-    getImages: async (skip = 0, limit = 20) => {
-        const response = await fetch(`${API_BASE_URL}/images?skip=${skip}&limit=${limit}`);
+    getImages: async (skip = 0, limit = 20, sortBy = 'upload_date') => {
+        const response = await fetch(`${API_BASE_URL}/images?skip=${skip}&limit=${limit}&sort_by=${sortBy}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -74,5 +74,16 @@ export const api = {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         return await response.json();
+    },
+
+    deleteImage: async (imageId) => {
+        const response = await fetch(`${API_BASE_URL}/images/${imageId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // No content to return on success (204)
+        return;
     },
 };

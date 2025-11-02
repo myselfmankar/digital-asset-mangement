@@ -6,15 +6,18 @@ import datetime
 import calendar
 
 # --- Image CRUD ---
+def get_image_by_id(db: Session, image_id: int):
+    return db.query(models.Image).filter(models.Image.id == image_id).first()
+
 def get_image_by_filename(db: Session, filename: str):
     return db.query(models.Image).filter(models.Image.filename == filename).first()
 
-def get_images(db: Session, skip: int = 0, limit: int = 100):
+def get_images(db: Session, skip: int = 0, limit: int = 100, sort_by: str = "upload_date"):
     """
     Gets a paginated list of images, eagerly loading all necessary nested data
     for the API schema.
     """
-    return (
+    query = (
         db.query(models.Image)
         .options(
             joinedload(models.Image.details)
@@ -22,14 +25,14 @@ def get_images(db: Session, skip: int = 0, limit: int = 100):
             joinedload(models.Image.tags)
         )
         .join(models.Metadata)
-        .order_by(
-            models.Image.details.has(models.Metadata.location).desc(),
-            models.Metadata.date_taken.desc().nulls_last()
-        )
-        .offset(skip)
-        .limit(limit)
-        .all()
     )
+
+    if sort_by == "filename":
+        query = query.order_by(models.Image.filename.asc())
+    else:  # Default to upload_date
+        query = query.order_by(models.Image.upload_date.desc())
+
+    return query.offset(skip).limit(limit).all()
 
 def create_image_with_metadata(db: Session, image: schemas.ImageCreate, metadata: schemas.MetadataCreate, location: Optional[schemas.LocationCreate] = None):
     # Create the main image object
@@ -49,6 +52,15 @@ def create_image_with_metadata(db: Session, image: schemas.ImageCreate, metadata
     db.add(db_image)
     db.commit()
     db.refresh(db_image)
+    return db_image
+
+def delete_image(db: Session, image_id: int):
+    """Deletes an image and its related data from the database."""
+    db_image = db.query(models.Image).filter(models.Image.id == image_id).first()
+    if db_image:
+        # The cascade delete in models.py will handle associated metadata and location
+        db.delete(db_image)
+        db.commit()
     return db_image
 
 # --- Album/Date CRUD ---

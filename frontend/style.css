@@ -240,8 +240,33 @@ body.light-theme #upload-status {
 .image-card-info ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    font-size: 0.85em;
+    margin: 10px 0 0 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary-color);
+}
+
+.details-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.image-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-icon {
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.delete-icon:hover {
+    color: red;
 }
 
 .image-card-info ul li {
@@ -383,6 +408,122 @@ body.light-theme #upload-status {
     cursor: pointer;
 }
 
+/* Details Side Panel Styles */
+.details-panel-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.details-panel-backdrop.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.details-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 450px;
+    height: 100%;
+    background-color: var(--surface-color);
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.details-panel.visible {
+    transform: translateX(0);
+}
+
+.details-panel-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2.5em;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.details-panel-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 50px; /* Space for close button */
+}
+
+.details-panel-image-container {
+    width: 100%;
+}
+
+#details-panel-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.details-panel-info {
+    padding: 20px;
+}
+
+.details-panel-info h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: var(--text-color);
+}
+
+.details-panel-metadata {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.details-panel-metadata li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    color: var(--secondary-text-color);
+}
+
+.details-panel-metadata li i {
+    margin-right: 15px;
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+/* Responsive adjustments for the side panel */
+@media (max-width: 768px) {
+    .details-panel {
+        width: 100%;
+        height: 85vh;
+        top: auto;
+        bottom: 0;
+        right: 0;
+        transform: translateY(100%);
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+
+    .details-panel.visible {
+        transform: translateY(0);
+    }
+}
+
+
 /* Lightbox Styles */
 .lightbox-container {
     position: fixed;
@@ -395,53 +536,6 @@ body.light-theme #upload-status {
     justify-content: center;
     align-items: center;
     z-index: 2000;
-}
-
-.lightbox-container.visible {
-    display: flex !important;
-}
-
-#lightbox-image {
-    max-width: 90vw;
-    max-height: 85vh;
-    object-fit: contain;
-    border-radius: 5px;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.lightbox-close:hover {
-    color: #bbb;
-}
-
-.lightbox-nav {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.lightbox-nav.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
 }
 
 /* Loading and Error Messages */
