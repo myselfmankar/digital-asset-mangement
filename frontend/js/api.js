@@ -19,6 +19,14 @@ export const api = {
         return await response.json();
     },
 
+    getAlbumImages: async (year, month) => {
+        const response = await fetch(`${API_BASE_URL}/albums/${year}/${month}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+
     getStats: async () => {
         const response = await fetch(`${API_BASE_URL}/stats`);
         if (!response.ok) {
@@ -56,6 +64,14 @@ export const api = {
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+    
+    showDatabase: async (password) => {
+        const response = await fetch(`${API_BASE_URL}/show-database?password=${password}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return await response.json();
     },

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
@@ -215,6 +215,11 @@ app.add_middleware(
 # Serve uploaded images 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+# --- Config Endpoint ---
+@app.get("/api/v1/config")
+def get_config():
+    return JSONResponse({"api_base_url": os.getenv("API_BASE_URL", "http://localhost:8000/api/v1")})
+
 # --- Health Check Route ---
 @app.get("/")
 def health_check():
@@ -348,6 +353,16 @@ def read_images(skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
 def get_album_summary(db: Session = Depends(get_db)):
     return crud.get_album_summary(db)
 
+@app.get("/api/v1/albums/{year}/{month}", response_model=List[schemas.Image])
+def get_album_images(year: int, month: int, db: Session = Depends(get_db)):
+    images = crud.get_album_images(db, year=year, month=month)
+    # Add computed URL fields to each image object before returning
+    for img in images:
+        img.thumbnail_url = f"/uploads/thumbnails/{img.filename}"
+        img.medium_url = f"/uploads/{img.filename}"
+        img.large_url = f"/uploads/{img.filename}"
+    return images
+
 @app.get("/api/v1/stats")
 def get_stats(db: Session = Depends(get_db)):
     return crud.get_stats(db)
@@ -355,3 +370,9 @@ def get_stats(db: Session = Depends(get_db)):
 @app.get("/api/v1/map/data")
 def get_map_data(db: Session = Depends(get_db)):
     return crud.get_map_data(db)
+
+@app.get("/api/v1/show-database")
+def show_database(password: str, db: Session = Depends(get_db)):
+    if password != "teacher":
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return crud.show_database(db)

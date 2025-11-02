@@ -6,7 +6,7 @@
 
 **PhotoStack** is a modern, self-hosted photo gallery and management application built with Python and FastAPI. It provides a clean, intuitive, and performant solution for organizing, viewing, and exploring your personal photo collection.
 
-This project is a university-level assignment inspired by the excellent open-source applications [PhotoPrism](https://www.photoprism.app/) and [PhotoView](https://photoview.github.io/). Please see the `CITATIONS.md` file for more details on these inspirations.
+This project is a university-level assignment inspired by the excellent open-source applications [PhotoPrism](https://www.photoprism.app/) and [PhotoView](https://photoview.github.io/). This project serves as a Python-based version, implementing some of their core features. Please see the `CITATIONS.md` file for more details on these inspirations.
 
 ---
 
@@ -36,17 +36,3 @@ This project is a university-level assignment inspired by the excellent open-sou
 
 
 ---
-
-
-
-## 🗺️ Roadmap
-
-
-
-*   **Cloud Storage Integration:** Implement support for cloud storage solutions like MinIO or AWS S3 for scalable and robust image storage.
-
-*   **Advanced Data Management:** Dive deeper into SQLAlchemy for more complex queries, optimizations, and data relationships.
-
-*   **AI-Powered Features:** Integrate AI capabilities for automatic tagging, object recognition, facial recognition, or smart album creation.
-
-*   **Database Migrations with Alembic:** Learn and implement Alembic for managing database schema changes in a version-controlled and non-destructive manner.

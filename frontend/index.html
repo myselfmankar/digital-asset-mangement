@@ -34,6 +34,7 @@
                 <li><a href="#albums"><i class="fas fa-book"></i> Albums <span class="count" id="albums-count">0</span></a></li>
                 <li><a href="#map"><i class="fas fa-map-marker-alt"></i> Places <span class="count" id="places-count">0</span></a></li>
                 <li><a href="#upload"><i class="fas fa-upload"></i> Upload</a></li>
+                <li><a href="#show-database"><i class="fas fa-database"></i> Show Database</a></li>
             </ul>
             <div class="storage-info">
                 <p>Storage Used: <span id="storage-used">0 GB</span> / <span id="storage-total">0 GB</span></p>
@@ -64,9 +65,21 @@
                 </div>
             </section>
 
+            <section id="album-images-view" class="view">
+                <h2 id="album-images-title"></h2>
+                <div class="image-grid" id="album-images-grid">
+                    <!-- Album images will be loaded here -->
+                </div>
+            </section>
+
             <section id="map-view" class="view">
                 <h2>Photo Map</h2>
                 <div id="map-container"></div>
+            </section>
+
+            <section id="show-database-view" class="view">
+                <h2>Database Content</h2>
+                <pre id="database-content"></pre>
             </section>
         </main>
     </div>

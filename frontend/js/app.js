@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const allImagesGrid = document.getElementById('all-images-grid');
     const albumsGrid = document.getElementById('albums-grid');
     const mapContainer = document.getElementById('map-container');
+    const albumImagesView = document.getElementById('album-images-view');
+    const albumImagesTitle = document.getElementById('album-images-title');
+    const albumImagesGrid = document.getElementById('album-images-grid');
+    const showDatabaseView = document.getElementById('show-database-view');
+    const databaseContent = document.getElementById('database-content');
     
     // Upload Popup Elements
     const uploadPopup = document.getElementById('upload-popup');
@@ -126,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (href === '#upload') {
                     uploadPopup.classList.add('visible');
+                } else if (href === '#show-database') {
+                    loadDatabaseContent();
                 } else {
                     const viewId = `${href.substring(1)}-view`;
                     showView(viewId);
@@ -143,6 +150,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        // Function to load database content
+        const loadDatabaseContent = async () => {
+            const password = prompt('Enter password to view database:');
+            if (!password) return;
+
+            showView('show-database-view');
+            databaseContent.textContent = 'Loading...';
+
+            try {
+                const data = await api.showDatabase(password);
+                databaseContent.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error loading database content:', error);
+                databaseContent.textContent = 'Error loading database content. Check password and try again.';
+            }
+        };
     
         // Handle closing the popup
         closePopupButton.addEventListener('click', () => {
@@ -155,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
         // Function to create an image card (from template)
-        const createImageCard = (image, index, imageList) => {
+        const createImageCard = (image, index, imageList, enableLightbox = false) => {
             const card = document.createElement('div');
             card.className = 'image-card';
     
@@ -186,7 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            card.addEventListener('click', () => openLightbox(imageList, index));
+            if (enableLightbox) {
+                card.addEventListener('click', () => openLightbox(imageList, index));
+            }
             
             return card;
         };
@@ -202,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
                     images.forEach((image, index) => {
-                        targetGrid.appendChild(createImageCard(image, index, images));
+                        targetGrid.appendChild(createImageCard(image, index, images, false));
                     });
                 } catch (error) {
                     console.error('Error loading images:', error);
@@ -234,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
                     allImages.forEach((image, index) => {
-                        targetGrid.appendChild(createImageCard(image, index, allImages));
+                        targetGrid.appendChild(createImageCard(image, index, allImages, false));
                     });
                 } catch (error) {
                     console.error('Error loading all images:', error);
@@ -261,11 +287,35 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h3>${album.month_name} ${album.year}</h3>
                             <p>${album.image_count} Photos</p>
                         `;
+                        albumCard.addEventListener('click', () => {
+                            loadAlbumImages(album.year, album.month, `${album.month_name} ${album.year}`);
+                        });
                         albumsGrid.appendChild(albumCard);
                     });
                 } catch (error) {
                     console.error('Error loading albums:', error);
                     albumsGrid.innerHTML = '<p class="error-message">Error loading albums. Please try again.</p>';
+                }
+            };
+
+            // Function to load images for a specific album
+            const loadAlbumImages = async (year, month, albumTitle) => {
+                showView('album-images-view');
+                albumImagesTitle.textContent = albumTitle;
+                albumImagesGrid.innerHTML = '<p class="loading-message"><i class="fas fa-spinner fa-spin"></i> Loading images...</p>';
+                try {
+                    const images = await api.getAlbumImages(year, month);
+                    albumImagesGrid.innerHTML = '';
+                    if (images.length === 0) {
+                        albumImagesGrid.innerHTML = '<p class="info-message">No images found in this album.</p>';
+                        return;
+                    }
+                    images.forEach((image, index) => {
+                        albumImagesGrid.appendChild(createImageCard(image, index, images, true));
+                    });
+                } catch (error) {
+                    console.error('Error loading album images:', error);
+                    albumImagesGrid.innerHTML = '<p class="error-message">Error loading album images. Please try again.</p>';
                 }
             };
         
@@ -279,6 +329,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Then fetch the pre-rendered map HTML
                     const mapHtml = await api.getMapHtml();
                     mapContainer.innerHTML = mapHtml;
+
+                    // Find all markers and attach the click event
+                    const markers = mapContainer.querySelectorAll('.folium-div-icon');
+                    markers.forEach((marker, index) => {
+                        marker.setAttribute('onclick', `onMarkerClick(${index})`);
+                    });
+
                 } catch (error) {
                     console.error('Error loading map:', error);
                     mapContainer.innerHTML = '<p class="error-message">Error loading map. Please try again.</p>';

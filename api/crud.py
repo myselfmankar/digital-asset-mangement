@@ -126,6 +126,27 @@ def get_album_summary(db: Session):
     ]
 
 
+def get_album_images(db: Session, year: int, month: int):
+    """
+    Gets all images for a specific album (year and month).
+    """
+    return (
+        db.query(models.Image)
+        .options(
+            joinedload(models.Image.details)
+            .joinedload(models.Metadata.location),
+            joinedload(models.Image.tags)
+        )
+        .join(models.Metadata)
+        .filter(
+            extract('year', models.Metadata.date_taken) == year,
+            extract('month', models.Metadata.date_taken) == month
+        )
+        .order_by(models.Metadata.date_taken.asc())
+        .all()
+    )
+
+
 # --- Map Data CRUD ---
 def get_locations_without_address(db: Session):
     """Returns all Location records where the address is NULL."""
@@ -189,3 +210,22 @@ def get_stats(db: Session):
         "folders": 0,
         "library": 0
     }
+
+def show_database(db: Session):
+    """
+    Returns all tables and their content from the database.
+    """
+    from sqlalchemy import inspect, text
+    inspector = inspect(db.bind)
+    data = {}
+    for table_name in inspector.get_table_names():
+        # Use the text() construct for raw SQL
+        rows = db.execute(text(f"SELECT * FROM {table_name}")).fetchall()
+        # Convert rows to dictionaries
+        if rows:
+            # Get column names from the first row's keys
+            column_names = rows[0]._fields
+            data[table_name] = [dict(zip(column_names, row)) for row in rows]
+        else:
+            data[table_name] = []
+    return data
