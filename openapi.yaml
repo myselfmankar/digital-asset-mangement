@@ -136,35 +136,7 @@ paths:
           content:
             application/json:
               schema: {}
-  /api/v1/show-database:
-    get:
-      summary: Show Database
-      operationId: show_database_api_v1_show_database_get
-      parameters:
-      - name: password
-        in: query
-        required: true
-        schema:
-          type: string
-          title: Password
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
+
 components:
   schemas:
     Body_upload_image_api_v1_images_post:

@@ -1,22 +1,13 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-import os
+from sqlalchemy.ext.declarative import declarative_base
+from .config import settings
 
-load_dotenv()
-
-# Get database URL from environment variable with a default for docker environment
-SQLALCHEMY_DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:postgres@db:5432/photoview"  # Default Docker internal URL
-)
+print(f"DEBUG: Connecting to DATABASE_URL: {settings.DATABASE_URL}")
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
-    pool_pre_ping=True,  # Enable automatic reconnection
-    pool_size=5,  # Set connection pool size
-    max_overflow=10  # Allow up to 10 connections above pool_size
+    settings.DATABASE_URL,
+    
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

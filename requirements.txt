@@ -1,6 +1,5 @@
 fastapi
 uvicorn[standard]
-python-dotenv
 sqlalchemy
 psycopg2-binary
 pydantic
@@ -17,3 +16,6 @@ geopy
 folium
 pillow-heif
 piexif
+pydantic-settings
+langchain
+langchain-google-genai

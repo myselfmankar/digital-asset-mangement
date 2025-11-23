@@ -158,6 +158,39 @@ body.light-theme #upload-status {
     color: #ffffff;
 }
 
+.sidebar-section {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.sidebar-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: var(--primary-color);
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+}
+
+.filter-select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
 .storage-info {
     padding: 20px;
     font-size: 0.9em;
@@ -195,20 +228,19 @@ body.light-theme #upload-status {
     display: block;
 }
 
-.image-grid, .albums-grid {
+.image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
 }
 
-/* Image Card Styles (Placeholder - will be expanded) */
 .image-card {
     background-color: var(--surface-color);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
 .image-card:hover {
@@ -217,9 +249,10 @@ body.light-theme #upload-status {
 
 .image-card img {
     width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover;
+    height: auto;
     display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .image-card-info {
@@ -285,12 +318,12 @@ body.light-theme #upload-status {
 
 /* Album Card Styles (Placeholder - will be expanded) */
 .album-card {
-    background-color: var(--surface-color);
+    position: relative;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease;
-    text-align: center;
+    cursor: pointer;
 }
 
 .album-card:hover {
@@ -299,20 +332,41 @@ body.light-theme #upload-status {
 
 .album-card img {
     width: 100%;
-    height: 180px;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.album-card h3 {
-    margin: 10px 0;
-    font-size: 1.2em;
-    color: var(--text-color);
+.album-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
 }
 
-.album-card p {
+.album-card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    color: #fff;
+    z-index: 2;
+}
+
+.album-card-info h3 {
+    margin: 0;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.album-card-info p {
+    margin: 5px 0 0;
     font-size: 0.9em;
-    color: var(--secondary-text-color);
+    color: #ccc;
 }
 
 /* Upload View */
@@ -408,134 +462,53 @@ body.light-theme #upload-status {
     cursor: pointer;
 }
 
-/* Details Side Panel Styles */
-.details-panel-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.details-panel-backdrop.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.details-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 450px;
-    height: 100%;
-    background-color: var(--surface-color);
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
-    z-index: 2000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-}
-
-.details-panel.visible {
-    transform: translateX(0);
-}
-
-.details-panel-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 2.5em;
-    color: var(--secondary-text-color);
-    cursor: pointer;
-    line-height: 1;
-}
-
-.details-panel-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-top: 50px; /* Space for close button */
-}
-
-.details-panel-image-container {
-    width: 100%;
-}
-
-#details-panel-image {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.details-panel-info {
-    padding: 20px;
-}
-
-.details-panel-info h3 {
-    margin-top: 0;
-    font-size: 1.4em;
-    color: var(--text-color);
-}
-
-.details-panel-metadata {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.details-panel-metadata li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    font-size: 0.95em;
-    color: var(--secondary-text-color);
-}
-
-.details-panel-metadata li i {
-    margin-right: 15px;
-    color: var(--primary-color);
-    width: 20px;
-    text-align: center;
-}
-
-/* Responsive adjustments for the side panel */
-@media (max-width: 768px) {
-    .details-panel {
-        width: 100%;
-        height: 85vh;
-        top: auto;
-        bottom: 0;
-        right: 0;
-        transform: translateY(100%);
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-    }
-
-    .details-panel.visible {
-        transform: translateY(0);
-    }
-}
-
-
 /* Lightbox Styles */
-.lightbox-container {
+.lightbox {
+    display: none;
     position: fixed;
-    top: 0;
+    z-index: 1000;
+    padding-top: 60px;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+#lightbox-caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* Loading and Error Messages */

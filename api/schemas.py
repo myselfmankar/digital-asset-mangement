@@ -15,6 +15,22 @@ class Tag(TagBase):
     class Config:
         from_attributes = True
 
+# --- Album Schemas ---
+class AlbumBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+class AlbumCreate(AlbumBase):
+    pass
+
+class Album(AlbumBase):
+    id: int
+    images: List["Image"] = []
+
+    class Config:
+        from_attributes = True
+
+
 # --- Location Schemas ---
 class LocationBase(BaseModel):
     latitude: float
@@ -64,15 +80,38 @@ class ImageBase(BaseModel):
 class ImageCreate(ImageBase):
     pass
 
+
+class ImageUpdate(BaseModel):
+    filepath: Optional[str] = None
+    resolution: Optional[str] = None
+    image_size: Optional[int] = None
+    mimetype: Optional[str] = None
+    status: Optional[str] = None
+
 # This is the main schema for reading an image, includes nested data
 class Image(ImageBase):
     id: int
     details: Optional[Metadata] = None
     tags: List[Tag] = []
+    albums: List[AlbumBase] = []
     is_favorite: bool = False
     thumbnail_url: Optional[str] = None
     medium_url: Optional[str] = None
     large_url: Optional[str] = None
+    status: str = "processing"
 
     class Config:
         from_attributes = True
+
+Album.model_rebuild()
+
+# --- Search Schemas ---
+class SearchQuery(BaseModel):
+    """
+    A structured representation of a user's natural language search query.
+    The AI model will populate the fields of this model based on the user's input.
+    """
+    tags: Optional[List[str]] = None
+    location: Optional[str] = None
+    camera_model: Optional[str] = None
+    date_query: Optional[str] = None

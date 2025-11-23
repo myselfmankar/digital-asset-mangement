@@ -45,11 +45,11 @@ export const api = {
 
     // Note: The backend /map endpoint directly returns HTML, so we fetch it differently
     getMapHtml: async () => {
-        const response = await fetch(`http://127.0.0.1:8000/map`); // Direct call to HTML route
+        const response = await fetch(`${API_BASE_URL}/map/map`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.text(); // Get raw HTML
+        return await response.text();
     },
 
     uploadImage: async (file) => {
@@ -70,6 +70,30 @@ export const api = {
     
     showDatabase: async (password) => {
         const response = await fetch(`${API_BASE_URL}/show-database?password=${password}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+
+    getCameraFilters: async () => {
+        const response = await fetch(`${API_BASE_URL}/filters/cameras`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+
+    getLocationFilters: async () => {
+        const response = await fetch(`${API_BASE_URL}/filters/locations`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+
+    getDateFilters: async () => {
+        const response = await fetch(`${API_BASE_URL}/filters/dates`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
