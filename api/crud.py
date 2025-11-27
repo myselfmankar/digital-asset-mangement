@@ -4,6 +4,7 @@ from . import models, schemas
 from typing import List, Optional
 import datetime
 import calendar
+import os
 
 def search_images_by_filters(db: Session, filters: schemas.SearchQuery):
     """
@@ -124,7 +125,7 @@ def get_or_create_tag(db: Session, tag_name: str) -> models.Tag:
     if not db_tag:
         db_tag = models.Tag(name=tag_name)
         db.add(db_tag)
-        db.commit()
+        db.flush()
         db.refresh(db_tag)
     return db_tag
 
@@ -315,7 +316,7 @@ def get_album_summary(db: Session) -> List[dict]:
             "month": r.month,
             "month_name": calendar.month_name[int(r.month)],
             "image_count": r.image_count,
-            "preview_image_url": f"/uploads/thumbnails/{r.preview_image_filename}"
+            "preview_image_url": f"/uploads/thumbnails/{os.path.splitext(r.preview_image_filename)[0]}.webp"
         }
         for r in result
     ]
@@ -362,7 +363,7 @@ def get_map_data(db: Session):
             "latitude": img.details.location.latitude,
             "longitude": img.details.location.longitude,
             "address": img.details.location.address,
-            "thumbnail_url": f"/uploads/thumbnails/{img.filename}"
+            "thumbnail_url": f"/uploads/thumbnails/{os.path.splitext(img.filename)[0]}.webp"
         }
         for img in images
     ]

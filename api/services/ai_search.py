@@ -1,10 +1,13 @@
 from sqlalchemy.orm import Session
 from datetime import datetime
+import logging
 
 from .. import crud
 from ..config import settings
 from ..schemas import SearchQuery
 from langchain_google_genai import ChatGoogleGenerativeAI
+
+logger = logging.getLogger(__name__)
 
 def perform_ai_search(db: Session, query: str):
     """
@@ -54,5 +57,5 @@ def _get_structured_query_from_ai(query: str) -> SearchQuery | None:
         search_query_model = structured_llm.invoke(prompt)
         return search_query_model
     except Exception as e:
-        print(f"Error invoking structured output from AI: {e}")
+        logger.error(f"Error invoking structured output from AI: {e}", exc_info=True)
         return None

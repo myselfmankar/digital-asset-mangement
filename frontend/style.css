@@ -37,11 +37,13 @@ body {
     align-items: center;
     padding: 0 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
 .app-header .logo {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .navbar-logo {
@@ -56,9 +58,102 @@ body {
     color: var(--primary-color);
 }
 
+/* --- Search Bar --- */
+.search-bar-container {
+    flex-grow: 1;
+    max-width: 500px;
+    margin: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    color: var(--secondary-text-color);
+}
+
+#ai-search-input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 25px;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#ai-search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.2);
+    background-color: var(--surface-color);
+}
+
+/* --- Smart Suggestions --- */
+.suggestions-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(30,30,30,0.6) 0%, rgba(50,50,50,0.3) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.suggestions-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#refresh-suggestions {
+    margin-left: auto; /* Push to the right or just keep it next to title */
+    margin-right: 10px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    transition: color 0.3s, transform 0.3s;
+}
+
+#refresh-suggestions:hover {
+    color: var(--primary-color);
+    transform: rotate(30deg);
+}
+
+.suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.suggestion-card {
+    background-color: var(--surface-color);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    text-align: center;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.suggestion-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    background-color: #2a2a2a;
+}
+
+/* Header Icons */
 .app-header .header-icons {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .app-header .header-icons i {
@@ -88,6 +183,28 @@ body.light-theme {
     --accent-color: #28a745;
 }
 
+body.light-theme #ai-search-input {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    color: #333;
+}
+
+body.light-theme #ai-search-input:focus {
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+}
+
+body.light-theme .suggestions-container {
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(240,240,240,0.5) 100%);
+    border-color: #ccc;
+}
+
+body.light-theme .suggestion-card {
+    background-color: #fff;
+    border-color: #ddd;
+    color: #333;
+}
+
 body.light-theme .sidebar .nav-links li a:hover {
     background-color: #e9ecef;
 }
@@ -112,6 +229,7 @@ body.light-theme #upload-status {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+    z-index: 5;
 }
 
 .sidebar .nav-links {
@@ -218,6 +336,7 @@ body.light-theme #upload-status {
     grid-row: 2;
     padding: 20px;
     overflow-y: auto;
+    position: relative;
 }
 
 .view {
@@ -411,7 +530,8 @@ body.light-theme #upload-status {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -426,40 +546,208 @@ body.light-theme #upload-status {
     visibility: visible;
 }
 
-.popup-content {
+.upload-modal {
     background-color: var(--surface-color);
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
     width: 90%;
-    max-width: 500px;
+    max-width: 550px;
     position: relative;
-    transform: translateY(-50px);
-    transition: transform 0.3s ease;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.popup-content h2 {
-    margin-top: 0;
+.popup-container.visible .upload-modal {
+    transform: scale(1);
+}
+
+.upload-header {
+    text-align: center;
     margin-bottom: 25px;
 }
 
-.popup-content input[type="file"] {
-    margin-bottom: 20px;
+.upload-header h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.8rem;
+    color: var(--primary-color);
 }
 
-.popup-content button {
+.upload-header p {
+    margin: 0;
+    color: var(--secondary-text-color);
+    font-size: 0.95rem;
+}
+
+/* Drop Area */
+.drop-area {
     width: 100%;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.02);
+    box-sizing: border-box;
+}
+
+.drop-area.drag-over {
+    border-color: var(--primary-color);
+    background-color: rgba(187, 134, 252, 0.08);
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 15px;
+    transition: color 0.2s;
+}
+
+.drop-area:hover .upload-icon,
+.drop-area.drag-over .upload-icon {
+    color: var(--primary-color);
+}
+
+.drop-area p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.divider-text {
+    display: block;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+}
+
+.file-label {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: var(--surface-color);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.file-label:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* File List */
+.file-list {
+    width: 100%;
+    margin-top: 20px;
+    max-height: 120px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.file-item span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 85%;
+}
+
+.file-item i {
+    color: var(--accent-color);
+}
+
+/* Action Button */
+.action-button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary-color), #9c27b0);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+}
+
+.action-button:disabled {
+    background: var(--border-color);
+    color: var(--secondary-text-color);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 15px;
+    right: 20px;
     background: none;
     border: none;
-    font-size: 2em;
+    font-size: 2rem;
     color: var(--secondary-text-color);
     cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.close-button:hover {
+    color: var(--text-color);
+}
+
+/* Light Theme Overrides for Upload */
+body.light-theme .upload-modal {
+    background-color: #fff;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .drop-area {
+    border-color: #ccc;
+    background-color: #f9f9f9;
+}
+
+body.light-theme .drop-area.drag-over {
+    background-color: rgba(0, 123, 255, 0.05);
+    border-color: var(--primary-color);
+}
+
+body.light-theme .file-item {
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+body.light-theme .action-button:disabled {
+    background: #e0e0e0;
+    color: #999;
 }
 
 /* Lightbox Styles */

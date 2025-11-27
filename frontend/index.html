@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- Masonry JS -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+    <!-- GSAP JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <!-- Favicon Links -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
@@ -21,6 +36,12 @@
                 <img src="assets/favicon/favicon-32x32.png" alt="Logo" class="navbar-logo">
                 <h1>PhotoStack</h1>
             </div>
+            
+            <div class="search-bar-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="ai-search-input" placeholder="Ask your photos... (e.g., 'summer vacation in 2023')">
+            </div>
+
             <div class="header-icons">
                 <img src="assets/profile_photo.jpg" alt="Profile" class="profile-pic">
                 <i id="theme-toggle-button" class="fas fa-moon"></i>
@@ -33,8 +54,8 @@
                 <li><a href="#images"><i class="fas fa-images"></i> Images <span class="count" id="images-count">0</span></a></li>
                 <li><a href="#albums"><i class="fas fa-book"></i> Albums <span class="count" id="albums-count">0</span></a></li>
                 <li><a href="#map"><i class="fas fa-map-marker-alt"></i> Places <span class="count" id="places-count">0</span></a></li>
+                <li><a href="#calendar"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
                 <li><a href="#upload"><i class="fas fa-upload"></i> Upload</a></li>
-                <li><a href="#show-database"><i class="fas fa-database"></i> Show Database</a></li>
             </ul>
             <div class="sidebar-section">
                 <h3>Filters</h3>
@@ -66,7 +87,15 @@
         <main class="content">
             <!-- Content for different views will be loaded here -->
             <section id="dashboard-view" class="view active">
-                <h2>Dashboard</h2>
+                
+                <div id="suggestions-container" class="suggestions-container" style="display: none;">
+                    <h3><i class="fas fa-sparkles"></i> AI Suggestions <i class="fas fa-sync-alt" id="refresh-suggestions" title="Refresh Suggestions"></i></h3>
+                    <div class="suggestions-grid" id="suggestions-grid">
+                        <!-- AI suggestions will load here -->
+                    </div>
+                </div>
+
+                <h2>Recent Photos</h2>
                 <div class="image-grid" id="dashboard-image-grid">
                     <!-- Image cards will be loaded here -->
                 </div>
@@ -76,6 +105,14 @@
                 <h2>All Images</h2>
                 <div class="image-grid" id="all-images-grid">
                     <!-- Image cards will be loaded here -->
+                </div>
+            </section>
+            
+            <section id="search-results-view" class="view">
+                <h2><i class="fas fa-search"></i> Search Results</h2>
+                <p id="search-query-display" style="color: var(--secondary-text-color); margin-bottom: 20px;"></p>
+                <div class="image-grid" id="search-results-grid">
+                    <!-- Search results will be loaded here -->
                 </div>
             </section>
 
@@ -95,27 +132,48 @@
 
             <section id="map-view" class="view">
                 <h2>Photo Map</h2>
-                <div id="map-container"></div>
+                <div id="map-container" style="height: 600px; width: 100%; border-radius: 10px; z-index: 1;"></div>
             </section>
 
-            <section id="show-database-view" class="view">
-                <h2>Database Content</h2>
-                <pre id="database-content"></pre>
+            <section id="calendar-view" class="view">
+                <h2>Calendar</h2>
+                <div class="albums-grid" id="calendar-grid">
+                    <!-- Calendar cards will be loaded here -->
+                </div>
             </section>
         </main>
     </div>
 
     <!-- Upload Popup Modal -->
     <div id="upload-popup" class="popup-container">
-        <div class="popup-content">
+        <div class="popup-content upload-modal">
             <button id="close-popup-button" class="close-button">&times;</button>
-            <h2>Upload Images</h2>
-            <input type="file" id="file-input" multiple accept="image/jpeg, image/png">
-            <button id="upload-button">Upload</button>
-            <div id="upload-status"></div>
+            <div class="upload-header">
+                <h2>Upload Photos</h2>
+                <p>Add memories to your PhotoStack</p>
+            </div>
+            
+            <div id="drop-area" class="drop-area">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <p>Drag & Drop images here</p>
+                <span class="divider-text">or</span>
+                <label for="file-input" class="file-label">Browse Files</label>
+                <input type="file" id="file-input" multiple accept="image/jpeg, image/png, image/heic" hidden>
+            </div>
+
+            <div id="file-list" class="file-list"></div>
+
+            <button id="upload-button" class="action-button" disabled>
+                <span>Upload Now</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <!-- Hidden status div for JS compatibility if needed, though we use Toastify now -->
+            <div id="upload-status" style="display:none;"></div>
         </div>
     </div>
-
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script type="module" src="js/api.js"></script>
     <script type="module" src="js/app.js"></script>
 

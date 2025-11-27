@@ -83,6 +83,7 @@ class ImageCreate(ImageBase):
 
 class ImageUpdate(BaseModel):
     filepath: Optional[str] = None
+    filename: Optional[str] = None
     resolution: Optional[str] = None
     image_size: Optional[int] = None
     mimetype: Optional[str] = None

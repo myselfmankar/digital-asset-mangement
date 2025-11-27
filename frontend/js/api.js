@@ -11,6 +11,28 @@ export const api = {
         return await response.json();
     },
 
+    searchImages: async (query) => {
+        const response = await fetch(`${API_BASE_URL}/search/ai`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: query }),
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+
+    getAlbumSuggestions: async () => {
+        const response = await fetch(`${API_BASE_URL}/suggestions/albums`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    },
+
     getAlbumSummary: async () => {
         const response = await fetch(`${API_BASE_URL}/albums/summary`);
         if (!response.ok) {
@@ -68,14 +90,6 @@ export const api = {
         return await response.json();
     },
     
-    showDatabase: async (password) => {
-        const response = await fetch(`${API_BASE_URL}/show-database?password=${password}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-    },
-
     getCameraFilters: async () => {
         const response = await fetch(`${API_BASE_URL}/filters/cameras`);
         if (!response.ok) {

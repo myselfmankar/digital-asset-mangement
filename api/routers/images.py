@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile, Depends, HTTPException
+from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import List
 import os
@@ -6,6 +6,7 @@ import os
 from .. import crud, schemas
 from ..database import get_db
 from ..services import image_processing
+from ..utils import get_image_urls
 
 router = APIRouter(
     prefix="/api/v1/images",
@@ -13,9 +14,9 @@ router = APIRouter(
 )
 
 @router.post("", response_model=schemas.Image, status_code=201)
-def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db)):
+def upload_image(background_tasks: BackgroundTasks, file: UploadFile = File(...), db: Session = Depends(get_db)):
     """
-    Upload and synchronously process a new image file.
+    Upload and asynchronously process a new image file.
     """
     if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic', '.heif')):
         raise HTTPException(
@@ -50,15 +51,10 @@ def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db)):
             # Create a new placeholder image in the database
             db_image = crud.create_placeholder_image(db, filename=filename, filepath=filepath)
 
-        # Directly call the processing function and wait for it to complete
-        image_processing.process_and_save_image_metadata_sync(filepath, db_image.id, db)
+        # Offload processing to background task
+        background_tasks.add_task(image_processing.process_image_background, filepath, db_image.id)
         
-        # Fetch the fully processed image data to return to the client
-        processed_image = crud.get_image_by_id(db, image_id=db_image.id)
-        if not processed_image:
-            raise HTTPException(status_code=500, detail="Failed to process and retrieve the image.")
-
-        return processed_image
+        return db_image
         
     except Exception as e:
         # Only remove the file on disk if it was a new file that failed to process.
@@ -71,9 +67,10 @@ def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db)):
 def read_images(skip: int = 0, limit: int = 20, sort_by: str = "upload_date", db: Session = Depends(get_db)):
     images = crud.get_images(db, skip=skip, limit=limit, sort_by=sort_by)
     for img in images:
-        img.thumbnail_url = f"/uploads/thumbnails/{img.filename}"
-        img.medium_url = f"/uploads/{img.filename}"
-        img.large_url = f"/uploads/{img.filename}"
+        urls = get_image_urls(img)
+        img.thumbnail_url = urls["thumbnail_url"]
+        img.medium_url = urls["medium_url"]
+        img.large_url = urls["large_url"]
     return images
 
 @router.post("/{image_id}/favorite", response_model=schemas.Image)
@@ -83,7 +80,7 @@ def toggle_favorite(image_id: int, db: Session = Depends(get_db)):
     """
     db_image = crud.toggle_image_favorite_status(db, image_id=image_id)
     if not db_image:
-        raise HTTPException(status_code=4.04, detail="Image not found")
+        raise HTTPException(status_code=404, detail="Image not found")
     return db_image
 
 @router.delete("/{image_id}", status_code=204)
