@@ -1,6 +1,6 @@
 from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import os
 
 from .. import crud, schemas
@@ -64,14 +64,46 @@ def upload_image(background_tasks: BackgroundTasks, file: UploadFile = File(...)
         raise HTTPException(status_code=500, detail=f"Error uploading file: {str(e)}")
 
 @router.get("", response_model=List[schemas.Image])
-def read_images(skip: int = 0, limit: int = 20, sort_by: str = "upload_date", db: Session = Depends(get_db)):
-    images = crud.get_images(db, skip=skip, limit=limit, sort_by=sort_by)
+def read_images(
+    skip: int = 0, 
+    limit: int = 20, 
+    sort_by: str = "upload_date",
+    camera_model: Optional[str] = None,
+    location: Optional[str] = None,
+    date: Optional[str] = None,
+    is_favorite: Optional[bool] = None,
+    status: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
+    images = crud.get_images(
+        db, 
+        skip=skip, 
+        limit=limit, 
+        sort_by=sort_by,
+        camera_model=camera_model,
+        location=location,
+        date=date,
+        is_favorite=is_favorite,
+        status=status
+    )
     for img in images:
         urls = get_image_urls(img)
         img.thumbnail_url = urls["thumbnail_url"]
         img.medium_url = urls["medium_url"]
         img.large_url = urls["large_url"]
     return images
+
+@router.get("/{image_id}", response_model=schemas.Image)
+def read_image(image_id: int, db: Session = Depends(get_db)):
+    db_image = crud.get_image_by_id(db, image_id=image_id)
+    if not db_image:
+        raise HTTPException(status_code=404, detail="Image not found")
+    
+    urls = get_image_urls(db_image)
+    db_image.thumbnail_url = urls["thumbnail_url"]
+    db_image.medium_url = urls["medium_url"]
+    db_image.large_url = urls["large_url"]
+    return db_image
 
 @router.post("/{image_id}/favorite", response_model=schemas.Image)
 def toggle_favorite(image_id: int, db: Session = Depends(get_db)):

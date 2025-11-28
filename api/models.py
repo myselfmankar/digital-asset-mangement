@@ -27,6 +27,7 @@ class Image(Base):
     mimetype = Column(String, nullable=True)
     status = Column(String, default="processing") # processing, completed, failed
     is_favorite = Column(Boolean, default=False)
+    phash = Column(String, nullable=True, index=True)
 
     # One-to-one relationship to Metadata
     details = relationship("Metadata", back_populates="image", uselist=False, cascade="all, delete-orphan")

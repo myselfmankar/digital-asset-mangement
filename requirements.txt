@@ -19,3 +19,4 @@ piexif
 pydantic-settings
 langchain
 langchain-google-genai
+imagehash

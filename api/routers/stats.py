@@ -4,7 +4,7 @@ from .. import crud
 from ..database import get_db
 
 router = APIRouter(
-    prefix="/api/v1/stats",
+    prefix="/api/v1/dashboard-stats",
     tags=["stats"],
 )
 

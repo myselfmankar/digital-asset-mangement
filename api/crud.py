@@ -140,10 +140,20 @@ def get_image_by_filename_and_status(db: Session, filename: str, status: str):
     """Returns an image if it matches the filename and has the specified status."""
     return db.query(models.Image).filter(models.Image.filename == filename, models.Image.status == status).first()
 
-def get_images(db: Session, skip: int = 0, limit: int = 100, sort_by: str = "upload_date"):
+def get_images(
+    db: Session, 
+    skip: int = 0, 
+    limit: int = 100, 
+    sort_by: str = "upload_date",
+    camera_model: Optional[str] = None,
+    location: Optional[str] = None,
+    date: Optional[str] = None, # Expects "YYYY-MM"
+    is_favorite: Optional[bool] = None,
+    status: Optional[str] = None
+):
     """
-    Gets a paginated list of images, eagerly loading all necessary nested data
-    for the API schema.
+    Gets a paginated list of images with optional filtering, eagerly loading
+    all necessary nested data for the API schema.
     """
     query = (
         db.query(models.Image)
@@ -152,9 +162,29 @@ def get_images(db: Session, skip: int = 0, limit: int = 100, sort_by: str = "upl
             .joinedload(models.Metadata.location),
             joinedload(models.Image.tags)
         )
-        .join(models.Metadata)
     )
 
+    # Apply filters
+    if camera_model:
+        query = query.join(models.Metadata).filter(models.Metadata.camera_model.ilike(f'%{camera_model}%'))
+    if location:
+        query = query.join(models.Metadata).join(models.Location).filter(models.Location.address.ilike(f'%{location}%'))
+    if date:
+        try:
+            year, month = map(int, date.split('-'))
+            query = query.join(models.Metadata).filter(
+                extract('year', models.Metadata.date_taken) == year,
+                extract('month', models.Metadata.date_taken) == month
+            )
+        except ValueError:
+            # Handle invalid date format if necessary
+            pass
+    if is_favorite is not None:
+        query = query.filter(models.Image.is_favorite == is_favorite)
+    if status:
+        query = query.filter(models.Image.status == status)
+
+    # Apply sorting
     if sort_by == "filename":
         query = query.order_by(models.Image.filename.asc())
     else:  # Default to upload_date
@@ -182,22 +212,41 @@ def update_image_status(db: Session, image_id: int, status: str):
     db.query(models.Image).filter(models.Image.id == image_id).update({"status": status})
     db.commit()
 
-def create_image_with_metadata(db: Session, image: schemas.ImageCreate, metadata: schemas.MetadataCreate, location: Optional[schemas.LocationCreate] = None, tags: Optional[List[str]] = None):
-    # Create the main image object
-    db_image = models.Image(**image.dict())
+def update_image_with_metadata(db: Session, image_id: int, image_update: schemas.ImageUpdate, metadata: schemas.MetadataCreate, location: Optional[schemas.LocationCreate] = None, tags: Optional[List[str]] = None, phash: Optional[str] = None):
+    """
+    Updates an existing image record with new metadata, tags, and location.
+    This is called after background processing of an image is complete.
+    """
+    db_image = get_image_by_id(db, image_id=image_id)
+    if not db_image:
+        # This case should ideally not happen if called correctly
+        return None
+
+    # Update the core image attributes from the Pydantic model
+    update_data = image_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_image, key, value)
     
-    # Create the metadata object
+    db_image.phash = phash
+
+    # If there's existing metadata, delete it.
+    # The cascade relationship should handle the associated location.
+    if db_image.details:
+        db.delete(db_image.details)
+
+    # Create the new metadata record
     db_metadata = models.Metadata(**metadata.dict())
     
-    # If location data is provided, create the location object
+    # If location data is provided, create and link the location object
     if location:
         db_location = models.Location(**location.dict())
         db_metadata.location = db_location
         
-    # Link metadata to the image's 'details' attribute
+    # Link the new metadata to the image
     db_image.details = db_metadata
 
-    # Add tags to the image
+    # Handle tags: clear existing and add the new ones
+    db_image.tags.clear()
     if tags:
         for tag_name in tags:
             db_tag = get_or_create_tag(db, tag_name=tag_name)
@@ -208,53 +257,77 @@ def create_image_with_metadata(db: Session, image: schemas.ImageCreate, metadata
     db.refresh(db_image)
     return db_image
 
-def update_image_with_metadata(db: Session, image_id: int, image_update: schemas.ImageUpdate, metadata: schemas.MetadataCreate, location: Optional[schemas.LocationCreate] = None, tags: Optional[List[str]] = None):
+def batch_delete_images(db: Session, image_ids: List[int]) -> int:
     """
-    Updates an image with its processed metadata, location, and tags.
+    Deletes multiple images and their associated files from the database and disk.
     """
-    db_image = get_image_by_id(db, image_id=image_id)
-    if not db_image:
-        return None
+    deleted_count = 0
+    for image_id in image_ids:
+        db_image = db.query(models.Image).filter(models.Image.id == image_id).first()
+        if db_image:
+            # Delete files from disk
+            try:
+                if db_image.filepath and os.path.exists(db_image.filepath):
+                    os.remove(db_image.filepath)
+                thumb_path = os.path.join("uploads/thumbnails", os.path.splitext(db_image.filename)[0] + ".webp")
+                if os.path.exists(thumb_path):
+                    os.remove(thumb_path)
+                # Delete medium and large size previews if they exist
+                medium_path = os.path.join("uploads/previews", os.path.splitext(db_image.filename)[0] + ".webp")
+                if os.path.exists(medium_path):
+                    os.remove(medium_path)
 
-    # Update image fields
-    for field, value in image_update.dict(exclude_unset=True).items():
-        setattr(db_image, field, value)
+            except Exception as e:
+                print(f"Error deleting files for image ID {image_id}: {e}")
 
-    # Create and associate metadata
-    db_metadata = models.Metadata(**metadata.dict())
-    if location:
-        db_location = models.Location(**location.dict())
-        db_metadata.location = db_location
-    db_image.details = db_metadata
-
-    # Add tags
-    if tags:
-        for tag_name in tags:
-            db_tag = get_or_create_tag(db, tag_name=tag_name)
-            db_image.tags.append(db_tag)
-
+            db.delete(db_image)
+            deleted_count += 1
     db.commit()
-    db.refresh(db_image)
-    return db_image
+    return deleted_count
 
+def batch_toggle_favorite_status(db: Session, image_ids: List[int]) -> List[models.Image]:
+    """
+    Toggles the is_favorite status for multiple images.
+    """
+    updated_images = []
+    for image_id in image_ids:
+        db_image = db.query(models.Image).filter(models.Image.id == image_id).first()
+        if db_image:
+            db_image.is_favorite = not db_image.is_favorite
+            updated_images.append(db_image)
+    db.commit()
+    for img in updated_images:
+        db.refresh(img)
+    return updated_images
 
-def delete_image(db: Session, image_id: int):
-    """Deletes an image and its related data from the database."""
-    db_image = db.query(models.Image).filter(models.Image.id == image_id).first()
-    if db_image:
-        # The cascade delete in models.py will handle associated metadata and location
-        db.delete(db_image)
-        db.commit()
-    return db_image
+def get_duplicate_images(db: Session, min_duplicates: int = 2) -> List[List[models.Image]]:
+    """
+    Returns a list of lists, where each inner list contains images identified as duplicates
+    (i.e., having the same phash and status = 'completed').
+    """
+    duplicates_subquery = (
+        db.query(models.Image.phash, func.count(models.Image.id).label('count'))
+        .filter(models.Image.phash != None, models.Image.status == "completed")
+        .group_by(models.Image.phash)
+        .having(func.count(models.Image.id) >= min_duplicates)
+        .subquery()
+    )
 
-# --- Album/Date CRUD ---
-def get_images_by_date(db: Session, year: Optional[int] = None, month: Optional[int] = None):
-    query = db.query(models.Image).join(models.Metadata)
-    if year:
-        query = query.filter(extract('year', models.Metadata.date_taken) == year)
-    if month:
-        query = query.filter(extract('month', models.Metadata.date_taken) == month)
-    return query.all()
+    duplicate_phashes = db.query(duplicates_subquery.c.phash).all()
+    duplicate_phashes = [p[0] for p in duplicate_phashes]
+
+    all_duplicate_image_groups = []
+    for phash_value in duplicate_phashes:
+        images_in_group = (
+            db.query(models.Image)
+            .options(joinedload(models.Image.tags), joinedload(models.Image.details).joinedload(models.Metadata.location))
+            .filter(models.Image.phash == phash_value, models.Image.status == "completed")
+            .order_by(models.Image.upload_date.asc())
+            .all()
+        )
+        all_duplicate_image_groups.append(images_in_group)
+        
+    return all_duplicate_image_groups
 
 def get_album_summary(db: Session) -> List[dict]:
     """
@@ -371,55 +444,78 @@ def get_map_data(db: Session):
 # --- Filter CRUD ---
 def get_unique_camera_models(db: Session) -> List[str]:
     """Returns a list of unique camera models."""
-    return [model[0] for model in db.query(models.Metadata.camera_model).distinct().all() if model[0]]
+    return [model[0] for model in db.query(models.Metadata.camera_model).filter(models.Metadata.camera_model != None).distinct().all()]
 
 def get_unique_locations(db: Session) -> List[str]:
     """Returns a list of unique locations."""
-    return [loc[0] for loc in db.query(models.Location.address).distinct().all() if loc[0]]
+    return [loc[0] for loc in db.query(models.Location.address).filter(models.Location.address != None).distinct().all()]
 
 def get_unique_dates(db: Session) -> List[str]:
     """Returns a list of unique year/month combinations."""
     dates = db.query(
         extract('year', models.Metadata.date_taken),
         extract('month', models.Metadata.date_taken)
+    ).filter(
+        models.Metadata.date_taken != None
     ).distinct().all()
     return [f"{int(year)}-{int(month):02d}" for year, month in dates if year and month]
 
 # --- Stats CRUD ---
 def get_stats(db: Session):
     """
-    Returns a dictionary of various counts for the sidebar.
+    Returns comprehensive statistics for the dashboard.
     """
-    image_count = db.query(func.count(models.Image.id)).scalar()
+    total_images = db.query(func.count(models.Image.id)).scalar() or 0
+    total_size = db.query(func.sum(models.Image.image_size)).scalar() or 0
+    favorites_count = db.query(func.count(models.Image.id)).filter(models.Image.is_favorite == True).scalar() or 0
     
-    album_count_query = db.query(
-        func.count(
-            func.distinct(
-                func.concat(
-                    extract("year", models.Metadata.date_taken),
-                    "-",
-                    extract("month", models.Metadata.date_taken)
-                )
-            )
-        )
-    ).select_from(models.Metadata).scalar()
+    # Camera stats (Top 5)
+    cameras = (
+        db.query(models.Metadata.camera_model, func.count(models.Image.id).label('count'))
+        .join(models.Image.details)
+        .filter(models.Metadata.camera_model != None)
+        .group_by(models.Metadata.camera_model)
+        .order_by(func.count(models.Image.id).desc())
+        .limit(5)
+        .all()
+    )
+    
+    # Location stats (Top 5)
+    locations = (
+        db.query(models.Location.address, func.count(models.Image.id).label('count'))
+        .join(models.Metadata, models.Location.metadata_id == models.Metadata.id)
+        .join(models.Image, models.Metadata.image_id == models.Image.id)
+        .filter(models.Location.address != None)
+        .group_by(models.Location.address)
+        .order_by(func.count(models.Image.id).desc())
+        .limit(5)
+        .all()
+    )
 
-    places_count = db.query(func.count(models.Location.id)).scalar()
+    # Processing status
+    status_counts = db.query(models.Image.status, func.count(models.Image.id)).group_by(models.Image.status).all()
+    status_dict = {s: c for s, c in status_counts}
+
+    # Uploads by Month (Current Year)
+    current_year = datetime.datetime.now().year
+    uploads_by_month = (
+        db.query(
+            extract('month', models.Image.upload_date).label('month'),
+            func.count(models.Image.id).label('count')
+        )
+        .filter(extract('year', models.Image.upload_date) == current_year)
+        .group_by(extract('month', models.Image.upload_date))
+        .all()
+    )
     
-    # Placeholder for favorites count
-    favorites_count = 0 
+    uploads_formatted = [{"month": calendar.month_abbr[int(r.month)], "count": r.count} for r in uploads_by_month]
 
     return {
-        "images": image_count,
-        "albums": album_count_query,
-        "places": places_count,
-        "favorites": favorites_count,
-        # Add other stats as needed, defaulting to 0
-        "media": 0,
-        "people": 0,
-        "calendar": 0,
-        "moments": 0,
-        "labels": 0,
-        "folders": 0,
-        "library": 0
+        "total_images": total_images,
+        "total_size": total_size,
+        "favorites_count": favorites_count,
+        "camera_stats": [{"name": c[0], "value": c[1]} for c in cameras],
+        "location_stats": [{"name": l[0], "value": l[1]} for l in locations],
+        "processing_status": status_dict,
+        "uploads_by_month": uploads_formatted
     }

@@ -6,12 +6,13 @@ import threading
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 from . import crud
 from .database import SessionLocal, engine, Base
 from .services import geocoding, image_processing
 from .config import settings
-from .routers import images, albums, map, stats, suggestions, filters, search
+from .routers import images, albums, map, stats, suggestions, filters, search, batch, duplicates
 
 # Create all database tables on startup
 Base.metadata.create_all(bind=engine)
@@ -103,6 +104,8 @@ app.include_router(stats.router)
 app.include_router(suggestions.router)
 app.include_router(filters.router)
 app.include_router(search.router)
+app.include_router(batch.router)
+app.include_router(duplicates.router)
 
 @app.get("/api/v1/config")
 def get_config():
@@ -111,4 +114,25 @@ def get_config():
 
 # Mount static files directories
 app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
-app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+
+# Serve React Frontend (Production Mode)
+# We expect the frontend to be built into 'frontend/dist'
+FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
+
+if os.path.exists(FRONTEND_DIR):
+    # Mount assets specifically to avoid conflicts
+    app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIR, "assets")), name="assets")
+    
+    # Catch-all route for SPA (React Router)
+    # This must be defined AFTER all API routes
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        # If the path starts with /api or /uploads, let it 404 naturally if not matched above
+        if full_path.startswith(("api/", "uploads/")):
+             from fastapi import HTTPException
+             raise HTTPException(status_code=404, detail="Not Found")
+        
+        # Otherwise, serve index.html
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+else:
+    logger.warning(f"Frontend build directory not found at {FRONTEND_DIR}. Run 'npm run build' in frontend directory.")

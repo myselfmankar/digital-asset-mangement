@@ -100,6 +100,7 @@ class Image(ImageBase):
     medium_url: Optional[str] = None
     large_url: Optional[str] = None
     status: str = "processing"
+    phash: Optional[str] = None
 
     class Config:
         from_attributes = True

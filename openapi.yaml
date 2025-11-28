@@ -3,22 +3,12 @@ info:
   title: FastAPI
   version: 0.1.0
 paths:
-  /:
-    get:
-      summary: Health Check
-      operationId: health_check__get
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
   /api/v1/images:
     post:
+      tags:
+      - images
       summary: Upload Image
-      description: 'Upload and process a new image file.
-
-        Returns 409 if file exists, 400 if invalid file type, 500 for processing errors.'
+      description: Upload and asynchronously process a new image file.
       operationId: upload_image_api_v1_images_post
       requestBody:
         required: true
@@ -27,7 +17,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Body_upload_image_api_v1_images_post'
       responses:
-        '200':
+        '201':
           description: Successful Response
           content:
             application/json:
@@ -40,6 +30,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
     get:
+      tags:
+      - images
       summary: Read Images
       operationId: read_images_api_v1_images_get
       parameters:
@@ -57,6 +49,13 @@ paths:
           type: integer
           default: 20
           title: Limit
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: string
+          default: upload_date
+          title: Sort By
       responses:
         '200':
           description: Successful Response
@@ -73,19 +72,79 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/images/{image_id}/favorite:
+    post:
+      tags:
+      - images
+      summary: Toggle Favorite
+      description: Toggles the 'is_favorite' status of an image.
+      operationId: toggle_favorite_api_v1_images__image_id__favorite_post
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/images/{image_id}:
+    delete:
+      tags:
+      - images
+      summary: Delete Image
+      operationId: delete_image_api_v1_images__image_id__delete
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Image Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/albums/summary:
     get:
+      tags:
+      - albums
       summary: Get Album Summary
+      description: Returns a summary of albums grouped by year and month.
       operationId: get_album_summary_api_v1_albums_summary_get
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
-              schema: {}
+              schema:
+                items:
+                  additionalProperties: true
+                  type: object
+                type: array
+                title: Response Get Album Summary Api V1 Albums Summary Get
   /api/v1/albums/{year}/{month}:
     get:
+      tags:
+      - albums
       summary: Get Album Images
+      description: Returns all images for a specific album (year and month).
       operationId: get_album_images_api_v1_albums__year___month__get
       parameters:
       - name: year
@@ -116,8 +175,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/map/data:
+    get:
+      tags:
+      - map
+      summary: Get Map Data Json
+      description: Returns a JSON list of all geotagged images with the data needed
+        for the map.
+      operationId: get_map_data_json_api_v1_map_data_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
   /api/v1/stats:
     get:
+      tags:
+      - stats
       summary: Get Stats
       operationId: get_stats_api_v1_stats_get
       responses:
@@ -126,19 +201,139 @@ paths:
           content:
             application/json:
               schema: {}
-  /api/v1/map/data:
+  /api/v1/suggestions/albums:
     get:
-      summary: Get Map Data
-      operationId: get_map_data_api_v1_map_data_get
+      tags:
+      - suggestions
+      summary: Get Album Suggestions
+      description: Generate and return a list of AI-powered album suggestions.
+      operationId: get_album_suggestions_api_v1_suggestions_albums_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Album Suggestions Api V1 Suggestions Albums Get
+  /api/v1/filters/cameras:
+    get:
+      tags:
+      - filters
+      summary: Get Camera Filters
+      description: Get a list of all unique camera models for filtering.
+      operationId: get_camera_filters_api_v1_filters_cameras_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Camera Filters Api V1 Filters Cameras Get
+  /api/v1/filters/locations:
+    get:
+      tags:
+      - filters
+      summary: Get Location Filters
+      description: Get a list of all unique locations for filtering.
+      operationId: get_location_filters_api_v1_filters_locations_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Location Filters Api V1 Filters Locations Get
+  /api/v1/filters/dates:
+    get:
+      tags:
+      - filters
+      summary: Get Date Filters
+      description: Get a list of all unique dates (year and month) for filtering.
+      operationId: get_date_filters_api_v1_filters_dates_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Date Filters Api V1 Filters Dates Get
+  /api/v1/search/ai:
+    post:
+      tags:
+      - search
+      summary: Ai Search Endpoint
+      description: Performs a natural language search for images.
+      operationId: ai_search_endpoint_api_v1_search_ai_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Image'
+                type: array
+                title: Response Ai Search Endpoint Api V1 Search Ai Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/config:
+    get:
+      summary: Get Config
+      description: Returns the base API URL to the frontend.
+      operationId: get_config_api_v1_config_get
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema: {}
-
 components:
   schemas:
+    AIQuery:
+      properties:
+        query:
+          type: string
+          title: Query
+      type: object
+      required:
+      - query
+      title: AIQuery
+    AlbumBase:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - name
+      title: AlbumBase
     Body_upload_image_api_v1_images_post:
       properties:
         file:
@@ -185,6 +380,12 @@ components:
           type: array
           title: Tags
           default: []
+        albums:
+          items:
+            $ref: '#/components/schemas/AlbumBase'
+          type: array
+          title: Albums
+          default: []
         is_favorite:
           type: boolean
           title: Is Favorite
@@ -204,6 +405,10 @@ components:
           - type: string
           - type: 'null'
           title: Large Url
+        status:
+          type: string
+          title: Status
+          default: processing
       type: object
       required:
       - filename

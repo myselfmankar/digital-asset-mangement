@@ -4,7 +4,8 @@ import datetime
 import base64
 from io import BytesIO
 from PIL import Image as PILImage
-import pillow_heif
+import imagehash
+
 from pillow_heif import register_heif_opener
 from sqlalchemy.orm import Session
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -14,7 +15,7 @@ from .. import crud, schemas
 from ..config import settings
 from ..database import SessionLocal
 import exifread
-import piexif
+
 
 # Register HEIF opener with Pillow
 register_heif_opener()
@@ -133,6 +134,9 @@ def process_and_save_image_metadata_sync(filepath: str, image_id: int, db: Sessi
         with PILImage.open(filepath) as img:
             resolution = f"{img.width}x{img.height}"
             image_size = os.path.getsize(filepath)
+            
+            # Generate pHash
+            phash = str(imagehash.phash(img))
 
             # 1. Generate Thumbnail (WebP)
             thumb_filename = f"{base_filename}.webp"
@@ -195,7 +199,7 @@ def process_and_save_image_metadata_sync(filepath: str, image_id: int, db: Sessi
                 if f_number_raw:
                     try:
                         f_number = float(f_number_raw.values[0].num) / float(f_number_raw.values[0].den)
-                    except: pass
+                    except Exception: pass
                 
                 exposure_time = str(exif_tags.get('EXIF ExposureTime'))
                 
@@ -203,7 +207,7 @@ def process_and_save_image_metadata_sync(filepath: str, image_id: int, db: Sessi
                 if iso_tag:
                     try:
                         iso = int(str(iso_tag))
-                    except: pass
+                    except Exception: pass
                 
                 focal_length = str(exif_tags.get('EXIF FocalLength'))
                 lens_model = str(exif_tags.get('EXIF LensModel'))
@@ -237,7 +241,8 @@ def process_and_save_image_metadata_sync(filepath: str, image_id: int, db: Sessi
             image_update=image_update_schema,
             metadata=metadata_schema,
             location=location_data,
-            tags=ai_tags
+            tags=ai_tags,
+            phash=phash
         )
         
     except Exception as e:

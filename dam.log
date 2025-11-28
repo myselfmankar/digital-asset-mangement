@@ -1,424 +1,1611 @@
-2025-11-26 22:22:16,618 - api.main - INFO - Application startup...
-2025-11-26 22:22:16,622 - api.main - INFO - Starting background startup tasks...
-2025-11-26 22:22:16,622 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 22:22:16,623 - api.main - INFO - Running startup scan for new images...
-2025-11-26 22:22:16,624 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 22:22:16,702 - api.main - INFO - Image scan finished.
-2025-11-26 22:22:16,703 - api.main - INFO - Starting reverse geocoding scan...
-2025-11-26 22:22:16,703 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
-2025-11-26 22:22:16,713 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
-2025-11-26 22:22:16,715 - api.main - INFO - Reverse geocoding scan finished.
-2025-11-26 22:22:16,717 - api.main - INFO - Background startup tasks completed (or failed).
-2025-11-26 22:22:31,937 - uvicorn.access - INFO - 127.0.0.1:50960 - "GET /docs HTTP/1.1" 200
-2025-11-26 22:22:33,197 - uvicorn.access - INFO - 127.0.0.1:50960 - "GET /openapi.json HTTP/1.1" 200
-2025-11-26 22:23:35,257 - uvicorn.access - INFO - 127.0.0.1:64737 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
-2025-11-26 22:24:08,599 - uvicorn.access - INFO - 127.0.0.1:65131 - "POST /api/v1/images/11/favorite HTTP/1.1" 200
-2025-11-26 22:24:35,685 - uvicorn.access - INFO - 127.0.0.1:51214 - "GET /api/v1/albums/?skip=0&limit=100 HTTP/1.1" 200
-2025-11-26 22:24:48,654 - uvicorn.access - INFO - 127.0.0.1:50121 - "GET /api/v1/map/map HTTP/1.1" 200
-2025-11-26 22:25:03,650 - uvicorn.access - INFO - 127.0.0.1:56608 - "GET /api/v1/map/data HTTP/1.1" 200
-2025-11-26 22:25:40,247 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:40,546 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET /favicon.ico HTTP/1.1" 404
-2025-11-26 22:25:42,798 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:43,720 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:43,877 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:44,100 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:44,757 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:44,958 - uvicorn.access - INFO - 127.0.0.1:49666 - "GET / HTTP/1.1" 404
-2025-11-26 22:25:55,542 - uvicorn.access - INFO - 127.0.0.1:60787 - "GET / HTTP/1.1" 404
-2025-11-26 22:29:17,983 - uvicorn.error - INFO - Shutting down
-2025-11-26 22:29:18,099 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-11-26 22:29:18,102 - api.main - INFO - Application shutdown...
-2025-11-26 22:29:18,103 - uvicorn.error - INFO - Application shutdown complete.
-2025-11-26 22:29:18,105 - uvicorn.error - INFO - Finished server process [10128]
-2025-11-26 22:29:30,149 - api.main - INFO - Application startup...
-2025-11-26 22:29:30,153 - api.main - INFO - Starting background startup tasks...
-2025-11-26 22:29:30,153 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 22:29:30,155 - api.main - INFO - Running startup scan for new images...
-2025-11-26 22:29:30,158 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 22:29:30,395 - api.main - INFO - Image scan finished.
-2025-11-26 22:29:30,398 - api.main - INFO - Starting reverse geocoding scan...
-2025-11-26 22:29:30,400 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
-2025-11-26 22:29:30,412 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
-2025-11-26 22:29:30,414 - api.main - INFO - Reverse geocoding scan finished.
-2025-11-26 22:29:30,421 - api.main - INFO - Background startup tasks completed (or failed).
-2025-11-26 22:30:09,966 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET / HTTP/1.1" 200
-2025-11-26 22:30:10,055 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET /style.css HTTP/1.1" 200
-2025-11-26 22:30:10,070 - uvicorn.access - INFO - 127.0.0.1:61542 - "GET /assets/favicon/favicon-32x32.png HTTP/1.1" 200
-2025-11-26 22:30:10,074 - uvicorn.access - INFO - 127.0.0.1:56350 - "GET /js/app.js HTTP/1.1" 200
-2025-11-26 22:30:10,078 - uvicorn.access - INFO - 127.0.0.1:53379 - "GET /js/api.js HTTP/1.1" 200
-2025-11-26 22:30:10,081 - uvicorn.access - INFO - 127.0.0.1:59989 - "GET /assets/profile_photo.jpg HTTP/1.1" 200
-2025-11-26 22:30:10,591 - uvicorn.access - INFO - 127.0.0.1:53379 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 22:30:10,676 - uvicorn.access - INFO - 127.0.0.1:56350 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 22:30:10,680 - uvicorn.access - INFO - 127.0.0.1:61542 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 22:30:10,694 - uvicorn.access - INFO - 127.0.0.1:59989 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 22:30:10,800 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:30:10,922 - uvicorn.access - INFO - 127.0.0.1:53379 - "GET /uploads/thumbnails/20251117_071819.heic HTTP/1.1" 404
-2025-11-26 22:30:10,927 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET /uploads/thumbnails/20250808_220710.heic HTTP/1.1" 404
-2025-11-26 22:30:10,931 - uvicorn.access - INFO - 127.0.0.1:61542 - "GET /uploads/thumbnails/20251116_203908.heic HTTP/1.1" 404
-2025-11-26 22:30:10,936 - uvicorn.access - INFO - 127.0.0.1:59989 - "GET /uploads/thumbnails/20250808_220710.jpg HTTP/1.1" 404
-2025-11-26 22:30:10,941 - uvicorn.access - INFO - 127.0.0.1:56350 - "GET /uploads/thumbnails/20251116_203908.jpg HTTP/1.1" 404
-2025-11-26 22:30:10,961 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET /uploads/thumbnails/IMG-20251117-WA0007.jpg HTTP/1.1" 404
-2025-11-26 22:30:10,967 - uvicorn.access - INFO - 127.0.0.1:59989 - "GET /uploads/thumbnails/IMG-20251117-WA0008.jpg HTTP/1.1" 404
-2025-11-26 22:30:10,971 - uvicorn.access - INFO - 127.0.0.1:53379 - "GET /uploads/thumbnails/image-1763645059908.jpg HTTP/1.1" 404
-2025-11-26 22:30:10,975 - uvicorn.access - INFO - 127.0.0.1:56350 - "GET /uploads/thumbnails/20251117_071819.jpg HTTP/1.1" 404
-2025-11-26 22:30:10,977 - uvicorn.access - INFO - 127.0.0.1:61542 - "GET /uploads/thumbnails/IMG-20251115-WA0011.jpeg HTTP/1.1" 404
-2025-11-26 22:30:10,986 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET /uploads/thumbnails/IMG-20250216-WA0017.jpg HTTP/1.1" 404
-2025-11-26 22:30:11,046 - uvicorn.access - INFO - 127.0.0.1:57980 - "GET /assets/favicon/favicon.ico HTTP/1.1" 200
-2025-11-26 22:30:11,049 - uvicorn.access - INFO - 127.0.0.1:49200 - "GET /assets/favicon/site.webmanifest HTTP/1.1" 200
-2025-11-26 22:30:13,135 - uvicorn.access - INFO - 127.0.0.1:61797 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 22:30:58,676 - uvicorn.access - INFO - 127.0.0.1:65062 - "GET /uploads/20251116_203908.heic HTTP/1.1" 200
-2025-11-26 22:31:06,976 - uvicorn.access - INFO - 127.0.0.1:60256 - "GET /uploads/20251116_203908.heic HTTP/1.1" 206
-2025-11-26 22:31:08,522 - uvicorn.access - INFO - 127.0.0.1:61897 - "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404
-2025-11-26 22:32:15,420 - uvicorn.access - INFO - 127.0.0.1:62671 - "GET /uploads/thumbnails/20250808_220710.heic HTTP/1.1" 404
-2025-11-26 22:32:42,304 - uvicorn.access - INFO - 127.0.0.1:58246 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
-2025-11-26 22:32:47,679 - uvicorn.access - INFO - 127.0.0.1:62214 - "GET /uploads/20250808_220710.jpg HTTP/1.1" 200
-2025-11-26 22:34:35,795 - uvicorn.access - INFO - 127.0.0.1:62962 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:34:43,725 - uvicorn.access - INFO - 127.0.0.1:54355 - "GET /docs HTTP/1.1" 200
-2025-11-26 22:34:48,958 - uvicorn.access - INFO - 127.0.0.1:55793 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 22:34:48,995 - uvicorn.access - INFO - 127.0.0.1:64714 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 22:34:48,998 - uvicorn.access - INFO - 127.0.0.1:63451 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 22:34:49,007 - uvicorn.access - INFO - 127.0.0.1:55745 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 22:34:49,049 - uvicorn.access - INFO - 127.0.0.1:65119 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:34:49,088 - uvicorn.access - INFO - 127.0.0.1:63451 - "GET /uploads/thumbnails/20251116_203908.heic HTTP/1.1" 404
-2025-11-26 22:34:49,090 - uvicorn.access - INFO - 127.0.0.1:64714 - "GET /uploads/thumbnails/20251116_203908.jpg HTTP/1.1" 404
-2025-11-26 22:34:49,094 - uvicorn.access - INFO - 127.0.0.1:65119 - "GET /uploads/thumbnails/20250808_220710.heic HTTP/1.1" 404
-2025-11-26 22:34:49,098 - uvicorn.access - INFO - 127.0.0.1:55745 - "GET /uploads/thumbnails/20250808_220710.jpg HTTP/1.1" 404
-2025-11-26 22:34:49,100 - uvicorn.access - INFO - 127.0.0.1:55793 - "GET /uploads/thumbnails/20251117_071819.heic HTTP/1.1" 404
-2025-11-26 22:34:49,114 - uvicorn.access - INFO - 127.0.0.1:64714 - "GET /uploads/thumbnails/IMG-20250216-WA0017.jpg HTTP/1.1" 404
-2025-11-26 22:34:49,120 - uvicorn.access - INFO - 127.0.0.1:65119 - "GET /uploads/thumbnails/IMG-20251115-WA0011.jpeg HTTP/1.1" 404
-2025-11-26 22:34:49,123 - uvicorn.access - INFO - 127.0.0.1:63451 - "GET /uploads/thumbnails/20251117_071819.jpg HTTP/1.1" 404
-2025-11-26 22:34:49,126 - uvicorn.access - INFO - 127.0.0.1:55793 - "GET /uploads/thumbnails/IMG-20251117-WA0008.jpg HTTP/1.1" 404
-2025-11-26 22:34:49,130 - uvicorn.access - INFO - 127.0.0.1:55745 - "GET /uploads/thumbnails/image-1763645059908.jpg HTTP/1.1" 404
-2025-11-26 22:34:49,139 - uvicorn.access - INFO - 127.0.0.1:64714 - "GET /uploads/thumbnails/IMG-20251117-WA0007.jpg HTTP/1.1" 404
-2025-11-26 22:34:51,359 - uvicorn.access - INFO - 127.0.0.1:56720 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 22:34:58,180 - uvicorn.access - INFO - 127.0.0.1:56720 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:35:11,581 - uvicorn.access - INFO - 127.0.0.1:63419 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:35:11,609 - uvicorn.access - INFO - 127.0.0.1:63419 - "GET /uploads/thumbnails/IMG-20251117-WA0008.jpg HTTP/1.1" 404
-2025-11-26 22:35:11,613 - uvicorn.access - INFO - 127.0.0.1:57399 - "GET /uploads/thumbnails/IMG-20251117-WA0007.jpg HTTP/1.1" 404
-2025-11-26 22:35:26,761 - uvicorn.access - INFO - 127.0.0.1:64815 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:35:26,791 - uvicorn.access - INFO - 127.0.0.1:64815 - "GET /uploads/thumbnails/20251116_203908.heic HTTP/1.1" 404
-2025-11-26 22:35:26,794 - uvicorn.access - INFO - 127.0.0.1:65285 - "GET /uploads/thumbnails/20251116_203908.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,186 - uvicorn.access - INFO - 127.0.0.1:56605 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 22:36:17,228 - uvicorn.access - INFO - 127.0.0.1:56130 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:36:17,484 - uvicorn.access - INFO - 127.0.0.1:56605 - "GET /uploads/thumbnails/20250808_220710.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,487 - uvicorn.access - INFO - 127.0.0.1:56130 - "GET /uploads/thumbnails/20250808_220710.heic HTTP/1.1" 404
-2025-11-26 22:36:17,495 - uvicorn.access - INFO - 127.0.0.1:57478 - "GET /uploads/thumbnails/20251116_203908.heic HTTP/1.1" 404
-2025-11-26 22:36:17,499 - uvicorn.access - INFO - 127.0.0.1:55681 - "GET /uploads/thumbnails/20251117_071819.heic HTTP/1.1" 404
-2025-11-26 22:36:17,501 - uvicorn.access - INFO - 127.0.0.1:55797 - "GET /uploads/thumbnails/20251116_203908.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,516 - uvicorn.access - INFO - 127.0.0.1:55681 - "GET /uploads/thumbnails/IMG-20251117-WA0007.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,520 - uvicorn.access - INFO - 127.0.0.1:55797 - "GET /uploads/thumbnails/IMG-20251117-WA0008.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,525 - uvicorn.access - INFO - 127.0.0.1:56130 - "GET /uploads/thumbnails/IMG-20250216-WA0017.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,526 - uvicorn.access - INFO - 127.0.0.1:57478 - "GET /uploads/thumbnails/IMG-20251115-WA0011.jpeg HTTP/1.1" 404
-2025-11-26 22:36:17,530 - uvicorn.access - INFO - 127.0.0.1:56605 - "GET /uploads/thumbnails/20251117_071819.jpg HTTP/1.1" 404
-2025-11-26 22:36:17,537 - uvicorn.access - INFO - 127.0.0.1:55681 - "GET /uploads/thumbnails/image-1763645059908.jpg HTTP/1.1" 404
-2025-11-26 22:36:18,811 - uvicorn.access - INFO - 127.0.0.1:63102 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 22:36:19,213 - uvicorn.access - INFO - 127.0.0.1:63102 - "GET /api/v1/images?skip=0&limit=50&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:36:19,412 - uvicorn.access - INFO - 127.0.0.1:63102 - "GET /uploads/thumbnails/20250808_220710.heic HTTP/1.1" 404
-2025-11-26 22:36:19,414 - uvicorn.access - INFO - 127.0.0.1:56605 - "GET /uploads/thumbnails/20251116_203908.heic HTTP/1.1" 404
-2025-11-26 22:36:19,418 - uvicorn.access - INFO - 127.0.0.1:55681 - "GET /uploads/thumbnails/20250808_220710.jpg HTTP/1.1" 404
-2025-11-26 22:36:19,420 - uvicorn.access - INFO - 127.0.0.1:55797 - "GET /uploads/thumbnails/20251117_071819.jpg HTTP/1.1" 404
-2025-11-26 22:36:19,426 - uvicorn.access - INFO - 127.0.0.1:57478 - "GET /uploads/thumbnails/20251116_203908.jpg HTTP/1.1" 404
-2025-11-26 22:36:19,431 - uvicorn.access - INFO - 127.0.0.1:56130 - "GET /uploads/thumbnails/20251117_071819.heic HTTP/1.1" 404
-2025-11-26 22:36:19,449 - uvicorn.access - INFO - 127.0.0.1:55797 - "GET /uploads/thumbnails/IMG-20251115-WA0011.jpeg HTTP/1.1" 404
-2025-11-26 22:36:19,451 - uvicorn.access - INFO - 127.0.0.1:63102 - "GET /uploads/thumbnails/image-1763645059908.jpg HTTP/1.1" 404
-2025-11-26 22:36:19,453 - uvicorn.access - INFO - 127.0.0.1:55681 - "GET /uploads/thumbnails/IMG-20250216-WA0017.jpg HTTP/1.1" 404
-2025-11-26 22:36:19,458 - uvicorn.access - INFO - 127.0.0.1:56605 - "GET /uploads/thumbnails/IMG-20251117-WA0007.jpg HTTP/1.1" 404
-2025-11-26 22:36:19,460 - uvicorn.access - INFO - 127.0.0.1:57478 - "GET /uploads/thumbnails/IMG-20251117-WA0008.jpg HTTP/1.1" 404
-2025-11-26 22:36:21,662 - uvicorn.access - INFO - 127.0.0.1:57478 - "GET /api/v1/albums/summary HTTP/1.1" 422
-2025-11-26 22:36:33,141 - uvicorn.access - INFO - 127.0.0.1:54722 - "GET /api/v1/map/data HTTP/1.1" 200
-2025-11-26 22:36:33,413 - uvicorn.access - INFO - 127.0.0.1:54722 - "GET /uploads/thumbnails/20251116_203908.heic HTTP/1.1" 404
-2025-11-26 22:36:33,418 - uvicorn.access - INFO - 127.0.0.1:63725 - "GET /uploads/thumbnails/20251116_203908.jpg HTTP/1.1" 404
-2025-11-26 22:36:33,423 - uvicorn.access - INFO - 127.0.0.1:59991 - "GET /uploads/thumbnails/20251117_071819.heic HTTP/1.1" 404
-2025-11-26 22:36:33,426 - uvicorn.access - INFO - 127.0.0.1:52964 - "GET /uploads/thumbnails/20251117_071819.jpg HTTP/1.1" 404
-2025-11-26 22:36:56,060 - uvicorn.error - INFO - Shutting down
-2025-11-26 22:36:56,170 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-11-26 22:36:56,172 - api.main - INFO - Application shutdown...
-2025-11-26 22:36:56,173 - uvicorn.error - INFO - Application shutdown complete.
-2025-11-26 22:36:56,175 - uvicorn.error - INFO - Finished server process [3756]
-2025-11-26 22:37:07,293 - api.main - INFO - Application startup...
-2025-11-26 22:37:07,296 - api.main - INFO - Starting background startup tasks...
-2025-11-26 22:37:07,296 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 22:37:07,298 - api.main - INFO - Running startup scan for new images...
-2025-11-26 22:37:07,299 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 22:37:07,443 - api.main - INFO - Image scan finished.
-2025-11-26 22:37:07,446 - api.main - INFO - Starting reverse geocoding scan...
-2025-11-26 22:37:07,448 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
-2025-11-26 22:37:07,458 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
-2025-11-26 22:37:07,461 - api.main - INFO - Reverse geocoding scan finished.
-2025-11-26 22:37:07,464 - api.main - INFO - Background startup tasks completed (or failed).
-2025-11-26 22:37:11,603 - uvicorn.error - INFO - Shutting down
-2025-11-26 22:37:11,712 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-11-26 22:37:11,715 - api.main - INFO - Application shutdown...
-2025-11-26 22:37:11,717 - uvicorn.error - INFO - Application shutdown complete.
-2025-11-26 22:37:11,718 - uvicorn.error - INFO - Finished server process [25264]
-2025-11-26 22:43:22,413 - api.main - INFO - Application startup...
-2025-11-26 22:43:22,414 - api.main - INFO - Starting background startup tasks...
-2025-11-26 22:43:22,414 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 22:43:22,416 - api.main - INFO - Running startup scan for new images...
-2025-11-26 22:43:22,417 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 22:43:22,469 - api.main - INFO - Image scan finished.
-2025-11-26 22:43:22,564 - api.main - INFO - Starting reverse geocoding scan...
-2025-11-26 22:43:22,568 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
-2025-11-26 22:43:22,582 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
-2025-11-26 22:43:22,585 - api.main - INFO - Reverse geocoding scan finished.
-2025-11-26 22:43:22,587 - api.main - INFO - Background startup tasks completed (or failed).
-2025-11-26 22:43:45,086 - uvicorn.access - INFO - 127.0.0.1:64243 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 22:43:45,164 - uvicorn.access - INFO - 127.0.0.1:50563 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 22:43:45,170 - uvicorn.access - INFO - 127.0.0.1:52241 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 22:43:45,173 - uvicorn.access - INFO - 127.0.0.1:52174 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 22:43:45,277 - uvicorn.access - INFO - 127.0.0.1:63063 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:43:45,592 - uvicorn.access - INFO - 127.0.0.1:63063 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
-2025-11-26 22:43:45,596 - uvicorn.access - INFO - 127.0.0.1:52241 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
-2025-11-26 22:43:45,599 - uvicorn.access - INFO - 127.0.0.1:64243 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
-2025-11-26 22:43:45,603 - uvicorn.access - INFO - 127.0.0.1:52174 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
-2025-11-26 22:43:45,606 - uvicorn.access - INFO - 127.0.0.1:50563 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
-2025-11-26 22:43:45,635 - uvicorn.access - INFO - 127.0.0.1:52174 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
-2025-11-26 22:43:45,639 - uvicorn.access - INFO - 127.0.0.1:64243 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
-2025-11-26 22:43:48,144 - uvicorn.access - INFO - 127.0.0.1:63033 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 22:43:59,645 - uvicorn.access - INFO - 127.0.0.1:64762 - "GET /uploads/20250808_220710.heic HTTP/1.1" 200
-2025-11-26 22:44:05,344 - uvicorn.access - INFO - 127.0.0.1:58381 - "GET /uploads/20251116_203908.heic HTTP/1.1" 206
-2025-11-26 22:44:08,288 - uvicorn.access - INFO - 127.0.0.1:58381 - "GET /uploads/20251116_203908.jpg HTTP/1.1" 200
-2025-11-26 22:44:11,525 - uvicorn.access - INFO - 127.0.0.1:58381 - "GET /uploads/20251117_071819.heic HTTP/1.1" 200
-2025-11-26 22:44:14,384 - uvicorn.access - INFO - 127.0.0.1:64948 - "GET /uploads/20251117_071819.jpg HTTP/1.1" 200
-2025-11-26 22:44:21,947 - uvicorn.access - INFO - 127.0.0.1:64035 - "GET /uploads/IMG-20250216-WA0017.jpg HTTP/1.1" 200
-2025-11-26 22:44:37,154 - uvicorn.access - INFO - 127.0.0.1:63952 - "GET /uploads/IMG-20251115-WA0011.jpeg HTTP/1.1" 200
-2025-11-26 22:44:42,564 - uvicorn.access - INFO - 127.0.0.1:52061 - "GET /uploads/IMG-20251117-WA0007.jpg HTTP/1.1" 200
-2025-11-26 22:44:45,413 - uvicorn.access - INFO - 127.0.0.1:52061 - "GET /uploads/IMG-20251117-WA0008.jpg HTTP/1.1" 200
-2025-11-26 22:44:48,227 - uvicorn.access - INFO - 127.0.0.1:52061 - "GET /uploads/image-1763645059908.jpg HTTP/1.1" 200
-2025-11-26 22:49:37,406 - uvicorn.access - INFO - 127.0.0.1:58629 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:49:49,161 - uvicorn.access - INFO - 127.0.0.1:54826 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:50:00,238 - uvicorn.access - INFO - 127.0.0.1:51612 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:50:11,752 - uvicorn.access - INFO - 127.0.0.1:54235 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:50:16,781 - uvicorn.access - INFO - 127.0.0.1:62243 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 22:50:16,836 - uvicorn.access - INFO - 127.0.0.1:54235 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:50:19,776 - uvicorn.access - INFO - 127.0.0.1:52405 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 22:50:48,763 - uvicorn.access - INFO - 127.0.0.1:64936 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:50:53,798 - uvicorn.access - INFO - 127.0.0.1:64232 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 22:50:53,860 - uvicorn.access - INFO - 127.0.0.1:64936 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 22:50:55,442 - uvicorn.access - INFO - 127.0.0.1:54350 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 22:51:42,926 - uvicorn.access - INFO - 127.0.0.1:58005 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:51:57,171 - uvicorn.access - INFO - 127.0.0.1:62091 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 22:53:11,831 - uvicorn.error - INFO - Shutting down
-2025-11-26 22:53:12,027 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-11-26 22:53:12,033 - api.main - INFO - Application shutdown...
-2025-11-26 22:53:12,036 - uvicorn.error - INFO - Application shutdown complete.
-2025-11-26 22:53:12,039 - uvicorn.error - INFO - Finished server process [16900]
-2025-11-26 22:53:28,381 - api.main - INFO - Application startup...
-2025-11-26 22:53:28,383 - api.main - INFO - Starting background startup tasks...
-2025-11-26 22:53:28,383 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 22:53:28,384 - api.main - INFO - Running startup scan for new images...
-2025-11-26 22:53:28,386 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 22:53:28,451 - uvicorn.error - ERROR - Traceback (most recent call last):
-  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\_compat.py", line 60, in asyncio_run
-    return loop.run_until_complete(main)
-  File "C:\Users\vaishnav\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 636, in run_until_complete
-    self.run_forever()
-  File "C:\Users\vaishnav\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 603, in run_forever
-    self._run_once()
-  File "C:\Users\vaishnav\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1906, in _run_once
-    handle._run()
-  File "C:\Users\vaishnav\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\server.py", line 70, in serve
-    with self.capture_signals():
-  File "C:\Users\vaishnav\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 142, in __exit__
-    next(self.gen)
-  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\server.py", line 331, in capture_signals
-    signal.raise_signal(captured_signal)
-KeyboardInterrupt
+2025-11-28 22:18:16,583 - api.main - INFO - Application startup...
+2025-11-28 22:18:16,607 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:18:16,608 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:18:16,613 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:18:16,615 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:18:16,702 - api.main - INFO - Found new image: 20250808_220710.heic. Creating placeholder and processing...
+2025-11-28 22:18:16,744 - api.services.image_processing - INFO - Starting metadata processing for image ID 1: uploads\20250808_220710.heic
+2025-11-28 22:18:16,750 - api.services.image_processing - INFO - Generating tags for uploads\20250808_220710.heic using Gemini model.
+2025-11-28 22:18:47,748 - api.services.image_processing - ERROR - Error processing image uploads\20250808_220710.heic: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:18:47,772 - api.services.image_processing - INFO - Finished metadata processing for image ID 1: uploads\20250808_220710.heic
+2025-11-28 22:18:48,026 - api.main - INFO - Found new image: 20251116_203908.heic. Creating placeholder and processing...
+2025-11-28 22:18:48,066 - api.services.image_processing - INFO - Starting metadata processing for image ID 2: uploads\20251116_203908.heic
+2025-11-28 22:18:48,238 - api.services.image_processing - INFO - Generating tags for uploads\20251116_203908.heic using Gemini model.
+2025-11-28 22:19:08,869 - api.services.image_processing - ERROR - Error processing image uploads\20251116_203908.heic: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:19:08,888 - api.services.image_processing - INFO - Finished metadata processing for image ID 2: uploads\20251116_203908.heic
+2025-11-28 22:19:08,919 - api.main - INFO - Found new image: 20251117_071819.heic. Creating placeholder and processing...
+2025-11-28 22:19:08,934 - api.services.image_processing - INFO - Starting metadata processing for image ID 3: uploads\20251117_071819.heic
+2025-11-28 22:19:08,936 - api.services.image_processing - INFO - Generating tags for uploads\20251117_071819.heic using Gemini model.
+2025-11-28 22:19:16,708 - api.services.image_processing - ERROR - Error processing image uploads\20251117_071819.heic: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:19:16,728 - api.services.image_processing - INFO - Finished metadata processing for image ID 3: uploads\20251117_071819.heic
+2025-11-28 22:19:16,741 - api.main - INFO - Found new image: image-1763645059908.jpg. Creating placeholder and processing...
+2025-11-28 22:19:16,761 - api.services.image_processing - INFO - Starting metadata processing for image ID 4: uploads\image-1763645059908.jpg
+2025-11-28 22:19:16,869 - api.services.image_processing - INFO - Generating tags for uploads\image-1763645059908.jpg using Gemini model.
+2025-11-28 22:19:24,575 - api.services.image_processing - ERROR - Error processing image uploads\image-1763645059908.jpg: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:19:24,591 - api.services.image_processing - INFO - Finished metadata processing for image ID 4: uploads\image-1763645059908.jpg
+2025-11-28 22:19:24,608 - api.main - INFO - Found new image: IMG-20250216-WA0017.jpg. Creating placeholder and processing...
+2025-11-28 22:19:24,626 - api.services.image_processing - INFO - Starting metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
+2025-11-28 22:19:24,632 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20250216-WA0017.jpg using Gemini model.
+2025-11-28 22:19:28,158 - api.services.image_processing - ERROR - Error processing image uploads\IMG-20250216-WA0017.jpg: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:19:28,178 - api.services.image_processing - INFO - Finished metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
+2025-11-28 22:19:28,192 - api.main - INFO - Found new image: IMG-20251115-WA0011.jpeg. Creating placeholder and processing...
+2025-11-28 22:19:28,378 - api.services.image_processing - INFO - Starting metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
+2025-11-28 22:19:28,382 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251115-WA0011.jpeg using Gemini model.
+2025-11-28 22:19:33,178 - api.services.image_processing - ERROR - Error processing image uploads\IMG-20251115-WA0011.jpeg: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:19:33,192 - api.services.image_processing - INFO - Finished metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
+2025-11-28 22:19:33,205 - api.main - INFO - Found new image: IMG-20251117-WA0007.jpg. Creating placeholder and processing...
+2025-11-28 22:19:33,222 - api.services.image_processing - INFO - Starting metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
+2025-11-28 22:19:33,224 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0007.jpg using Gemini model.
+2025-11-28 22:19:35,061 - api.services.image_processing - ERROR - Error processing image uploads\IMG-20251117-WA0007.jpg: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?     
+2025-11-28 22:19:35,075 - api.services.image_processing - INFO - Finished metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
+2025-11-28 22:19:35,090 - api.main - INFO - Found new image: IMG-20251117-WA0008.jpg. Creating placeholder and processing...
+2025-11-28 22:19:35,115 - api.services.image_processing - INFO - Starting metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
+2025-11-28 22:19:35,118 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0008.jpg using Gemini model.
+2025-11-28 22:19:37,627 - api.services.image_processing - ERROR - Error processing image uploads\IMG-20251117-WA0008.jpg: module 'api.crud' has no attribute 'update_image_with_metadata'
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?
+2025-11-28 22:19:37,848 - api.services.image_processing - INFO - Finished metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
+2025-11-28 22:19:37,975 - api.main - INFO - Found new image: kitten.png. Creating placeholder and processing...
+2025-11-28 22:19:38,018 - api.services.image_processing - INFO - Starting metadata processing for image ID 9: uploads\kitten.png
+2025-11-28 22:19:38,158 - api.services.image_processing - INFO - Generating tags for uploads\kitten.png using Gemini model.
+2025-11-28 22:19:40,491 - exifread - WARNING - PNG file does not have exif data.
+2025-11-28 22:19:40,499 - api.services.image_processing - ERROR - Error processing image uploads\kitten.png: module 'api.crud' has no attribute 'update_image_with_metadata'
+Traceback (most recent call last):
+  File "D:\niche_images\dam\api\services\image_processing.py", line 238, in process_and_save_image_metadata_sync
+    crud.update_image_with_metadata(
+AttributeError: module 'api.crud' has no attribute 'update_image_with_metadata'. Did you mean: 'create_image_with_metadata'?
+2025-11-28 22:19:40,715 - api.services.image_processing - INFO - Finished metadata processing for image ID 9: uploads\kitten.png
+2025-11-28 22:19:40,770 - api.main - INFO - Image scan finished.
+2025-11-28 22:19:40,879 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:19:40,890 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:19:41,218 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 22:19:41,221 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:19:41,227 - api.main - INFO - All background startup tasks finished successfully.
 
-During handling of the above exception, another exception occurred:
+
+2025-11-28 22:33:11,193 - uvicorn.error - INFO - Shutting down
+2025-11-28 22:33:11,303 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 22:33:11,305 - api.main - INFO - Application shutdown...
+2025-11-28 22:33:11,308 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 22:33:11,310 - uvicorn.error - INFO - Finished server process [20680]
+2025-11-28 22:33:19,392 - api.main - INFO - Application startup...
+2025-11-28 22:33:19,397 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:33:19,398 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:33:19,400 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:33:19,402 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:33:19,465 - api.main - INFO - Image 20250808_220710.heic found with status 'failed'. Reprocessing...
+2025-11-28 22:33:19,486 - api.services.image_processing - INFO - Starting metadata processing for image ID 1: uploads\20250808_220710.heic
+2025-11-28 22:33:19,488 - api.services.image_processing - INFO - Generating tags for uploads\20250808_220710.heic using Gemini model.
+2025-11-28 22:33:32,749 - api.services.image_processing - INFO - Finished metadata processing for image ID 1: uploads\20250808_220710.heic
+2025-11-28 22:33:32,801 - api.main - INFO - Image 20251116_203908.heic found with status 'failed'. Reprocessing...
+2025-11-28 22:33:32,835 - api.services.image_processing - INFO - Starting metadata processing for image ID 2: uploads\20251116_203908.heic
+2025-11-28 22:33:32,839 - api.services.image_processing - INFO - Generating tags for uploads\20251116_203908.heic using Gemini model.
+2025-11-28 22:33:43,228 - api.services.image_processing - INFO - Finished metadata processing for image ID 2: uploads\20251116_203908.heic
+2025-11-28 22:33:43,258 - api.main - INFO - Image 20251117_071819.heic found with status 'failed'. Reprocessing...
+2025-11-28 22:33:43,283 - api.services.image_processing - INFO - Starting metadata processing for image ID 3: uploads\20251117_071819.heic
+2025-11-28 22:33:43,294 - api.services.image_processing - INFO - Generating tags for uploads\20251117_071819.heic using Gemini model.
+2025-11-28 22:33:53,470 - api.services.image_processing - INFO - Finished metadata processing for image ID 3: uploads\20251117_071819.heic
+2025-11-28 22:33:53,797 - api.main - INFO - Image image-1763645059908.jpg found with status 'failed'. Reprocessing...
+2025-11-28 22:33:53,831 - api.services.image_processing - INFO - Starting metadata processing for image ID 4: uploads\image-1763645059908.jpg
+2025-11-28 22:33:53,845 - api.services.image_processing - INFO - Generating tags for uploads\image-1763645059908.jpg using Gemini model.
+2025-11-28 22:34:00,844 - api.services.image_processing - INFO - Finished metadata processing for image ID 4: uploads\image-1763645059908.jpg
+2025-11-28 22:34:01,251 - api.main - INFO - Image IMG-20250216-WA0017.jpg found with status 'failed'. Reprocessing...
+2025-11-28 22:34:01,391 - api.services.image_processing - INFO - Starting metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
+2025-11-28 22:34:01,410 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20250216-WA0017.jpg using Gemini model.
+2025-11-28 22:34:16,232 - api.services.image_processing - INFO - Finished metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
+2025-11-28 22:34:16,251 - api.main - INFO - Image IMG-20251115-WA0011.jpeg found with status 'failed'. Reprocessing...
+2025-11-28 22:34:16,279 - api.services.image_processing - INFO - Starting metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
+2025-11-28 22:34:16,283 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251115-WA0011.jpeg using Gemini model.
+2025-11-28 22:34:26,022 - api.services.image_processing - INFO - Finished metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
+2025-11-28 22:34:26,528 - api.main - INFO - Image IMG-20251117-WA0007.jpg found with status 'failed'. Reprocessing...
+2025-11-28 22:34:28,188 - api.services.image_processing - INFO - Starting metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
+2025-11-28 22:34:28,213 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0007.jpg using Gemini model.
+2025-11-28 22:34:33,587 - api.services.image_processing - INFO - Finished metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
+2025-11-28 22:34:33,594 - api.main - INFO - Image IMG-20251117-WA0008.jpg found with status 'failed'. Reprocessing...
+2025-11-28 22:34:33,673 - api.services.image_processing - INFO - Starting metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
+2025-11-28 22:34:33,676 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0008.jpg using Gemini model.
+2025-11-28 22:34:39,002 - api.services.image_processing - INFO - Finished metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
+2025-11-28 22:34:39,128 - api.main - INFO - Image kitten.png found with status 'failed'. Reprocessing...
+2025-11-28 22:34:39,508 - api.services.image_processing - INFO - Starting metadata processing for image ID 9: uploads\kitten.png
+2025-11-28 22:34:39,515 - api.services.image_processing - INFO - Generating tags for uploads\kitten.png using Gemini model.
+2025-11-28 22:34:42,140 - exifread - WARNING - PNG file does not have exif data.
+2025-11-28 22:34:43,263 - api.services.image_processing - INFO - Finished metadata processing for image ID 9: uploads\kitten.png
+2025-11-28 22:34:43,271 - api.main - INFO - Image scan finished.
+2025-11-28 22:34:43,281 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:34:43,348 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:34:43,515 - api.services.geocoding - INFO - Found 2 locations to geocode.
+2025-11-28 22:34:47,042 - api.services.geocoding - INFO -  -> Success: Kumar Pacific Mall, Jagannath Shankarsheth Marg, Mukund Nagar, Pune City, Pune, Maharashtra, 411002, India
+2025-11-28 22:34:48,663 - api.services.geocoding - INFO -  -> Success: Pune Nashik Road, Kasarwadi, Haveli, Pune, Maharashtra, 411034, India
+2025-11-28 22:34:49,726 - api.services.geocoding - INFO - Reverse geocoding scan finished.
+2025-11-28 22:34:49,896 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:34:50,008 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 22:45:56,070 - uvicorn.error - INFO - Shutting down
+2025-11-28 22:45:56,177 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 22:45:56,179 - api.main - INFO - Application shutdown...
+2025-11-28 22:45:56,180 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 22:45:56,182 - uvicorn.error - INFO - Finished server process [16688]
+2025-11-28 22:46:45,978 - api.main - INFO - Application startup...
+2025-11-28 22:46:45,982 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:46:45,983 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:46:45,984 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:46:45,985 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:46:46,055 - api.main - INFO - Image scan finished.
+2025-11-28 22:46:46,056 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:46:46,057 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:46:46,064 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 22:46:46,065 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:46:46,066 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 22:46:50,236 - uvicorn.error - INFO - Shutting down
+2025-11-28 22:46:50,345 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 22:46:50,347 - api.main - INFO - Application shutdown...
+2025-11-28 22:46:50,349 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 22:46:50,350 - uvicorn.error - INFO - Finished server process [4132]
+2025-11-28 22:47:25,687 - api.main - INFO - Application startup...
+2025-11-28 22:47:25,689 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:47:25,689 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:47:25,690 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:47:25,691 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:47:25,771 - api.main - INFO - Image scan finished.
+2025-11-28 22:47:25,772 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:47:25,774 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:47:25,780 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 22:47:25,781 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:47:25,782 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 22:47:40,993 - uvicorn.error - INFO - Shutting down
+2025-11-28 22:47:41,100 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 22:47:41,102 - api.main - INFO - Application shutdown...
+2025-11-28 22:47:41,104 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 22:47:41,105 - uvicorn.error - INFO - Finished server process [12104]
+2025-11-28 22:48:36,799 - api.main - INFO - Application startup...
+2025-11-28 22:48:36,800 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:48:36,801 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:48:36,801 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:48:36,803 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:48:36,856 - api.main - INFO - Found new image: 20250808_220710.heic. Creating placeholder and processing...
+2025-11-28 22:48:36,877 - api.services.image_processing - INFO - Starting metadata processing for image ID 1: uploads\20250808_220710.heic
+2025-11-28 22:48:36,879 - api.services.image_processing - INFO - Generating tags for uploads\20250808_220710.heic using Gemini model.
+2025-11-28 22:48:45,747 - api.services.image_processing - INFO - Creating thumbnail for 20250808_220710.heic
+2025-11-28 22:48:46,055 - api.services.image_processing - INFO - Creating preview for HEIC image 20250808_220710.heic
+2025-11-28 22:48:47,162 - api.services.image_processing - INFO - Finished metadata processing for image ID 1: uploads\20250808_220710.heic
+2025-11-28 22:48:47,167 - api.main - INFO - Found new image: 20251116_203908.heic. Creating placeholder and processing...
+2025-11-28 22:48:47,182 - api.services.image_processing - INFO - Starting metadata processing for image ID 2: uploads\20251116_203908.heic
+2025-11-28 22:48:47,183 - api.services.image_processing - INFO - Generating tags for uploads\20251116_203908.heic using Gemini model.
+2025-11-28 22:48:53,354 - api.services.image_processing - INFO - Creating thumbnail for 20251116_203908.heic
+2025-11-28 22:48:53,568 - api.services.image_processing - INFO - Creating preview for HEIC image 20251116_203908.heic
+2025-11-28 22:48:54,773 - api.services.image_processing - INFO - Finished metadata processing for image ID 2: uploads\20251116_203908.heic
+2025-11-28 22:48:54,780 - api.main - INFO - Found new image: 20251117_071819.heic. Creating placeholder and processing...
+2025-11-28 22:48:54,800 - api.services.image_processing - INFO - Starting metadata processing for image ID 3: uploads\20251117_071819.heic
+2025-11-28 22:48:54,807 - api.services.image_processing - INFO - Generating tags for uploads\20251117_071819.heic using Gemini model.
+2025-11-28 22:48:58,004 - api.services.image_processing - INFO - Creating thumbnail for 20251117_071819.heic
+2025-11-28 22:48:58,080 - api.services.image_processing - INFO - Creating preview for HEIC image 20251117_071819.heic
+2025-11-28 22:48:58,822 - api.services.image_processing - INFO - Finished metadata processing for image ID 3: uploads\20251117_071819.heic
+2025-11-28 22:48:58,828 - api.main - INFO - Found new image: image-1763645059908.jpg. Creating placeholder and processing...
+2025-11-28 22:48:58,840 - api.services.image_processing - INFO - Starting metadata processing for image ID 4: uploads\image-1763645059908.jpg
+2025-11-28 22:48:58,841 - api.services.image_processing - INFO - Generating tags for uploads\image-1763645059908.jpg using Gemini model.
+2025-11-28 22:49:04,001 - api.services.image_processing - INFO - Creating thumbnail for image-1763645059908.jpg
+2025-11-28 22:49:04,338 - api.services.image_processing - INFO - Finished metadata processing for image ID 4: uploads\image-1763645059908.jpg
+2025-11-28 22:49:04,348 - api.main - INFO - Found new image: IMG-20250216-WA0017.jpg. Creating placeholder and processing...
+2025-11-28 22:49:04,361 - api.services.image_processing - INFO - Starting metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
+2025-11-28 22:49:04,365 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20250216-WA0017.jpg using Gemini model.
+2025-11-28 22:49:07,327 - api.services.image_processing - INFO - Creating thumbnail for IMG-20250216-WA0017.jpg
+2025-11-28 22:49:07,557 - api.services.image_processing - INFO - Finished metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
+2025-11-28 22:49:07,567 - api.main - INFO - Found new image: IMG-20251115-WA0011.jpeg. Creating placeholder and processing...
+2025-11-28 22:49:07,581 - api.services.image_processing - INFO - Starting metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
+2025-11-28 22:49:07,583 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251115-WA0011.jpeg using Gemini model.
+2025-11-28 22:49:14,895 - api.services.image_processing - INFO - Creating thumbnail for IMG-20251115-WA0011.jpeg
+2025-11-28 22:49:15,148 - api.services.image_processing - INFO - Finished metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
+2025-11-28 22:49:15,156 - api.main - INFO - Found new image: IMG-20251117-WA0007.jpg. Creating placeholder and processing...
+2025-11-28 22:49:15,172 - api.services.image_processing - INFO - Starting metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
+2025-11-28 22:49:15,174 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0007.jpg using Gemini model.
+2025-11-28 22:49:17,044 - api.services.image_processing - INFO - Creating thumbnail for IMG-20251117-WA0007.jpg
+2025-11-28 22:49:17,240 - api.services.image_processing - INFO - Finished metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
+2025-11-28 22:49:17,246 - api.main - INFO - Found new image: IMG-20251117-WA0008.jpg. Creating placeholder and processing...
+2025-11-28 22:49:17,259 - api.services.image_processing - INFO - Starting metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
+2025-11-28 22:49:17,261 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0008.jpg using Gemini model.
+2025-11-28 22:49:19,090 - api.services.image_processing - INFO - Creating thumbnail for IMG-20251117-WA0008.jpg
+2025-11-28 22:49:19,212 - api.services.image_processing - INFO - Finished metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
+2025-11-28 22:49:19,217 - api.main - INFO - Found new image: kitten.png. Creating placeholder and processing...
+2025-11-28 22:49:19,228 - api.services.image_processing - INFO - Starting metadata processing for image ID 9: uploads\kitten.png
+2025-11-28 22:49:19,230 - api.services.image_processing - INFO - Generating tags for uploads\kitten.png using Gemini model.
+2025-11-28 22:49:21,130 - api.services.image_processing - INFO - Creating thumbnail for kitten.png
+2025-11-28 22:49:21,174 - exifread - WARNING - PNG file does not have exif data.
+2025-11-28 22:49:21,326 - api.services.image_processing - INFO - Finished metadata processing for image ID 9: uploads\kitten.png
+2025-11-28 22:49:21,327 - api.main - INFO - Image scan finished.
+2025-11-28 22:49:21,328 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:49:21,330 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:49:21,335 - api.services.geocoding - INFO - Found 2 locations to geocode.
+2025-11-28 22:49:22,719 - api.services.geocoding - INFO -  -> Success: Kumar Pacific Mall, Jagannath Shankarsheth Marg, Mukund Nagar, Pune City, Pune, Maharashtra, 411002, India
+2025-11-28 22:49:24,101 - api.services.geocoding - INFO -  -> Success: Pune Nashik Road, Kasarwadi, Haveli, Pune, Maharashtra, 411034, India
+2025-11-28 22:49:25,118 - api.services.geocoding - INFO - Reverse geocoding scan finished.
+2025-11-28 22:49:25,120 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:49:25,121 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 22:49:56,353 - uvicorn.access - INFO - 127.0.0.1:50737 - "OPTIONS /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 22:50:02,403 - uvicorn.access - INFO - 127.0.0.1:58260 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 500
+2025-11-28 22:50:02,404 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 78, in read_images
+    images = crud.get_images(
+TypeError: get_images() got an unexpected keyword argument 'camera_model'
+2025-11-28 22:50:03,749 - uvicorn.access - INFO - 127.0.0.1:58752 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 500
+2025-11-28 22:50:03,755 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 78, in read_images
+    images = crud.get_images(
+TypeError: get_images() got an unexpected keyword argument 'camera_model'
+2025-11-28 22:50:55,133 - uvicorn.error - INFO - Shutting down
+2025-11-28 22:50:55,240 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 22:50:55,257 - api.main - INFO - Application shutdown...
+2025-11-28 22:50:55,279 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 22:50:55,296 - uvicorn.error - INFO - Finished server process [15084]
+2025-11-28 22:51:04,297 - api.main - INFO - Application startup...
+2025-11-28 22:51:04,300 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:51:04,300 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:51:04,301 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:51:04,302 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:51:04,371 - api.main - INFO - Image scan finished.
+2025-11-28 22:51:04,373 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:51:04,374 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:51:04,380 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 22:51:04,382 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:51:04,382 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 22:51:13,384 - uvicorn.access - INFO - 127.0.0.1:56325 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 22:51:13,779 - uvicorn.access - INFO - 127.0.0.1:58385 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
+2025-11-28 22:51:13,788 - uvicorn.access - INFO - 127.0.0.1:58386 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
+2025-11-28 22:51:13,801 - uvicorn.access - INFO - 127.0.0.1:58387 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
+2025-11-28 22:51:13,838 - uvicorn.access - INFO - 127.0.0.1:58388 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
+2025-11-28 22:51:13,885 - uvicorn.access - INFO - 127.0.0.1:58389 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
+2025-11-28 22:51:13,927 - uvicorn.access - INFO - 127.0.0.1:58390 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
+2025-11-28 22:51:14,067 - uvicorn.access - INFO - 127.0.0.1:60433 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
+2025-11-28 22:51:14,166 - uvicorn.access - INFO - 127.0.0.1:53540 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
+2025-11-28 22:51:14,180 - uvicorn.access - INFO - 127.0.0.1:53541 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
+2025-11-28 22:51:29,349 - uvicorn.access - INFO - 127.0.0.1:58378 - "OPTIONS /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-28 22:51:31,986 - uvicorn.access - INFO - 127.0.0.1:58378 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-28 22:51:32,027 - uvicorn.access - INFO - 127.0.0.1:58378 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:32,036 - uvicorn.access - INFO - 127.0.0.1:58378 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:32,043 - uvicorn.access - INFO - 127.0.0.1:58378 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:32,332 - uvicorn.access - INFO - 127.0.0.1:60990 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:32,371 - uvicorn.access - INFO - 127.0.0.1:49750 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:34,880 - uvicorn.access - INFO - 127.0.0.1:58767 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:35,513 - uvicorn.access - INFO - 127.0.0.1:52164 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:35,518 - uvicorn.access - INFO - 127.0.0.1:56095 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 22:51:35,528 - uvicorn.access - INFO - 127.0.0.1:56096 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 22:51:35,535 - uvicorn.access - INFO - 127.0.0.1:56098 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 22:51:35,667 - uvicorn.access - INFO - 127.0.0.1:56099 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 22:51:35,682 - uvicorn.access - INFO - 127.0.0.1:49750 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:35,785 - uvicorn.access - INFO - 127.0.0.1:60990 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:35,908 - uvicorn.access - INFO - 127.0.0.1:65276 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 22:51:35,928 - uvicorn.access - INFO - 127.0.0.1:57360 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 22:51:38,688 - uvicorn.access - INFO - 127.0.0.1:65276 - "OPTIONS /api/v1/dashboard-stats HTTP/1.1" 200
+2025-11-28 22:51:38,959 - uvicorn.access - INFO - 127.0.0.1:65276 - "GET /api/v1/dashboard-stats HTTP/1.1" 500
+2025-11-28 22:51:38,963 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateAlias: table name "metadata" specified more than once
+
+
+The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 701, in lifespan
-    await receive()
-  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\lifespan\on.py", line 137, in receive
-    return await self.receive_queue.get()
-  File "C:\Users\vaishnav\AppData\Local\Programs\Python\Python310\lib\asyncio\queues.py", line 159, in get
-    await getter
-asyncio.exceptions.CancelledError
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\stats.py", line 13, in get_stats
+    return crud.get_stats(db)
+  File "D:\niche_images\dam\api\crud.py", line 492, in get_stats
+    .all()
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateAlias) table name "metadata" specified more than once
 
-2025-11-26 23:31:36,464 - api.main - INFO - Application startup...
-2025-11-26 23:31:36,480 - api.main - INFO - Starting background startup tasks...
-2025-11-26 23:31:36,481 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 23:31:36,485 - api.main - INFO - Running startup scan for new images...
-2025-11-26 23:31:36,485 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 23:31:36,519 - api.main - INFO - Found new image: 20250808_220710.heic. Creating placeholder and processing...
-2025-11-26 23:31:36,640 - api.services.image_processing - INFO - Starting metadata processing for image ID 1: uploads\20250808_220710.heic
-2025-11-26 23:31:36,642 - api.services.image_processing - INFO - Generating tags for uploads\20250808_220710.heic using Gemini model.
-2025-11-26 23:31:38,592 - uvicorn.error - INFO - Shutting down
-2025-11-26 23:31:38,696 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-11-26 23:31:38,698 - api.main - INFO - Application shutdown...
-2025-11-26 23:31:38,701 - uvicorn.error - INFO - Application shutdown complete.
-2025-11-26 23:31:38,701 - uvicorn.error - INFO - Finished server process [16324]
-2025-11-26 23:33:56,603 - api.main - INFO - Application startup...
-2025-11-26 23:33:56,606 - api.main - INFO - Starting background startup tasks...
-2025-11-26 23:33:56,606 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 23:33:56,607 - api.main - INFO - Running startup scan for new images...
-2025-11-26 23:33:56,607 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 23:33:56,634 - api.main - INFO - Image 20250808_220710.heic found with status 'processing'. Reprocessing...
-2025-11-26 23:33:56,649 - api.services.image_processing - INFO - Starting metadata processing for image ID 1: uploads\20250808_220710.heic
-2025-11-26 23:33:56,651 - api.services.image_processing - INFO - Generating tags for uploads\20250808_220710.heic using Gemini model.
-2025-11-26 23:34:15,929 - api.services.image_processing - INFO - Creating thumbnail for 20250808_220710.heic
-2025-11-26 23:34:21,273 - api.services.image_processing - INFO - Creating preview for HEIC image 20250808_220710.heic
-2025-11-26 23:34:22,458 - api.services.image_processing - INFO - Finished metadata processing for image ID 1: uploads\20250808_220710.heic
-2025-11-26 23:34:22,536 - api.main - INFO - Found new image: 20251116_203908.heic. Creating placeholder and processing...
-2025-11-26 23:34:22,581 - api.services.image_processing - INFO - Starting metadata processing for image ID 2: uploads\20251116_203908.heic
-2025-11-26 23:34:22,583 - api.services.image_processing - INFO - Generating tags for uploads\20251116_203908.heic using Gemini model.
-2025-11-26 23:34:34,706 - api.services.image_processing - INFO - Creating thumbnail for 20251116_203908.heic
-2025-11-26 23:34:35,803 - api.services.image_processing - INFO - Creating preview for HEIC image 20251116_203908.heic
-2025-11-26 23:34:36,858 - api.services.image_processing - INFO - Finished metadata processing for image ID 2: uploads\20251116_203908.heic
-2025-11-26 23:34:36,864 - api.main - INFO - Found new image: 20251117_071819.heic. Creating placeholder and processing...
-2025-11-26 23:34:36,879 - api.services.image_processing - INFO - Starting metadata processing for image ID 3: uploads\20251117_071819.heic
-2025-11-26 23:34:36,881 - api.services.image_processing - INFO - Generating tags for uploads\20251117_071819.heic using Gemini model.
-2025-11-26 23:34:41,663 - api.services.image_processing - INFO - Creating thumbnail for 20251117_071819.heic
-2025-11-26 23:34:42,038 - api.services.image_processing - INFO - Creating preview for HEIC image 20251117_071819.heic
-2025-11-26 23:34:42,795 - api.services.image_processing - INFO - Finished metadata processing for image ID 3: uploads\20251117_071819.heic
-2025-11-26 23:34:42,802 - api.main - INFO - Found new image: image-1763645059908.jpg. Creating placeholder and processing...
-2025-11-26 23:34:42,817 - api.services.image_processing - INFO - Starting metadata processing for image ID 4: uploads\image-1763645059908.jpg
-2025-11-26 23:34:42,820 - api.services.image_processing - INFO - Generating tags for uploads\image-1763645059908.jpg using Gemini model.
-2025-11-26 23:35:16,583 - api.services.image_processing - INFO - Creating thumbnail for image-1763645059908.jpg
-2025-11-26 23:35:17,003 - api.services.image_processing - INFO - Finished metadata processing for image ID 4: uploads\image-1763645059908.jpg
-2025-11-26 23:35:17,015 - api.main - INFO - Found new image: IMG-20250216-WA0017.jpg. Creating placeholder and processing...
-2025-11-26 23:35:17,032 - api.services.image_processing - INFO - Starting metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
-2025-11-26 23:35:17,033 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20250216-WA0017.jpg using Gemini model.
-2025-11-26 23:35:22,932 - api.services.image_processing - INFO - Creating thumbnail for IMG-20250216-WA0017.jpg
-2025-11-26 23:35:23,345 - api.services.image_processing - INFO - Finished metadata processing for image ID 5: uploads\IMG-20250216-WA0017.jpg
-2025-11-26 23:35:23,356 - api.main - INFO - Found new image: IMG-20251115-WA0011.jpeg. Creating placeholder and processing...
-2025-11-26 23:35:23,373 - api.services.image_processing - INFO - Starting metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
-2025-11-26 23:35:23,374 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251115-WA0011.jpeg using Gemini model.
-2025-11-26 23:35:36,958 - api.services.image_processing - INFO - Creating thumbnail for IMG-20251115-WA0011.jpeg
-2025-11-26 23:35:37,272 - api.services.image_processing - INFO - Finished metadata processing for image ID 6: uploads\IMG-20251115-WA0011.jpeg
-2025-11-26 23:35:37,283 - api.main - INFO - Found new image: IMG-20251117-WA0007.jpg. Creating placeholder and processing...
-2025-11-26 23:35:37,301 - api.services.image_processing - INFO - Starting metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
-2025-11-26 23:35:37,304 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0007.jpg using Gemini model.
-2025-11-26 23:35:40,848 - api.services.image_processing - INFO - Creating thumbnail for IMG-20251117-WA0007.jpg
-2025-11-26 23:35:41,039 - api.services.image_processing - INFO - Finished metadata processing for image ID 7: uploads\IMG-20251117-WA0007.jpg
-2025-11-26 23:35:41,045 - api.main - INFO - Found new image: IMG-20251117-WA0008.jpg. Creating placeholder and processing...
-2025-11-26 23:35:41,062 - api.services.image_processing - INFO - Starting metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
-2025-11-26 23:35:41,063 - api.services.image_processing - INFO - Generating tags for uploads\IMG-20251117-WA0008.jpg using Gemini model.
-2025-11-26 23:35:47,954 - api.services.image_processing - INFO - Creating thumbnail for IMG-20251117-WA0008.jpg
-2025-11-26 23:35:48,111 - api.services.image_processing - INFO - Finished metadata processing for image ID 8: uploads\IMG-20251117-WA0008.jpg
-2025-11-26 23:35:48,113 - api.main - INFO - Image scan finished.
-2025-11-26 23:35:48,113 - api.main - INFO - Starting reverse geocoding scan...
-2025-11-26 23:35:48,114 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
-2025-11-26 23:35:48,121 - api.services.geocoding - INFO - Found 2 locations to geocode.
-2025-11-26 23:35:49,483 - api.services.geocoding - INFO -  -> Success: Kumar Pacific Mall, Jagannath Shankarsheth Marg, Mukund Nagar, Pune City, Pune, Maharashtra, 411002, India
-2025-11-26 23:35:50,999 - api.services.geocoding - INFO -  -> Success: Pune Nashik Road, Kasarwadi, Haveli, Pune, Maharashtra, 411034, India
-2025-11-26 23:35:52,002 - api.services.geocoding - INFO - Reverse geocoding scan finished.
-2025-11-26 23:35:52,003 - api.main - INFO - Reverse geocoding scan finished.
-2025-11-26 23:35:52,005 - api.main - INFO - Background startup tasks completed (or failed).
-2025-11-26 23:36:42,251 - uvicorn.access - INFO - 127.0.0.1:63173 - "GET / HTTP/1.1" 200
-2025-11-26 23:36:43,005 - uvicorn.access - INFO - 127.0.0.1:63173 - "GET /style.css HTTP/1.1" 200
-2025-11-26 23:36:43,384 - uvicorn.access - INFO - 127.0.0.1:56497 - "GET /js/api.js HTTP/1.1" 200
-2025-11-26 23:36:43,388 - uvicorn.access - INFO - 127.0.0.1:51030 - "GET /js/app.js HTTP/1.1" 200
-2025-11-26 23:36:44,086 - uvicorn.access - INFO - 127.0.0.1:51030 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:36:44,202 - uvicorn.access - INFO - 127.0.0.1:56497 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 23:36:44,235 - uvicorn.access - INFO - 127.0.0.1:64381 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 23:36:44,303 - uvicorn.access - INFO - 127.0.0.1:64381 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 23:36:44,428 - uvicorn.access - INFO - 127.0.0.1:56497 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:36:46,563 - uvicorn.access - INFO - 127.0.0.1:51030 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:36:55,487 - uvicorn.error - INFO - Shutting down
-2025-11-26 23:36:55,598 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-11-26 23:36:55,606 - api.main - INFO - Application shutdown...
-2025-11-26 23:36:55,610 - uvicorn.error - INFO - Application shutdown complete.
-2025-11-26 23:36:55,612 - uvicorn.error - INFO - Finished server process [24896]
-2025-11-26 23:37:07,993 - api.main - INFO - Application startup...
-2025-11-26 23:37:07,996 - api.main - INFO - Starting background startup tasks...
-2025-11-26 23:37:07,996 - api.main - INFO - Application startup finished. Background tasks running.
-2025-11-26 23:37:07,998 - api.main - INFO - Running startup scan for new images...
-2025-11-26 23:37:07,999 - uvicorn.error - INFO - Application startup complete.
-2025-11-26 23:37:08,062 - api.main - INFO - Image scan finished.
-2025-11-26 23:37:08,063 - api.main - INFO - Starting reverse geocoding scan...
-2025-11-26 23:37:08,065 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
-2025-11-26 23:37:08,072 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
-2025-11-26 23:37:08,074 - api.main - INFO - Reverse geocoding scan finished.
-2025-11-26 23:37:08,075 - api.main - INFO - All background startup tasks finished successfully.
-2025-11-26 23:37:32,062 - uvicorn.access - INFO - 127.0.0.1:65384 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:37:36,793 - uvicorn.access - INFO - 127.0.0.1:65384 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:37:42,907 - uvicorn.access - INFO - 127.0.0.1:58427 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:37:42,950 - uvicorn.access - INFO - 127.0.0.1:59668 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:37:44,756 - uvicorn.access - INFO - 127.0.0.1:60884 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:37:47,190 - uvicorn.access - INFO - 127.0.0.1:60884 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:37:50,661 - uvicorn.access - INFO - 127.0.0.1:55814 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:37:50,695 - uvicorn.access - INFO - 127.0.0.1:60884 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:37:52,539 - uvicorn.access - INFO - 127.0.0.1:54813 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:38:31,452 - uvicorn.access - INFO - 127.0.0.1:62785 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:38:37,730 - uvicorn.access - INFO - 127.0.0.1:62785 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:38:43,472 - uvicorn.access - INFO - 127.0.0.1:58142 - "GET / HTTP/1.1" 304
-2025-11-26 23:38:43,572 - uvicorn.access - INFO - 127.0.0.1:58142 - "GET /style.css HTTP/1.1" 304
-2025-11-26 23:38:43,583 - uvicorn.access - INFO - 127.0.0.1:50533 - "GET /js/api.js HTTP/1.1" 304
-2025-11-26 23:38:43,585 - uvicorn.access - INFO - 127.0.0.1:58142 - "GET /js/app.js HTTP/1.1" 304
-2025-11-26 23:38:43,928 - uvicorn.access - INFO - 127.0.0.1:50533 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 23:38:43,956 - uvicorn.access - INFO - 127.0.0.1:51205 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 23:38:43,960 - uvicorn.access - INFO - 127.0.0.1:52334 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 23:38:43,964 - uvicorn.access - INFO - 127.0.0.1:58142 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:38:44,219 - uvicorn.access - INFO - 127.0.0.1:54697 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:38:46,313 - uvicorn.access - INFO - 127.0.0.1:63366 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:39:13,987 - uvicorn.access - INFO - 127.0.0.1:64010 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:39:21,843 - uvicorn.access - INFO - 127.0.0.1:56877 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:39:21,868 - uvicorn.access - INFO - 127.0.0.1:50218 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:39:23,167 - uvicorn.access - INFO - 127.0.0.1:50218 - "GET /api/v1/images?skip=0&limit=50&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:39:23,656 - uvicorn.access - INFO - 127.0.0.1:52311 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:39:24,373 - uvicorn.access - INFO - 127.0.0.1:52311 - "GET /api/v1/albums/summary HTTP/1.1" 200
-2025-11-26 23:39:31,300 - uvicorn.access - INFO - 127.0.0.1:54821 - "GET /api/v1/map/data HTTP/1.1" 200
-2025-11-26 23:39:32,891 - uvicorn.access - INFO - 127.0.0.1:50860 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:39:32,914 - uvicorn.access - INFO - 127.0.0.1:54821 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:39:34,634 - uvicorn.access - INFO - 127.0.0.1:64098 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:39:42,563 - uvicorn.access - INFO - 127.0.0.1:50508 - "GET / HTTP/1.1" 304
-2025-11-26 23:39:43,002 - uvicorn.access - INFO - 127.0.0.1:50508 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:39:43,016 - uvicorn.access - INFO - 127.0.0.1:53714 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 23:39:43,041 - uvicorn.access - INFO - 127.0.0.1:54365 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 23:39:43,055 - uvicorn.access - INFO - 127.0.0.1:63625 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 23:39:43,078 - uvicorn.access - INFO - 127.0.0.1:55481 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:39:44,568 - uvicorn.access - INFO - 127.0.0.1:59989 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:40:30,646 - uvicorn.access - INFO - 127.0.0.1:60059 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:40:39,284 - uvicorn.access - INFO - 127.0.0.1:62135 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:40:45,839 - uvicorn.access - INFO - 127.0.0.1:62135 - "POST /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:43:33,211 - uvicorn.access - INFO - 127.0.0.1:65161 - "GET /docs HTTP/1.1" 200
-2025-11-26 23:43:35,253 - uvicorn.access - INFO - 127.0.0.1:65161 - "GET /openapi.json HTTP/1.1" 200
-2025-11-26 23:43:36,740 - uvicorn.access - INFO - 127.0.0.1:65161 - "GET / HTTP/1.1" 200
-2025-11-26 23:43:36,825 - uvicorn.access - INFO - 127.0.0.1:65161 - "GET /style.css HTTP/1.1" 200
-2025-11-26 23:43:36,841 - uvicorn.access - INFO - 127.0.0.1:60110 - "GET /assets/favicon/favicon-32x32.png HTTP/1.1" 304
-2025-11-26 23:43:36,844 - uvicorn.access - INFO - 127.0.0.1:64824 - "GET /assets/profile_photo.jpg HTTP/1.1" 304
-2025-11-26 23:43:36,850 - uvicorn.access - INFO - 127.0.0.1:65161 - "GET /js/api.js HTTP/1.1" 200
-2025-11-26 23:43:36,861 - uvicorn.access - INFO - 127.0.0.1:60110 - "GET /js/app.js HTTP/1.1" 200
-2025-11-26 23:43:37,599 - uvicorn.access - INFO - 127.0.0.1:54397 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:43:37,613 - uvicorn.access - INFO - 127.0.0.1:49240 - "GET /api/v1/filters/cameras HTTP/1.1" 200
-2025-11-26 23:43:37,617 - uvicorn.access - INFO - 127.0.0.1:56023 - "GET /api/v1/filters/locations HTTP/1.1" 200
-2025-11-26 23:43:37,621 - uvicorn.access - INFO - 127.0.0.1:56656 - "GET /api/v1/filters/dates HTTP/1.1" 200
-2025-11-26 23:43:37,665 - uvicorn.access - INFO - 127.0.0.1:59635 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:43:37,740 - uvicorn.access - INFO - 127.0.0.1:65380 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
-2025-11-26 23:43:37,742 - uvicorn.access - INFO - 127.0.0.1:54231 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
-2025-11-26 23:43:37,757 - uvicorn.access - INFO - 127.0.0.1:65173 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
-2025-11-26 23:43:37,761 - uvicorn.access - INFO - 127.0.0.1:49671 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
-2025-11-26 23:43:37,765 - uvicorn.access - INFO - 127.0.0.1:60323 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
-2025-11-26 23:43:37,781 - uvicorn.access - INFO - 127.0.0.1:54231 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
-2025-11-26 23:43:37,787 - uvicorn.access - INFO - 127.0.0.1:65380 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
-2025-11-26 23:43:37,801 - uvicorn.access - INFO - 127.0.0.1:59990 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
-2025-11-26 23:43:37,963 - uvicorn.access - INFO - 127.0.0.1:56933 - "GET /assets/favicon/site.webmanifest HTTP/1.1" 304
-2025-11-26 23:43:39,380 - uvicorn.access - INFO - 127.0.0.1:54459 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:43:57,901 - uvicorn.access - INFO - 127.0.0.1:62198 - "POST /api/v1/images HTTP/1.1" 201
-2025-11-26 23:43:57,908 - api.services.image_processing - INFO - Starting metadata processing for image ID 9: uploads\kitten.png
-2025-11-26 23:43:57,909 - api.services.image_processing - INFO - Generating tags for uploads\kitten.png using Gemini model.
-2025-11-26 23:43:57,996 - uvicorn.access - INFO - 127.0.0.1:63826 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:43:58,018 - uvicorn.access - INFO - 127.0.0.1:56488 - "GET /api/v1/albums/summary HTTP/1.1" 200
-2025-11-26 23:43:58,041 - uvicorn.access - INFO - 127.0.0.1:62198 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:43:58,057 - uvicorn.access - INFO - 127.0.0.1:57590 - "GET /api/v1/images?skip=0&limit=50&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:44:01,258 - api.services.image_processing - INFO - Creating thumbnail for kitten.png
-2025-11-26 23:44:01,502 - exifread - WARNING - PNG file does not have exif data.
-2025-11-26 23:44:01,779 - api.services.image_processing - INFO - Finished metadata processing for image ID 9: uploads\kitten.png
-2025-11-26 23:44:03,555 - uvicorn.access - INFO - 127.0.0.1:61150 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:44:03,586 - uvicorn.access - INFO - 127.0.0.1:52881 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:44:03,611 - uvicorn.access - INFO - 127.0.0.1:50233 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
-2025-11-26 23:44:05,077 - uvicorn.access - INFO - 127.0.0.1:63798 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:44:06,308 - uvicorn.access - INFO - 127.0.0.1:61150 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:44:06,349 - uvicorn.access - INFO - 127.0.0.1:63798 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:44:07,714 - uvicorn.access - INFO - 127.0.0.1:63798 - "GET /api/v1/images?skip=0&limit=50&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:44:07,842 - uvicorn.access - INFO - 127.0.0.1:52881 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:44:09,340 - uvicorn.access - INFO - 127.0.0.1:61150 - "GET /api/v1/stats HTTP/1.1" 200
-2025-11-26 23:44:09,378 - uvicorn.access - INFO - 127.0.0.1:52881 - "GET /api/v1/images?skip=0&limit=20&sort_by=filename HTTP/1.1" 200
-2025-11-26 23:44:10,913 - uvicorn.access - INFO - 127.0.0.1:63798 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:44:16,850 - uvicorn.access - INFO - 127.0.0.1:63798 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
-2025-11-26 23:44:20,971 - uvicorn.access - INFO - 127.0.0.1:63798 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
-2025-11-26 23:44:23,390 - uvicorn.access - INFO - 127.0.0.1:63798 - "POST /api/v1/search/ai HTTP/1.1" 200
+[SQL: SELECT locations.address AS locations_address, count(images.id) AS count 
+FROM metadata JOIN locations ON metadata.id = locations.metadata_id, images JOIN metadata ON images.id = metadata.image_id 
+WHERE locations.address IS NOT NULL GROUP BY locations.address ORDER BY count(images.id) DESC 
+ LIMIT %(param_1)s]
+[parameters: {'param_1': 5}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-28 22:51:40,037 - uvicorn.access - INFO - 127.0.0.1:60990 - "GET /api/v1/dashboard-stats HTTP/1.1" 500
+2025-11-28 22:51:40,051 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateAlias: table name "metadata" specified more than once
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\stats.py", line 13, in get_stats
+    return crud.get_stats(db)
+  File "D:\niche_images\dam\api\crud.py", line 492, in get_stats
+    .all()
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateAlias) table name "metadata" specified more than once
+
+[SQL: SELECT locations.address AS locations_address, count(images.id) AS count 
+FROM metadata JOIN locations ON metadata.id = locations.metadata_id, images JOIN metadata ON images.id = metadata.image_id 
+WHERE locations.address IS NOT NULL GROUP BY locations.address ORDER BY count(images.id) DESC 
+ LIMIT %(param_1)s]
+[parameters: {'param_1': 5}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-28 22:51:47,196 - uvicorn.access - INFO - 127.0.0.1:63934 - "OPTIONS /api/v1/duplicates HTTP/1.1" 200
+2025-11-28 22:51:47,565 - uvicorn.access - INFO - 127.0.0.1:63934 - "GET /api/v1/duplicates HTTP/1.1" 500
+2025-11-28 22:51:47,666 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\duplicates.py", line 19, in get_duplicate_image_groups
+    duplicate_groups = crud.get_duplicate_images(db)
+  File "D:\niche_images\dam\api\crud.py", line 328, in get_duplicate_images
+    if month:
+NameError: name 'month' is not defined
+2025-11-28 22:51:49,017 - uvicorn.access - INFO - 127.0.0.1:51195 - "GET /api/v1/duplicates HTTP/1.1" 500
+2025-11-28 22:51:49,021 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\duplicates.py", line 19, in get_duplicate_image_groups
+    duplicate_groups = crud.get_duplicate_images(db)
+  File "D:\niche_images\dam\api\crud.py", line 328, in get_duplicate_images
+    if month:
+NameError: name 'month' is not defined
+2025-11-28 22:51:53,201 - uvicorn.access - INFO - 127.0.0.1:60012 - "OPTIONS /api/v1/map/data HTTP/1.1" 200
+2025-11-28 22:51:53,252 - uvicorn.access - INFO - 127.0.0.1:60012 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-28 22:53:10,891 - uvicorn.access - INFO - 127.0.0.1:56049 - "OPTIONS /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 22:53:10,947 - uvicorn.access - INFO - 127.0.0.1:56049 - "GET /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 22:53:15,242 - uvicorn.access - INFO - 127.0.0.1:54686 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 22:53:15,278 - uvicorn.access - INFO - 127.0.0.1:53890 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 22:53:15,289 - uvicorn.access - INFO - 127.0.0.1:50466 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 22:53:15,293 - uvicorn.access - INFO - 127.0.0.1:50467 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 22:53:15,297 - uvicorn.access - INFO - 127.0.0.1:50468 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 22:53:15,304 - uvicorn.access - INFO - 127.0.0.1:50469 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 22:53:15,317 - uvicorn.access - INFO - 127.0.0.1:50471 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 22:53:15,325 - uvicorn.access - INFO - 127.0.0.1:60369 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 22:53:15,327 - uvicorn.access - INFO - 127.0.0.1:57534 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 22:53:18,272 - uvicorn.access - INFO - 127.0.0.1:54684 - "OPTIONS /api/v1/albums/2025/11 HTTP/1.1" 200
+2025-11-28 22:53:18,343 - uvicorn.access - INFO - 127.0.0.1:54684 - "GET /api/v1/albums/2025/11 HTTP/1.1" 200
+2025-11-28 22:53:23,769 - uvicorn.error - INFO - Shutting down
+2025-11-28 22:53:23,876 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 22:53:23,882 - api.main - INFO - Application shutdown...
+2025-11-28 22:53:23,897 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 22:53:23,913 - uvicorn.error - INFO - Finished server process [23660]
+2025-11-28 22:53:46,420 - api.main - INFO - Application startup...
+2025-11-28 22:53:46,425 - api.main - INFO - Starting background startup tasks...
+2025-11-28 22:53:46,426 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 22:53:46,429 - api.main - INFO - Running startup scan for new images...
+2025-11-28 22:53:46,433 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 22:53:47,777 - api.main - INFO - Image scan finished.
+2025-11-28 22:53:47,779 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 22:53:47,782 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 22:53:47,799 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 22:53:47,812 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 22:53:47,824 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 22:55:43,823 - uvicorn.access - INFO - 127.0.0.1:65498 - "GET /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 22:55:45,738 - uvicorn.access - INFO - 127.0.0.1:65498 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-28 22:55:50,266 - uvicorn.access - INFO - 127.0.0.1:65498 - "GET /api/v1/duplicates HTTP/1.1" 200
+2025-11-28 22:55:56,452 - uvicorn.access - INFO - 127.0.0.1:52086 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 22:55:56,674 - uvicorn.access - INFO - 127.0.0.1:52096 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 22:55:56,698 - uvicorn.access - INFO - 127.0.0.1:52102 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 22:55:56,703 - uvicorn.access - INFO - 127.0.0.1:52103 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 22:55:56,710 - uvicorn.access - INFO - 127.0.0.1:52104 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 22:55:56,716 - uvicorn.access - INFO - 127.0.0.1:52106 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 22:55:56,718 - uvicorn.access - INFO - 127.0.0.1:52105 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 22:55:56,727 - uvicorn.access - INFO - 127.0.0.1:50121 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 22:55:56,730 - uvicorn.access - INFO - 127.0.0.1:64241 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 22:55:56,744 - uvicorn.access - INFO - 127.0.0.1:64243 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 22:56:16,922 - uvicorn.access - INFO - 127.0.0.1:57647 - "OPTIONS /api/v1/filters/cameras HTTP/1.1" 200
+2025-11-28 22:56:16,928 - uvicorn.access - INFO - 127.0.0.1:61055 - "OPTIONS /api/v1/filters/dates HTTP/1.1" 200
+2025-11-28 22:56:16,932 - uvicorn.access - INFO - 127.0.0.1:56082 - "OPTIONS /api/v1/filters/locations HTTP/1.1" 200
+2025-11-28 22:56:16,965 - uvicorn.access - INFO - 127.0.0.1:57647 - "GET /api/v1/filters/cameras HTTP/1.1" 200
+2025-11-28 22:56:17,239 - uvicorn.access - INFO - 127.0.0.1:56082 - "GET /api/v1/filters/locations HTTP/1.1" 200
+2025-11-28 22:56:17,252 - uvicorn.access - INFO - 127.0.0.1:61055 - "GET /api/v1/filters/dates HTTP/1.1" 200
+2025-11-28 23:01:40,869 - uvicorn.access - INFO - 127.0.0.1:60485 - "GET /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 23:01:44,583 - uvicorn.access - INFO - 127.0.0.1:60485 - "OPTIONS /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:01:44,797 - uvicorn.access - INFO - 127.0.0.1:60485 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:01:46,856 - uvicorn.access - INFO - 127.0.0.1:65392 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:01:46,895 - uvicorn.access - INFO - 127.0.0.1:57563 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 23:01:46,912 - uvicorn.access - INFO - 127.0.0.1:57564 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 23:01:46,952 - uvicorn.access - INFO - 127.0.0.1:57565 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 23:01:46,971 - uvicorn.access - INFO - 127.0.0.1:57566 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 23:01:46,983 - uvicorn.access - INFO - 127.0.0.1:57567 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 23:01:47,017 - uvicorn.access - INFO - 127.0.0.1:56945 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 23:01:47,033 - uvicorn.access - INFO - 127.0.0.1:60501 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 23:01:47,053 - uvicorn.access - INFO - 127.0.0.1:53440 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 23:01:48,649 - uvicorn.access - INFO - 127.0.0.1:60485 - "OPTIONS /api/v1/images/9/favorite HTTP/1.1" 200
+2025-11-28 23:01:48,841 - uvicorn.access - INFO - 127.0.0.1:60485 - "POST /api/v1/images/9/favorite HTTP/1.1" 200
+2025-11-28 23:01:48,969 - uvicorn.access - INFO - 127.0.0.1:60485 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:01:54,474 - uvicorn.access - INFO - 127.0.0.1:55372 - "OPTIONS /api/v1/dashboard-stats HTTP/1.1" 200
+2025-11-28 23:01:54,760 - uvicorn.access - INFO - 127.0.0.1:55372 - "GET /api/v1/dashboard-stats HTTP/1.1" 500
+2025-11-28 23:01:54,768 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateAlias: table name "metadata" specified more than once
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\stats.py", line 13, in get_stats
+    return crud.get_stats(db)
+  File "D:\niche_images\dam\api\crud.py", line 492, in get_stats
+    .all()
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateAlias) table name "metadata" specified more than once
+
+[SQL: SELECT locations.address AS locations_address, count(images.id) AS count 
+FROM metadata JOIN locations ON metadata.id = locations.metadata_id, images JOIN metadata ON images.id = metadata.image_id 
+WHERE locations.address IS NOT NULL GROUP BY locations.address ORDER BY count(images.id) DESC 
+ LIMIT %(param_1)s]
+[parameters: {'param_1': 5}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-28 23:01:56,167 - uvicorn.access - INFO - 127.0.0.1:61433 - "GET /api/v1/dashboard-stats HTTP/1.1" 500
+2025-11-28 23:01:56,207 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.DuplicateAlias: table name "metadata" specified more than once
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\stats.py", line 13, in get_stats
+    return crud.get_stats(db)
+  File "D:\niche_images\dam\api\crud.py", line 492, in get_stats
+    .all()
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\niche_images\dam\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateAlias) table name "metadata" specified more than once
+
+[SQL: SELECT locations.address AS locations_address, count(images.id) AS count 
+FROM metadata JOIN locations ON metadata.id = locations.metadata_id, images JOIN metadata ON images.id = metadata.image_id 
+WHERE locations.address IS NOT NULL GROUP BY locations.address ORDER BY count(images.id) DESC 
+ LIMIT %(param_1)s]
+[parameters: {'param_1': 5}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-11-28 23:01:57,108 - uvicorn.access - INFO - 127.0.0.1:61925 - "OPTIONS /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-28 23:02:01,038 - uvicorn.access - INFO - 127.0.0.1:61925 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-28 23:02:01,083 - uvicorn.access - INFO - 127.0.0.1:61925 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:01,376 - uvicorn.access - INFO - 127.0.0.1:64208 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:01,401 - uvicorn.access - INFO - 127.0.0.1:54827 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:01,439 - uvicorn.access - INFO - 127.0.0.1:52772 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:01,662 - uvicorn.access - INFO - 127.0.0.1:63015 - "OPTIONS /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:04,908 - uvicorn.access - INFO - 127.0.0.1:64208 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:04,943 - uvicorn.access - INFO - 127.0.0.1:54827 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:04,978 - uvicorn.access - INFO - 127.0.0.1:63015 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:05,155 - uvicorn.access - INFO - 127.0.0.1:54279 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:02:05,177 - uvicorn.access - INFO - 127.0.0.1:52772 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:03:12,893 - uvicorn.access - INFO - 127.0.0.1:63862 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:03:13,023 - uvicorn.access - INFO - 127.0.0.1:60807 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:03:13,073 - uvicorn.access - INFO - 127.0.0.1:59492 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 23:03:13,081 - uvicorn.access - INFO - 127.0.0.1:59491 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 23:03:13,087 - uvicorn.access - INFO - 127.0.0.1:50062 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 23:03:13,092 - uvicorn.access - INFO - 127.0.0.1:50061 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 23:03:13,105 - uvicorn.access - INFO - 127.0.0.1:50063 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 23:03:13,124 - uvicorn.access - INFO - 127.0.0.1:50065 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 23:03:13,131 - uvicorn.access - INFO - 127.0.0.1:54417 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 23:03:13,139 - uvicorn.access - INFO - 127.0.0.1:54415 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 23:03:19,699 - uvicorn.access - INFO - 127.0.0.1:65340 - "OPTIONS /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 23:03:19,866 - uvicorn.access - INFO - 127.0.0.1:65340 - "GET /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 23:05:46,553 - uvicorn.access - INFO - 127.0.0.1:50158 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:05:46,690 - uvicorn.access - INFO - 127.0.0.1:50160 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:07:43,182 - uvicorn.access - INFO - 127.0.0.1:62516 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:07:44,174 - uvicorn.access - INFO - 127.0.0.1:61742 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:14:19,671 - uvicorn.error - INFO - Shutting down
+2025-11-28 23:14:19,782 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 23:14:19,783 - api.main - INFO - Application shutdown...
+2025-11-28 23:14:19,785 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 23:14:19,787 - uvicorn.error - INFO - Finished server process [11940]
+2025-11-28 23:14:48,807 - api.main - INFO - Application startup...
+2025-11-28 23:14:48,813 - api.main - INFO - Starting background startup tasks...
+2025-11-28 23:14:48,813 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 23:14:48,817 - api.main - INFO - Running startup scan for new images...
+2025-11-28 23:14:48,820 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 23:14:48,919 - api.main - INFO - Image scan finished.
+2025-11-28 23:14:48,921 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 23:14:48,922 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 23:14:48,933 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 23:14:48,934 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 23:14:48,940 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 23:16:17,183 - uvicorn.error - INFO - Shutting down
+2025-11-28 23:16:17,293 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 23:16:17,295 - api.main - INFO - Application shutdown...
+2025-11-28 23:16:17,297 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 23:16:17,298 - uvicorn.error - INFO - Finished server process [5324]
+2025-11-28 23:16:26,947 - api.main - INFO - Application startup...
+2025-11-28 23:16:26,949 - api.main - INFO - Starting background startup tasks...
+2025-11-28 23:16:26,950 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 23:16:26,951 - api.main - INFO - Running startup scan for new images...
+2025-11-28 23:16:26,952 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 23:16:27,012 - api.main - INFO - Image scan finished.
+2025-11-28 23:16:27,014 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 23:16:27,015 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 23:16:27,023 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 23:16:27,024 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 23:16:27,025 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 23:17:04,109 - uvicorn.access - INFO - 127.0.0.1:61006 - "OPTIONS /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:17:04,209 - uvicorn.access - INFO - 127.0.0.1:61006 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:17:05,115 - uvicorn.access - INFO - 127.0.0.1:54665 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:17:05,119 - uvicorn.access - INFO - 127.0.0.1:54667 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 23:17:05,127 - uvicorn.access - INFO - 127.0.0.1:54669 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 23:17:05,156 - uvicorn.access - INFO - 127.0.0.1:54671 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 23:17:05,165 - uvicorn.access - INFO - 127.0.0.1:61584 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 23:17:05,168 - uvicorn.access - INFO - 127.0.0.1:61585 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 23:17:05,193 - uvicorn.access - INFO - 127.0.0.1:64425 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 23:17:05,205 - uvicorn.access - INFO - 127.0.0.1:54842 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 23:17:05,207 - uvicorn.access - INFO - 127.0.0.1:54843 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 23:17:58,172 - uvicorn.access - INFO - 127.0.0.1:55982 - "OPTIONS /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:17:58,257 - uvicorn.access - INFO - 127.0.0.1:55982 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:17:58,623 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
+2025-11-28 23:17:58,719 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
+2025-11-28 23:17:58,722 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
+2025-11-28 23:17:58,724 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
+2025-11-28 23:17:58,729 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
+2025-11-28 23:17:58,736 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
+2025-11-28 23:17:58,738 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
+2025-11-28 23:17:58,743 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
+2025-11-28 23:17:58,746 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
+2025-11-28 23:22:43,359 - uvicorn.error - INFO - Shutting down
+2025-11-28 23:22:43,468 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 23:22:43,471 - api.main - INFO - Application shutdown...
+2025-11-28 23:22:43,472 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 23:22:43,473 - uvicorn.error - INFO - Finished server process [27072]
+2025-11-28 23:23:18,872 - api.main - INFO - Application startup...
+2025-11-28 23:23:18,879 - api.main - INFO - Starting background startup tasks...
+2025-11-28 23:23:18,879 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 23:23:18,885 - api.main - INFO - Running startup scan for new images...
+2025-11-28 23:23:18,888 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 23:23:19,016 - api.main - INFO - Image scan finished.
+2025-11-28 23:23:19,018 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 23:23:19,021 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 23:23:19,034 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 23:23:19,038 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 23:23:19,039 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 23:26:57,977 - uvicorn.access - INFO - 127.0.0.1:50296 - "OPTIONS /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:26:58,167 - uvicorn.access - INFO - 127.0.0.1:50296 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:26:58,902 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
+2025-11-28 23:26:58,960 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
+2025-11-28 23:26:58,969 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
+2025-11-28 23:26:58,975 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
+2025-11-28 23:26:58,983 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
+2025-11-28 23:26:58,999 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
+2025-11-28 23:26:59,015 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
+2025-11-28 23:26:59,026 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
+2025-11-28 23:26:59,328 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
+2025-11-28 23:35:19,680 - uvicorn.error - INFO - Shutting down
+2025-11-28 23:35:19,787 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-11-28 23:35:19,789 - api.main - INFO - Application shutdown...
+2025-11-28 23:35:19,790 - uvicorn.error - INFO - Application shutdown complete.
+2025-11-28 23:35:19,791 - uvicorn.error - INFO - Finished server process [28236]
+2025-11-28 23:35:31,796 - api.main - INFO - Application startup...
+2025-11-28 23:35:31,800 - api.main - INFO - Starting background startup tasks...
+2025-11-28 23:35:31,800 - api.main - INFO - Application startup finished. Background tasks running.
+2025-11-28 23:35:31,801 - api.main - INFO - Running startup scan for new images...
+2025-11-28 23:35:31,803 - uvicorn.error - INFO - Application startup complete.
+2025-11-28 23:35:31,886 - api.main - INFO - Image scan finished.
+2025-11-28 23:35:31,888 - api.main - INFO - Starting reverse geocoding scan...
+2025-11-28 23:35:31,889 - api.services.geocoding - INFO - Starting reverse geocoding scan for locations with missing addresses...
+2025-11-28 23:35:31,898 - api.services.geocoding - INFO - No locations found needing reverse geocoding.
+2025-11-28 23:35:31,900 - api.main - INFO - Reverse geocoding scan finished.
+2025-11-28 23:35:31,902 - api.main - INFO - All background startup tasks finished successfully.
+2025-11-28 23:40:25,593 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:40:26,142 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:40:26,157 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 23:40:26,185 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 23:40:26,190 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 23:40:26,196 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 23:40:26,206 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 23:40:26,211 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 23:40:26,215 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 23:40:26,228 - uvicorn.access - INFO - 2409:40c2:6422:b08b:bd81:177a:c747:1e4d:0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 23:40:31,712 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:40:31,918 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
+2025-11-28 23:40:31,933 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
+2025-11-28 23:40:31,976 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
+2025-11-28 23:40:31,980 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
+2025-11-28 23:40:31,987 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
+2025-11-28 23:40:38,497 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
+2025-11-28 23:40:38,713 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
+2025-11-28 23:40:39,126 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
+2025-11-28 23:40:39,193 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
+2025-11-28 23:41:50,600 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-28 23:43:13,394 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:43:14,355 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
+2025-11-28 23:43:14,367 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
+2025-11-28 23:43:14,371 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
+2025-11-28 23:43:14,427 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
+2025-11-28 23:43:14,432 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
+2025-11-28 23:43:14,434 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
+2025-11-28 23:43:14,437 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
+2025-11-28 23:43:14,440 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
+2025-11-28 23:43:14,451 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
+2025-11-28 23:43:37,066 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:43:37,454 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 200
+2025-11-28 23:43:37,469 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 200
+2025-11-28 23:43:37,505 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 200
+2025-11-28 23:43:37,507 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 200
+2025-11-28 23:43:37,512 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 200
+2025-11-28 23:43:38,122 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 200
+2025-11-28 23:43:38,165 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 200
+2025-11-28 23:43:38,167 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 200
+2025-11-28 23:43:38,200 - uvicorn.access - INFO - 2409:40c2:3056:447a:8000:::0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 200
+2025-11-28 23:44:29,571 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:44:44,378 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/images HTTP/1.1" 201
+2025-11-28 23:44:44,381 - api.services.image_processing - INFO - Starting metadata processing for image ID 10: uploads\wallpaperflare.com_wallpaper (30).jpg
+2025-11-28 23:44:44,383 - api.services.image_processing - INFO - Generating tags for uploads\wallpaperflare.com_wallpaper (30).jpg using Gemini model.
+2025-11-28 23:44:48,579 - api.services.image_processing - INFO - Creating thumbnail for wallpaperflare.com_wallpaper (30).jpg
+2025-11-28 23:44:48,874 - api.services.image_processing - INFO - Finished metadata processing for image ID 10: uploads\wallpaperflare.com_wallpaper (30).jpg
+2025-11-28 23:45:00,934 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:45:01,121 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 200
+2025-11-28 23:45:21,471 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/images HTTP/1.1" 201
+2025-11-28 23:45:26,867 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:45:38,165 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:45:38,300 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:45:41,242 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:45:41,461 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:45:41,467 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 23:45:41,471 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 23:45:41,477 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 23:45:42,546 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 23:45:50,128 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:45:50,259 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:45:50,327 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 23:45:50,332 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 23:45:50,334 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 23:45:50,336 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 23:45:50,731 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:45:59,482 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:45:59,678 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 200
+2025-11-28 23:46:19,316 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:46:44,321 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:46:46,287 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:46:58,118 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-28 23:46:59,147 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:49:14,932 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:49:15,110 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:55:51,382 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:55:51,622 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:55:51,690 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-28 23:55:51,694 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-28 23:55:51,709 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-28 23:55:51,731 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-28 23:55:51,744 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-28 23:55:51,750 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-28 23:55:51,759 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-28 23:55:51,768 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-28 23:55:51,776 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-28 23:59:17,617 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-28 23:59:17,968 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-28 23:59:54,016 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/albums/summary HTTP/1.1" 200
+2025-11-28 23:59:56,379 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:00:10,987 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:00:12,585 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:00:31,947 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-29 00:00:32,283 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-29 00:00:32,294 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-29 00:00:32,296 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-29 00:00:32,334 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-29 00:00:32,338 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-29 00:00:33,211 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-29 00:00:33,820 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-29 00:00:34,176 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-29 00:00:34,642 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-29 00:00:34,947 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
+2025-11-29 00:00:38,417 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/previews/20251116_203908.webp HTTP/1.1" 200
+2025-11-29 00:00:42,504 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/previews/20250808_220710.webp HTTP/1.1" 200
+2025-11-29 00:00:51,918 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/IMG-20251115-WA0011.jpeg HTTP/1.1" 200
+2025-11-29 00:00:56,389 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/IMG-20250216-WA0017.jpg HTTP/1.1" 200
+2025-11-29 00:01:04,044 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/images/9/favorite HTTP/1.1" 200
+2025-11-29 00:01:06,635 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/images/9/favorite HTTP/1.1" 200
+2025-11-29 00:01:15,039 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-29 00:01:24,316 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "DELETE /api/v1/images/9 HTTP/1.1" 500
+2025-11-29 00:01:24,318 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 127, in delete_image
+    crud.delete_image(db, image_id=image_id)
+AttributeError: module 'api.crud' has no attribute 'delete_image'
+2025-11-29 00:01:25,666 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "DELETE /api/v1/images/9 HTTP/1.1" 500
+2025-11-29 00:01:25,668 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 127, in delete_image
+    crud.delete_image(db, image_id=image_id)
+AttributeError: module 'api.crud' has no attribute 'delete_image'
+2025-11-29 00:01:30,110 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-29 00:01:34,443 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/kitten.png HTTP/1.1" 200
+2025-11-29 00:01:39,408 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "DELETE /api/v1/images/9 HTTP/1.1" 500
+2025-11-29 00:01:39,411 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 127, in delete_image
+    crud.delete_image(db, image_id=image_id)
+AttributeError: module 'api.crud' has no attribute 'delete_image'
+2025-11-29 00:01:40,644 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "DELETE /api/v1/images/9 HTTP/1.1" 500
+2025-11-29 00:01:40,645 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 127, in delete_image
+    crud.delete_image(db, image_id=image_id)
+AttributeError: module 'api.crud' has no attribute 'delete_image'
+2025-11-29 00:01:46,033 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "DELETE /api/v1/images/9 HTTP/1.1" 500
+2025-11-29 00:01:46,035 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 127, in delete_image
+    crud.delete_image(db, image_id=image_id)
+AttributeError: module 'api.crud' has no attribute 'delete_image'
+2025-11-29 00:01:47,452 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "DELETE /api/v1/images/9 HTTP/1.1" 500
+2025-11-29 00:01:47,454 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "D:\niche_images\dam\.venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+  File "D:\niche_images\dam\.venv\lib\site-packages\fastapi\routing.py", line 292, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "D:\niche_images\dam\.venv\lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "D:\niche_images\dam\.venv\lib\site-packages\anyio\_backends\_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "D:\niche_images\dam\api\routers\images.py", line 127, in delete_image
+    crud.delete_image(db, image_id=image_id)
+AttributeError: module 'api.crud' has no attribute 'delete_image'
+2025-11-29 00:01:53,503 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/kitten.png HTTP/1.1" 200
+2025-11-29 00:02:01,095 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/duplicates HTTP/1.1" 200
+2025-11-29 00:02:04,595 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/dashboard-stats HTTP/1.1" 200
+2025-11-29 00:02:09,190 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:02:09,476 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/albums/summary HTTP/1.1" 200
+2025-11-29 00:02:12,242 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/duplicates HTTP/1.1" 200
+2025-11-29 00:02:13,053 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/duplicates HTTP/1.1" 200
+2025-11-29 00:02:15,002 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/duplicates HTTP/1.1" 200
+2025-11-29 00:02:16,359 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/dashboard-stats HTTP/1.1" 200
+2025-11-29 00:02:17,664 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/duplicates HTTP/1.1" 200
+2025-11-29 00:02:25,539 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-29 00:02:27,534 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:27,733 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:27,886 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-29 00:02:28,033 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:28,332 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:29,334 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:36,286 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-29 00:02:37,178 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-29 00:02:38,265 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:38,359 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:38,469 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:02:39,018 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:39,114 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:39,118 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:45,198 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/suggestions/albums HTTP/1.1" 200
+2025-11-29 00:02:47,286 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:47,470 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:47,546 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20251117_071819.webp HTTP/1.1" 304
+2025-11-29 00:02:47,559 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:47,758 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/wallpaperflare.com_wallpaper%20%2830%29.webp HTTP/1.1" 304
+2025-11-29 00:02:47,771 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:02:47,774 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "POST /api/v1/search/ai HTTP/1.1" 200
+2025-11-29 00:03:09,603 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:03:17,479 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /api/v1/map/data HTTP/1.1" 200
+2025-11-29 00:03:20,688 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-29 00:03:24,159 - uvicorn.access - INFO - 2409:40c2:6422:b08b:8000:::0 - "GET /api/v1/images?skip=0&limit=20&sort_by=upload_date HTTP/1.1" 200
+2025-11-29 00:03:24,918 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/kitten.webp HTTP/1.1" 304
+2025-11-29 00:03:24,928 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251117-WA0008.webp HTTP/1.1" 304
+2025-11-29 00:03:24,931 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251117-WA0007.webp HTTP/1.1" 304
+2025-11-29 00:03:24,941 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20251115-WA0011.webp HTTP/1.1" 304
+2025-11-29 00:03:24,969 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/image-1763645059908.webp HTTP/1.1" 304
+2025-11-29 00:03:24,974 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/IMG-20250216-WA0017.webp HTTP/1.1" 304
+2025-11-29 00:03:24,978 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20251116_203908.webp HTTP/1.1" 304
+2025-11-29 00:03:24,982 - uvicorn.access - INFO - 2409:40c2:3056:447a:b418:ee73:623:eaee:0 - "GET /uploads/thumbnails/20250808_220710.webp HTTP/1.1" 304
