@@ -18,9 +18,9 @@ interface ImageCardProps {
   isFavorite?: boolean;
   isLoading?: boolean;
   className?: string;
-  selectable?: boolean; // New prop for multi-select mode
-  isSelected?: boolean; // New prop for selected state
-  onSelect?: (id: number, isSelected: boolean) => void; // New callback for selection
+  selectable?: boolean;
+  isSelected?: boolean;
+  onSelect?: (id: number, isSelected: boolean) => void;
 }
 
 export function ImageCard({
@@ -67,11 +67,11 @@ export function ImageCard({
 
       {selectable && (
         <div className="absolute top-3 left-3 z-10">
-          <Checkbox 
+          <Checkbox
             checked={isSelected}
             onCheckedChange={(checked) => onSelect?.(image.id, !!checked)}
             onClick={(e) => e.stopPropagation()} // Prevent card click when checkbox is clicked
-            className="w-5 h-5 rounded-full border-neutral-400 bg-neutral-900 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
+            className="w-6 h-6 rounded-full border-neutral-400 bg-neutral-900 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
           />
         </div>
       )}
@@ -103,7 +103,7 @@ export function ImageCard({
           >
             <Heart
               className={cn(
-                'h-4 w-4 transition-colors',
+                'h-5 w-5 transition-colors',
                 isFavorite || image.is_favorite
                   ? 'fill-red-500 text-red-500'
                   : 'text-neutral-400 hover:text-red-500'
@@ -119,7 +119,7 @@ export function ImageCard({
                 className="h-8 w-8 p-0"
                 onClick={(e) => e.stopPropagation()}
               >
-                <MoreVertical className="h-4 w-4 text-neutral-400" />
+                <MoreVertical className="h-5 w-5 text-white" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

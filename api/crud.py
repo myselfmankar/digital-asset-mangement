@@ -257,6 +257,35 @@ def update_image_with_metadata(db: Session, image_id: int, image_update: schemas
     db.refresh(db_image)
     return db_image
 
+
+def delete_image(db: Session, image_id: int) -> bool:
+    """
+    Deletes a single image and its associated files from the database and disk.
+    Returns True if successful, False if image not found.
+    """
+    db_image = db.query(models.Image).filter(models.Image.id == image_id).first()
+    if not db_image:
+        return False
+    
+    # Delete files from disk
+    try:
+        if db_image.filepath and os.path.exists(db_image.filepath):
+            os.remove(db_image.filepath)
+        thumb_path = os.path.join("uploads/thumbnails", os.path.splitext(db_image.filename)[0] + ".webp")
+        if os.path.exists(thumb_path):
+            os.remove(thumb_path)
+        # Delete medium and large size previews if they exist
+        medium_path = os.path.join("uploads/previews", os.path.splitext(db_image.filename)[0] + ".webp")
+        if os.path.exists(medium_path):
+            os.remove(medium_path)
+    except Exception as e:
+        print(f"Error deleting files for image ID {image_id}: {e}")
+    
+    # Delete from database
+    db.delete(db_image)
+    db.commit()
+    return True
+
 def batch_delete_images(db: Session, image_ids: List[int]) -> int:
     """
     Deletes multiple images and their associated files from the database and disk.

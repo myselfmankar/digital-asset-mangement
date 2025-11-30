@@ -132,6 +132,14 @@ export const useAlbumSuggestions = () => {
   });
 };
 
+export const useSearchSuggestions = () => {
+  return useQuery({
+    queryKey: ['search', 'suggestions'],
+    queryFn: () => apiClient.suggestions.search(),
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+  });
+};
+
 export const useCreateAlbum = () => {
   return useMutation({
     mutationFn: ({ name, description }: { name: string; description?: string }) =>

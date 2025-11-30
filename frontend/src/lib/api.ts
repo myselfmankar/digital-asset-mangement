@@ -46,10 +46,63 @@ export const apiClient = {
     return response.json();
   },
 
+  async uploadImageWithProgress(
+    file: File,
+    onProgress?: (progress: number) => void
+  ): Promise<Image> {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const xhr = new XMLHttpRequest();
+      const url = `${API_BASE_URL}/api/v1/images`;
+
+      // Track upload progress
+      xhr.upload.addEventListener('progress', (e) => {
+        if (e.lengthComputable && onProgress) {
+          const percentComplete = Math.round((e.loaded / e.total) * 100);
+          onProgress(percentComplete);
+        }
+      });
+
+      // Handle completion
+      xhr.addEventListener('load', () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const response = JSON.parse(xhr.responseText);
+            resolve(response);
+          } catch (error) {
+            reject(new Error('Failed to parse response'));
+          }
+        } else {
+          try {
+            const error = JSON.parse(xhr.responseText);
+            reject(new Error(error.detail || `Upload failed: ${xhr.status}`));
+          } catch {
+            reject(new Error(`Upload failed: ${xhr.status}`));
+          }
+        }
+      });
+
+      // Handle errors
+      xhr.addEventListener('error', () => {
+        reject(new Error('Network error during upload'));
+      });
+
+      xhr.addEventListener('abort', () => {
+        reject(new Error('Upload cancelled'));
+      });
+
+      // Send the request
+      xhr.open('POST', url);
+      xhr.send(formData);
+    });
+  },
+
   images: {
     list: (
-      skip: number = 0, 
-      limit: number = 20, 
+      skip: number = 0,
+      limit: number = 20,
       sortBy: string = 'upload_date',
       filters: {
         camera?: string;
@@ -143,7 +196,10 @@ export const apiClient = {
 
   suggestions: {
     albums: () =>
-      apiClient.request<string[]>('/api/v1/suggestions/albums'),
+      apiClient.request<string[]>('/api/v1/assist/albums'),
+
+    search: () =>
+      apiClient.request<string[]>('/api/v1/assist/search-terms'),
   },
 
   config: {

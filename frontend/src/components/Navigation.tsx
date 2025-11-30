@@ -19,7 +19,7 @@ export function Navigation() {
         <div className="flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2 font-semibold text-lg">
-              <ImageIcon className="h-5 w-5" />
+              <ImageIcon className="h-6 w-6" />
               <span className="hidden sm:inline">PhotoVault</span>
             </Link>
 

@@ -65,3 +65,81 @@ def generate_album_suggestions(db: Session) -> List[str]:
         print(f"Error parsing AI suggestion response: {e}")
         return []
 
+
+def generate_search_suggestions(db: Session) -> List[str]:
+    """
+    Generates AI-powered search query suggestions based on the user's image collection.
+    Returns natural language search queries that users might want to try.
+    """
+    # Get tag data and location data
+    tag_counts = crud.get_tag_counts(db, limit=50)
+    locations = crud.get_unique_locations(db)
+    
+    if not tag_counts and not locations:
+        # Return default suggestions if no data
+        return [
+            "Photos of cats in a sunbeam",
+            "Beach sunsets from last summer",
+            "Pictures of my car",
+            "Best food photos from 2023",
+        ]
+    
+    # Sample tags for variety
+    if len(tag_counts) > 20:
+        selected_tags = random.sample(tag_counts, 20)
+    else:
+        selected_tags = list(tag_counts)
+        random.shuffle(selected_tags)
+    
+    # Sample locations
+    if locations and len(locations) > 5:
+        selected_locations = random.sample(locations, 5)
+    else:
+        selected_locations = locations[:5] if locations else []
+    
+    # Format data for AI
+    tags_str = ", ".join([f"{name} ({count})" for name, count in selected_tags])
+    locations_str = ", ".join(selected_locations) if selected_locations else "No location data"
+    
+    # Create prompt for search suggestions
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", """
+        You are a helpful AI assistant for a photo gallery app. Generate 4-5 natural language search query suggestions based on the user's photo collection.
+        
+        INSTRUCTIONS:
+        - Create search queries that users would naturally type
+        - Mix different types: objects, scenes, locations, activities, emotions
+        - Make them specific and interesting based on the available tags and locations
+        - Output must be a JSON object with key "suggestions" containing a list of strings
+        - Each suggestion should be a complete search query (e.g., "sunset photos from the beach")
+        
+        AVAILABLE TAGS: {tags}
+        AVAILABLE LOCATIONS: {locations}
+        
+        Examples of good suggestions:
+        - "Photos of cats playing in the garden"
+        - "Sunset pictures from California"
+        - "Food photography from restaurants"
+        - "Mountain landscapes with snow"
+        """),
+        ("human", "Generate search suggestions based on my photo collection."),
+        ("ai", "JSON:")
+    ])
+    
+    parser = StrOutputParser()
+    chain = prompt_template | llm | parser
+    
+    try:
+        result = chain.invoke({"tags": tags_str, "locations": locations_str})
+        cleaned_result = result.strip().replace("```json", "").replace("```", "").strip()
+        suggestions_json = json.loads(cleaned_result)
+        return suggestions_json.get("suggestions", [])
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"Error generating search suggestions: {e}")
+        # Return fallback suggestions
+        return [
+            "Photos of cats in a sunbeam",
+            "Beach sunsets from last summer",
+            "Pictures of my car",
+            "Best food photos from 2023",
+        ]

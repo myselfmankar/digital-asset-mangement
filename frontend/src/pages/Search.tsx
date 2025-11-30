@@ -104,7 +104,7 @@ export function Search() {
             placeholder="Describe what you're looking for... (e.g., 'sunset over mountains', 'people at the beach')"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-neutral-900 border-neutral-800"
+            className="flex-1 bg-neutral-900 border-neutral-800"
           />
           <Button type="submit" disabled={isLoading || isFetching || !query.trim()}>
             {isFetching && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}

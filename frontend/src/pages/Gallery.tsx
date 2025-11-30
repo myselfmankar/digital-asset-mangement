@@ -1,7 +1,7 @@
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useImages, useToggleFavorite, useDeleteImage, useBatchDeleteImages, useBatchToggleFavoriteStatus } from '@/hooks/useApi';
 import { ImageCard } from '@/components/ImageCard';
-import { MasonryGrid } from '@/components/MasonryGrid';
+
 import { ImageSkeletonGrid } from '@/components/ImageSkeleton';
 import { ImageDetailsModal } from '@/components/ImageDetailsModal';
 import { FilterPanel, FilterState } from '@/components/FilterPanel';
