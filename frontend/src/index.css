@@ -109,3 +109,36 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
+/* Marker Cluster Styles */
+.custom-cluster-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.marker-cluster {
+  transition: all 0.3s ease;
+}
+
+.marker-cluster:hover {
+  transform: scale(1.1);
+}
+
+/* Override default Leaflet popup styles for dark theme */
+.leaflet-popup-content-wrapper {
+  background-color: rgba(23, 23, 23, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaflet-popup-tip {
+  background-color: rgba(23, 23, 23, 0.95);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: rgba(255, 255, 255, 1);
+}
