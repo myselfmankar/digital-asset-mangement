@@ -1,123 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoStack</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Favicon Links -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
-    <link rel="icon" href="assets/favicon/favicon.ico">
+  <!-- made by vaishnav -->
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml"
+    href="https://github.com/myselfmankar/digital-asset-mangement/blob/b96a48e34ce58d49632f604d00895a3e78d49863/frontend/assets/favicon/favicon-16x16.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhotoStack</title>
 </head>
+
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="logo">
-                <img src="assets/favicon/favicon-32x32.png" alt="Logo" class="navbar-logo">
-                <h1>PhotoStack</h1>
-            </div>
-            <div class="header-icons">
-                <img src="assets/profile_photo.jpg" alt="Profile" class="profile-pic">
-                <i id="theme-toggle-button" class="fas fa-moon"></i>
-            </div>
-        </header>
-
-        <nav class="sidebar">
-            <ul class="nav-links">
-                <li><a href="#dashboard"><i class="fas fa-home"></i> Dashboard <span class="count" id="dashboard-count">0</span></a></li>
-                <li><a href="#images"><i class="fas fa-images"></i> Images <span class="count" id="images-count">0</span></a></li>
-                <li><a href="#albums"><i class="fas fa-book"></i> Albums <span class="count" id="albums-count">0</span></a></li>
-                <li><a href="#map"><i class="fas fa-map-marker-alt"></i> Places <span class="count" id="places-count">0</span></a></li>
-                <li><a href="#upload"><i class="fas fa-upload"></i> Upload</a></li>
-                <li><a href="#show-database"><i class="fas fa-database"></i> Show Database</a></li>
-            </ul>
-            <div class="storage-info">
-                <p>Storage Used: <span id="storage-used">0 GB</span> / <span id="storage-total">0 GB</span></p>
-                <div class="storage-bar"><div class="storage-fill"></div></div>
-            </div>
-        </nav>
-
-        <main class="content">
-            <!-- Content for different views will be loaded here -->
-            <section id="dashboard-view" class="view active">
-                <h2>Dashboard</h2>
-                <div class="image-grid" id="dashboard-image-grid">
-                    <!-- Image cards will be loaded here -->
-                </div>
-            </section>
-
-            <section id="images-view" class="view">
-                <h2>All Images</h2>
-                <div class="image-grid" id="all-images-grid">
-                    <!-- Image cards will be loaded here -->
-                </div>
-            </section>
-
-            <section id="albums-view" class="view">
-                <h2>Albums</h2>
-                <div class="albums-grid" id="albums-grid">
-                    <!-- Album cards will be loaded here -->
-                </div>
-            </section>
-
-            <section id="album-images-view" class="view">
-                <h2 id="album-images-title"></h2>
-                <div class="image-grid" id="album-images-grid">
-                    <!-- Album images will be loaded here -->
-                </div>
-            </section>
-
-            <section id="map-view" class="view">
-                <h2>Photo Map</h2>
-                <div id="map-container"></div>
-            </section>
-
-            <section id="show-database-view" class="view">
-                <h2>Database Content</h2>
-                <pre id="database-content"></pre>
-            </section>
-        </main>
-    </div>
-
-    <!-- Upload Popup Modal -->
-    <div id="upload-popup" class="popup-container">
-        <div class="popup-content">
-            <button id="close-popup-button" class="close-button">&times;</button>
-            <h2>Upload Images</h2>
-            <input type="file" id="file-input" multiple accept="image/jpeg, image/png">
-            <button id="upload-button">Upload</button>
-            <div id="upload-status"></div>
-        </div>
-    </div>
-
-    <script type="module" src="js/api.js"></script>
-    <script type="module" src="js/app.js"></script>
-
-    <!-- Details Side Panel -->
-    <div id="details-panel-container">
-        <div id="details-panel-backdrop" class="details-panel-backdrop"></div>
-        <div id="details-panel" class="details-panel">
-            <button id="details-panel-close" class="details-panel-close">&times;</button>
-            <div id="details-panel-content" class="details-panel-content">
-                <div class="details-panel-image-container">
-                    <img id="details-panel-image" src="" alt="Detailed view">
-                </div>
-                <div class="details-panel-info">
-                    <div class="details-panel-header">
-                        <h3 id="details-panel-title"></h3>
-                        <i id="details-panel-delete" class="fas fa-trash-alt delete-icon"></i>
-                    </div>
-                    <ul id="details-panel-metadata" class="details-panel-metadata">
-                        <!-- Metadata will be populated by JS -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
+
 </html>
