@@ -462,10 +462,12 @@ def get_map_data(db: Session):
     images = db.query(models.Image).join(models.Metadata).join(models.Location).all()
     return [
         {
+            "id": img.id,
             "latitude": img.details.location.latitude,
             "longitude": img.details.location.longitude,
             "address": img.details.location.address,
-            "thumbnail_url": f"/uploads/thumbnails/{os.path.splitext(img.filename)[0]}.webp"
+            "thumbnail_url": f"/uploads/thumbnails/{os.path.splitext(img.filename)[0]}.webp",
+            "filename": img.filename
         }
         for img in images
     ]

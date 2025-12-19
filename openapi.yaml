@@ -56,6 +56,46 @@ paths:
           type: string
           default: upload_date
           title: Sort By
+      - name: camera_model
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Camera Model
+      - name: location
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+      - name: date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date
+      - name: is_favorite
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Favorite
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
       responses:
         '200':
           description: Successful Response
@@ -66,6 +106,53 @@ paths:
                 items:
                   $ref: '#/components/schemas/Image'
                 title: Response Read Images Api V1 Images Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/images/{image_id}:
+    get:
+      tags:
+      - images
+      summary: Read Image
+      operationId: read_image_api_v1_images__image_id__get
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Image Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - images
+      summary: Delete Image
+      operationId: delete_image_api_v1_images__image_id__delete
+      parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Image Id
+      responses:
+        '204':
+          description: Successful Response
         '422':
           description: Validation Error
           content:
@@ -93,28 +180,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Image'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-  /api/v1/images/{image_id}:
-    delete:
-      tags:
-      - images
-      summary: Delete Image
-      operationId: delete_image_api_v1_images__image_id__delete
-      parameters:
-      - name: image_id
-        in: path
-        required: true
-        schema:
-          type: integer
-          title: Image Id
-      responses:
-        '204':
-          description: Successful Response
         '422':
           description: Validation Error
           content:
@@ -175,6 +240,68 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/albums/:
+    post:
+      tags:
+      - albums
+      summary: Create Album
+      description: Create a new custom album.
+      operationId: create_album_api_v1_albums__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/albums/{album_id}/images:
+    post:
+      tags:
+      - albums
+      summary: Add Images To Album
+      description: Add multiple images to an album.
+      operationId: add_images_to_album_api_v1_albums__album_id__images_post
+      parameters:
+      - name: album_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Album Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+              title: Image Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/map/data:
     get:
       tags:
@@ -189,25 +316,25 @@ paths:
           content:
             application/json:
               schema: {}
-  /api/v1/stats:
+  /api/v1/dashboard-stats:
     get:
       tags:
       - stats
       summary: Get Stats
-      operationId: get_stats_api_v1_stats_get
+      operationId: get_stats_api_v1_dashboard_stats_get
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema: {}
-  /api/v1/suggestions/albums:
+  /api/v1/assist/albums:
     get:
       tags:
-      - suggestions
+      - assist
       summary: Get Album Suggestions
       description: Generate and return a list of AI-powered album suggestions.
-      operationId: get_album_suggestions_api_v1_suggestions_albums_get
+      operationId: get_album_suggestions_api_v1_assist_albums_get
       responses:
         '200':
           description: Successful Response
@@ -217,7 +344,27 @@ paths:
                 items:
                   type: string
                 type: array
-                title: Response Get Album Suggestions Api V1 Suggestions Albums Get
+                title: Response Get Album Suggestions Api V1 Assist Albums Get
+  /api/v1/assist/search-terms:
+    get:
+      tags:
+      - assist
+      summary: Get Search Suggestions
+      description: 'Generate and return a list of AI-powered search query suggestions
+
+        based on the user''s photo collection.'
+      operationId: get_search_suggestions_api_v1_assist_search_terms_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Search Suggestions Api V1 Assist Search Terms
+                  Get
   /api/v1/filters/cameras:
     get:
       tags:
@@ -298,6 +445,120 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/batch/images/delete:
+    post:
+      tags:
+      - batch
+      summary: Batch Delete Images
+      description: Deletes multiple images by their IDs.
+      operationId: batch_delete_images_api_v1_batch_images_delete_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: integer
+              type: array
+              title: Image Ids
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/batch/images/favorite:
+    post:
+      tags:
+      - batch
+      summary: Batch Toggle Favorite Status
+      description: 'Toggles the favorite status for multiple images by their IDs.
+
+        Returns the updated list of images.'
+      operationId: batch_toggle_favorite_status_api_v1_batch_images_favorite_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: integer
+              type: array
+              title: Image Ids
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Image'
+                type: array
+                title: Response Batch Toggle Favorite Status Api V1 Batch Images Favorite
+                  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/duplicates:
+    get:
+      tags:
+      - duplicates
+      summary: Get Duplicate Image Groups
+      description: Returns groups of images that are considered duplicates (based
+        on pHash).
+      operationId: get_duplicate_image_groups_api_v1_duplicates_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  items:
+                    $ref: '#/components/schemas/Image'
+                  type: array
+                type: array
+                title: Response Get Duplicate Image Groups Api V1 Duplicates Get
+  /api/v1/config:
+    get:
+      summary: Get Config
+      description: Returns the base API URL to the frontend.
+      operationId: get_config_api_v1_config_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /{full_path}:
+    get:
+      summary: Serve Frontend
+      operationId: serve_frontend__full_path__get
+      parameters:
+      - name: full_path
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Full Path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/config:
     get:
       summary: Get Config
@@ -320,6 +581,30 @@ components:
       required:
       - query
       title: AIQuery
+    Album:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: integer
+          title: Id
+        images:
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+          title: Images
+          default: []
+      type: object
+      required:
+      - name
+      - id
+      title: Album
     AlbumBase:
       properties:
         name:
@@ -334,6 +619,20 @@ components:
       required:
       - name
       title: AlbumBase
+    AlbumCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - name
+      title: AlbumCreate
     Body_upload_image_api_v1_images_post:
       properties:
         file:
@@ -409,6 +708,11 @@ components:
           type: string
           title: Status
           default: processing
+        phash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phash
       type: object
       required:
       - filename

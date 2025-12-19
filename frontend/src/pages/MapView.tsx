@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { apiClient } from '@/lib/api';
 import { MapMarker, Image as ImageType } from '@/types';
 import { Skeleton } from '@/components/ui/skeleton';
-import { MapPin } from 'lucide-react';
+import { MapPin, Maximize2 } from 'lucide-react';
 import { ImageDetailsModal } from '@/components/ImageDetailsModal';
 import { useToggleFavorite, useDeleteImage } from '@/hooks/useApi';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button'; // Added Button import
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -19,6 +20,37 @@ L.Icon.Default.mergeOptions({
     iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
+
+// Custom control to fit all markers in view
+function FitBoundsControl({ markers }: { markers: MapMarker[] }) {
+    const map = useMap();
+
+    const handleFitBounds = () => {
+        if (markers.length > 0) {
+            const bounds = L.latLngBounds(
+                markers.map(m => [m.latitude, m.longitude] as [number, number])
+            );
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+    };
+
+    return (
+        <div className="leaflet-top leaflet-right" style={{ marginTop: '80px', marginRight: '10px' }}>
+            <div className="leaflet-control leaflet-bar">
+                <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={handleFitBounds}
+                    className="bg-white hover:bg-gray-100 text-gray-800 shadow-md flex items-center gap-1"
+                    title="Fit all markers in view"
+                >
+                    <Maximize2 className="h-4 w-4" />
+                    Fit All
+                </Button>
+            </div>
+        </div>
+    );
+}
 
 export function MapView() {
     const [selectedImage, setSelectedImage] = useState<ImageType | null>(null);
@@ -119,41 +151,96 @@ export function MapView() {
                 </p>
             </div>
 
-            <div className="h-[600px] w-full rounded-lg overflow-hidden border border-neutral-800">
-                <MapContainer center={center} zoom={6} scrollWheelZoom={false} className="h-full w-full">
+            <div className="h-[600px] w-full rounded-lg overflow-hidden border border-neutral-800 relative">
+                <MapContainer
+                    center={center}
+                    zoom={6}
+                    scrollWheelZoom={true}
+                    className="h-full w-full"
+                    style={{ background: '#1a1a1a' }}
+                >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {markers.map((marker) => (
-                        <Marker
-                            key={marker.id}
-                            position={[marker.latitude, marker.longitude]}
-                            eventHandlers={{
-                                click: () => { /* No direct action on marker click for now */ }
-                            }}
-                        >
-                            <Popup>
-                                <div className="flex flex-col items-center p-2">
-                                    {marker.thumbnail_url && (
-                                        <img
-                                            src={marker.thumbnail_url}
-                                            alt={marker.filename}
-                                            className="w-24 h-24 object-cover rounded mb-2"
-                                        />
-                                    )}
-                                    <p className="text-sm font-medium mb-1 truncate w-full text-center">{marker.filename}</p>
-                                    <Button
-                                        variant="link"
-                                        size="sm"
-                                        onClick={() => setSelectedImage(marker as unknown as ImageType)}
-                                    >
-                                        View Details
-                                    </Button>
-                                </div>
-                            </Popup>
-                        </Marker>
-                    ))}
+                    <MarkerClusterGroup
+                        chunkedLoading
+                        maxClusterRadius={60}
+                        spiderfyOnMaxZoom={true}
+                        showCoverageOnHover={false}
+                        zoomToBoundsOnClick={true}
+                        iconCreateFunction={(cluster: any) => {
+                            const count = cluster.getChildCount();
+                            let size = 'small';
+                            let bgColor = 'rgba(59, 130, 246, 0.6)'; // blue-500
+
+                            if (count > 50) {
+                                size = 'large';
+                                bgColor = 'rgba(239, 68, 68, 0.6)'; // red-500
+                            } else if (count > 20) {
+                                size = 'medium';
+                                bgColor = 'rgba(168, 85, 247, 0.6)'; // purple-500
+                            } else if (count > 10) {
+                                size = 'small';
+                                bgColor = 'rgba(59, 130, 246, 0.6)'; // blue-500
+                            } else {
+                                bgColor = 'rgba(34, 197, 94, 0.6)'; // green-500
+                            }
+
+                            const sizeClass = size === 'large' ? 50 : size === 'medium' ? 40 : 35;
+
+                            return L.divIcon({
+                                html: `<div style="
+                                    background: ${bgColor};
+                                    backdrop-filter: blur(8px);
+                                    border: 2px solid rgba(255, 255, 255, 0.3);
+                                    border-radius: 50%;
+                                    width: ${sizeClass}px;
+                                    height: ${sizeClass}px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: white;
+                                    font-weight: bold;
+                                    font-size: ${size === 'large' ? '16px' : '14px'};
+                                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                                ">${count}</div>`,
+                                className: 'custom-cluster-icon',
+                                iconSize: L.point(sizeClass, sizeClass, true),
+                            });
+                        }}
+                    >
+                        {markers.map((marker) => (
+                            <Marker
+                                key={marker.id}
+                                position={[marker.latitude, marker.longitude]}
+                                eventHandlers={{
+                                    click: () => { /* No direct action on marker click for now */ }
+                                }}
+                            >
+                                <Popup>
+                                    <div className="flex flex-col items-center p-2">
+                                        {marker.thumbnail_url && (
+                                            <img
+                                                src={marker.thumbnail_url}
+                                                alt={marker.filename}
+                                                className="w-24 h-24 object-cover rounded mb-2"
+                                            />
+                                        )}
+                                        <p className="text-sm font-medium mb-1 truncate w-full text-center">{marker.filename}</p>
+                                        <Button
+                                            variant="link"
+                                            size="sm"
+                                            onClick={() => setSelectedImage(marker as unknown as ImageType)}
+                                        >
+                                            View Details
+                                        </Button>
+                                    </div>
+                                </Popup>
+                            </Marker>
+                        ))}
+                    </MarkerClusterGroup>
+                    <FitBoundsControl markers={markers} />
                 </MapContainer>
             </div>
 
