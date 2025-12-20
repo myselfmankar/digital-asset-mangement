@@ -4,9 +4,18 @@ title: PhotoStack AI - Intelligent Photo Organization
 description: AI-powered photo management that automatically organizes, tags, and searches your entire photo collection.
 ---
 
-<div align="center">
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+</head>
 
-# 📸 PhotoStack AI
+<div align="center" markdown="1">
+
+<img src="favicon/android-chrome-192x192.png" width="100" alt="PhotoStack AI Logo">
+
+# PhotoStack AI
 
 ### **Your Personal AI Photo Assistant**
 
@@ -36,9 +45,9 @@ PhotoStack AI is an intelligent photo management system that uses artificial int
 
 ## 💡 **Features**
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 40px 0;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 40px 0;" markdown="1">
 
-<div style="border: 2px solid #e3f2fd; border-radius: 12px; padding: 25px; background: #f8f9fa;">
+<div style="border: 2px solid #e3f2fd; border-radius: 12px; padding: 25px; background: #f8f9fa;" markdown="1">
 <h3>🤖 Automatic AI Tagging</h3>
 <p>Every photo is analyzed and tagged automatically. The AI identifies objects, scenes, colors, and emotions—so you don't have to.</p>
 <ul>
@@ -48,7 +57,7 @@ PhotoStack AI is an intelligent photo management system that uses artificial int
 </ul>
 </div>
 
-<div style="border: 2px solid #fff3e0; border-radius: 12px; padding: 25px; background: #f8f9fa;">
+<div style="border: 2px solid #fff3e0; border-radius: 12px; padding: 25px; background: #f8f9fa;" markdown="1">
 <h3>🔍 Natural Language Search</h3>
 <p>Search your photos like you'd talk to a friend. No need to remember folder names or dates.</p>
 <ul>
@@ -58,7 +67,7 @@ PhotoStack AI is an intelligent photo management system that uses artificial int
 </ul>
 </div>
 
-<div style="border: 2px solid #e8f5e9; border-radius: 12px; padding: 25px; background: #f8f9fa;">
+<div style="border: 2px solid #e8f5e9; border-radius: 12px; padding: 25px; background: #f8f9fa;" markdown="1">
 <h3>📅 Smart Albums</h3>
 <p>Photos are automatically grouped by month and year. Plus, the AI suggests creative album ideas based on your collection.</p>
 <ul>
@@ -68,7 +77,7 @@ PhotoStack AI is an intelligent photo management system that uses artificial int
 </ul>
 </div>
 
-<div style="border: 2px solid #fce4ec; border-radius: 12px; padding: 25px; background: #f8f9fa;">
+<div style="border: 2px solid #fce4ec; border-radius: 12px; padding: 25px; background: #f8f9fa;" markdown="1">
 <h3>🗺️ Interactive World Map</h3>
 <p>See where every photo was taken on a beautiful interactive map. Relive your travels visually.</p>
 <ul>
@@ -78,7 +87,7 @@ PhotoStack AI is an intelligent photo management system that uses artificial int
 </ul>
 </div>
 
-<div style="border: 2px solid #f3e5f5; border-radius: 12px; padding: 25px; background: #f8f9fa;">
+<div style="border: 2px solid #f3e5f5; border-radius: 12px; padding: 25px; background: #f8f9fa;" markdown="1">
 <h3>🧬 Duplicate Detection</h3>
 <p>Automatically finds and helps you remove duplicate photos, even if they're slightly different versions.</p>
 <ul>
@@ -88,7 +97,7 @@ PhotoStack AI is an intelligent photo management system that uses artificial int
 </ul>
 </div>
 
-<div style="border: 2px solid #e0f7fa; border-radius: 12px; padding: 25px; background: #f8f9fa;">
+<div style="border: 2px solid #e0f7fa; border-radius: 12px; padding: 25px; background: #f8f9fa;" markdown="1">
 <h3>📱 Modern Format Support</h3>
 <p>Works with photos from any device—iPhone HEIC, Android, professional cameras, screenshots.</p>
 <ul>
@@ -244,7 +253,7 @@ MIT License - Free to use, modify, and distribute. See [LICENSE](LICENSE).
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ## 🚀 **Transform Your Photo Collection Today**
 
@@ -262,7 +271,7 @@ MIT License - Free to use, modify, and distribute. See [LICENSE](LICENSE).
 
 ---
 
-<small>
+<small markdown="1">
 **PhotoStack AI** - Intelligent photo management powered by Google Gemini AI
 <br>
 A demonstration of production-ready AI/ML application development
