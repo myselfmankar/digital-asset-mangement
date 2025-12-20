@@ -559,6 +559,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/config:
+    get:
+      summary: Get Config
+      description: Returns the base API URL to the frontend.
+      operationId: get_config_api_v1_config_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
 components:
   schemas:
     AIQuery:
