@@ -1,0 +1,17 @@
+title: PhotoStack AI
+description: >
+  AI-powered photo management that automatically organizes,
+  tags, and searches your entire photo collection.
+
+theme: slate # minima, slate, merlot, architect, jekyll-theme-cayman [themes](https://jekyllrb.com/docs/themes/)
+
+# Markdown processing
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Optional but useful
+show_downloads: false # hides default GitHub buttons
+logo: /favicon/android-chrome-512x512.png # optional project logo
