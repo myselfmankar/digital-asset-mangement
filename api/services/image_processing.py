@@ -23,7 +23,7 @@ register_heif_opener()
 logger = logging.getLogger(__name__)
 
 # Configure the LangChain Gemini API client
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=settings.GEMINI_API_KEY)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=settings.GEMINI_API_KEY)
 
 def _convert_to_degrees(value):
     """Helper function to convert EXIF GPS coordinates to decimal degrees."""

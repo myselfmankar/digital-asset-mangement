@@ -32,7 +32,7 @@ def _get_structured_query_from_ai(query: str) -> SearchQuery | None:
     Sends the user query to the AI and forces a structured Pydantic output.
     """
     # Initialize the Gemini model with structured output capabilities
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=settings.GEMINI_API_KEY)
+    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=settings.GEMINI_API_KEY)
     structured_llm = llm.with_structured_output(SearchQuery)
 
     # Contextual prompt to guide the AI
